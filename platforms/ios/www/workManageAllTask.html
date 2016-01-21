@@ -1,0 +1,452 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+<title>贯通综合管理系统-工作管理—全部任务</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" href="css/mui.min.css">
+<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+		<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 44px;
+				height: auto;
+			}
+			.mui-pull-top-tips {
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				margin-left: -25px;
+				width: 40px;
+				height: 40px;
+				border-radius: 100%;
+			}
+			.mui-bar~.mui-pull-top-tips {
+				top: 24px;
+			}
+			.mui-pull-top-wrapper {
+				width: 42px;
+				height: 42px;
+				display: block;
+				text-align: center;
+				background-color: #efeff4;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+				box-shadow: 0 4px 10px #bbb;
+				overflow: hidden;
+			}
+			.mui-pull-top-tips.mui-transitioning {
+				-webkit-transition-duration: 200ms;
+				transition-duration: 200ms;
+			}
+			.mui-pull-top-tips .mui-pull-loading {
+				/*-webkit-backface-visibility: hidden;
+				-webkit-transition-duration: 400ms;
+				transition-duration: 400ms;*/
+				
+				margin: 0;
+			}
+			.mui-pull-top-wrapper .mui-icon,
+			.mui-pull-top-wrapper .mui-spinner {
+				margin-top: 7px;
+			}
+			.mui-pull-top-wrapper .mui-icon.mui-reverse {
+				/*-webkit-transform: rotate(180deg) translateZ(0);*/
+			}
+			.mui-pull-bottom-tips {
+				text-align: center;
+				background-color: #efeff4;
+				font-size: 15px;
+				line-height: 40px;
+				color: #777;
+			}
+			.mui-pull-top-canvas {
+				overflow: hidden;
+				background-color: #fafafa;
+				border-radius: 40px;
+				box-shadow: 0 4px 10px #bbb;
+				width: 40px;
+				height: 40px;
+				margin: 0 auto;
+			}
+			.mui-pull-top-canvas canvas {
+				width: 40px;
+			}
+			.mui-slider-indicator.mui-segmented-control {
+				background-color: #efeff4;
+			}
+		</style>
+<body>
+	<header class="header warp100 clearfix" id="returnIndex" style="margin-buttom:60px;">
+		全部任务 <a class="headerR" href="workManageAllTaskAdd.html">新增</a>
+	</header>
+		<div class="mui-content" style="margin-top:20px;">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div id="sliderSegmentedControl" style="margin-top:78px;background:#fff;color:#999; height:50px;" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll">
+						<a class="mui-control-item mui-active" href="#item1mobile">
+							新任务
+						</a>
+						<a class="mui-control-item" href="#item2mobile">
+							近一周
+						</a>
+						<a class="mui-control-item" href="#item3mobile">
+							近一月
+						</a>
+						<a class="mui-control-item" href="#item4mobile">
+							一个月前
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-group" style="margin-top:100px;">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view planeListBox warp100 marginTop10" id="newgoal">
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view planeListBox warp100 marginTop10" style="align:center;" id="weekgoal">
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view planeListBox warp100 marginTop10" id="monthgoal">
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item4mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view planeListBox warp100 marginTop10" id="monthgoalago">
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</body>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/return.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/mui.pullToRefresh.js"></script>
+<script src="js/mui.pullToRefresh.material.js"></script>
+<script>
+var postId =localStorage.getItem("postId");
+var orgId =localStorage.getItem("orgId");
+var taskId;
+var firstresult = 0,pagesize = 3,fistsize=0;
+var now=0,week=0,month=0,monthago=0;
+var startnow=0,startweek=0,startmonth=0,startmonthago=0;
+
+
+
+$.ajax({
+	url: 'http://'+serverIp+'/gtims/goal/newgoallist.do?userId='+userId+'&orgId='+orgId+'',
+	data:{'start':firstresult,'end':pagesize,'status':"0"},
+	dataType: 'json',
+	crossDomain: true,
+	async : false,
+	cache : false,
+	success: function(data) {
+		//alert(data.data.length);
+		var result = '';
+		now=data.data.length;
+		for(var i=0;i<now;i++){
+			if(data.data[i].isSubtask==1){
+				taskId = data.data[i].id;
+				if(taskId == data.data[i].taskId2){
+					result +=' <a href=workManageAllTaskDetail.html?id='+data.data[i].id+'><li style="background:url(images/planeListBg.png) no-repeat right center; background-size:15px 40px; padding:15px;">'+
+		            ' <h1>'+data.data[i].name+'('+data.data[i].goalStatusShow+')</h1>'+
+		            ' <p>负责人:&nbsp&nbsp'+data.data[i].chargerNameShow+'</p>'+
+		            ' <p>'+data.data[i].startDate+'—'+data.data[i].endDate+'</p>'+
+		            ' <p class="p2">任务数量：'+data.data[i].completionCriteria+'<span class="number">未完成数量：<em>'+data.data[i].syGoalNum+'</em></span></p>'+
+		        '<a href="#" id="xing" style="background:url(images/valid.png); background-size:20px 20px; width:20px; height:20px; display:block; float:right; margin-top: -125px;"  onclick="changeBg(this,\'newgoal\','+taskId+','+userId+')"></a>'+
+		     '</li></a>'
+				}else{
+					result +=' <a href=workManageAllTaskDetail.html?id='+data.data[i].id+'><li style="background:url(images/planeListBg.png) no-repeat right center; background-size:15px 40px; padding:15px;">'+
+					' <h1>'+data.data[i].name+'('+data.data[i].goalStatusShow+')</h1>'+
+					' <p>负责人:&nbsp&nbsp'+data.data[i].chargerNameShow+'</p>'+
+		            ' <p>'+data.data[i].startDate+'—'+data.data[i].endDate+'</p>'+
+		            ' <p class="p2">任务数量：'+data.data[i].completionCriteria+'<span class="number">未完成数量：<em>'+data.data[i].syGoalNum+'</em></span></p>'+
+		        '<a href="#" id="xing" style="background:url(images/red_asterisk.png); background-size:20px 20px; width:20px; height:20px; display:block; float:right; margin-top: -125px;"  onclick="changeBg(this,\'newgoal\','+taskId+','+userId+')"></a>'+
+		     '</li></a>'
+				}
+				
+    
+	}
+		}
+	 $("#newgoal").append(result);
+	 }
+	 });
+$.ajax({
+	url: 'http://'+serverIp+'/gtims/goal/newgoallist.do?userId='+userId+'&orgId='+orgId+'',
+	data:{'start':firstresult,'end':pagesize,'status':"1"},
+	dataType: 'json',
+	crossDomain: true,
+	async : false,
+	cache : false,
+	success: function(data) {
+		//alert(data.data.length);
+		var result = '';
+		week=data.data.length;
+		for(var i=0;i<week;i++){
+			if(data.data[i].isSubtask==1){
+				taskId = data.data[i].id;
+				if(taskId == data.data[i].taskId2)
+				{result +=' <a href=workManageAllTaskDetail.html?id='+data.data[i].id+'><li style="background:url(images/planeListBg.png) no-repeat right center; background-size:15px 40px; padding:15px;">'+
+		            ' <h1>'+data.data[i].name+'('+data.data[i].goalStatusShow+')</h1>'+
+		            ' <p>负责人:&nbsp&nbsp'+data.data[i].chargerNameShow+'</p>'+
+		            ' <p>'+data.data[i].startDate+'—'+data.data[i].endDate+'</p>'+
+		            ' <p class="p2">任务数量：'+data.data[i].completionCriteria+'<span class="number">未完成数量：<em>'+data.data[i].syGoalNum+'</em></span></p>'+
+		        '<a href="#" id="xing" style="background:url(images/valid.png); background-size:20px 20px; width:20px; height:20px; display:block; float:right; margin-top: -125px;"  onclick="changeBg(this,\'weekgoal\','+taskId+','+userId+')"></a>'+
+		     '</li></a>'}else{
+		    	 result +=' <a href=workManageAllTaskDetail.html?id='+data.data[i].id+'><li style="background:url(images/planeListBg.png) no-repeat right center; background-size:15px 40px; padding:15px;">'+
+		            ' <h1>'+data.data[i].name+'('+data.data[i].goalStatusShow+')</h1>'+
+		            ' <p>负责人:&nbsp&nbsp'+data.data[i].chargerNameShow+'</p>'+
+		            ' <p>'+data.data[i].startDate+'—'+data.data[i].endDate+'</p>'+
+		            ' <p class="p2">任务数量：'+data.data[i].completionCriteria+'<span class="number">未完成数量：<em>'+data.data[i].syGoalNum+'</em></span></p>'+
+		        '<a href="#" id="xing" style="background:url(images/red_asterisk.png); background-size:20px 20px; width:20px; height:20px; display:block; float:right; margin-top: -125px;"  onclick="changeBg(this,\'weekgoal\','+taskId+','+userId+')"></a>'+
+		     '</li></a>'
+		     }
+					
+    
+	}
+		}
+	 $("#weekgoal").append(result);
+	 }
+	 });
+$.ajax({
+	url: 'http://'+serverIp+'/gtims/goal/newgoallist.do?userId='+userId+'&orgId='+orgId+'',
+	data:{'start':firstresult,'end':pagesize,'status':"2"},
+	dataType: 'json',
+	crossDomain: true,
+	async : false,
+	cache : false,
+	success: function(data) {
+		//alert(data.data.length);
+		var result = '';
+		month=data.data.length;
+		for(var i=0;i<month;i++){
+			if(data.data[i].isSubtask==1){
+				taskId = data.data[i].id;
+				if(taskId == data.data[i].taskId2){
+					result +=' <a href=workManageAllTaskDetail.html?id='+data.data[i].id+'><li style="background:url(images/planeListBg.png) no-repeat right center; background-size:15px 40px; padding:15px;">'+
+		            ' <h1>'+data.data[i].name+'('+data.data[i].goalStatusShow+')</h1>'+
+		            ' <p>负责人:&nbsp&nbsp'+data.data[i].chargerNameShow+'</p>'+
+		            ' <p>'+data.data[i].startDate+'—'+data.data[i].endDate+'</p>'+
+		            ' <p class="p2">任务数量：'+data.data[i].completionCriteria+'<span class="number">未完成数量：<em>'+data.data[i].syGoalNum+'</em></span></p>'+
+		        '<a href="#" id="xing" style="background:url(images/valid.png); background-size:20px 20px; width:20px; height:20px; display:block; float:right; margin-top: -125px;"  onclick="changeBg(this,\'monthgoal\','+taskId+','+userId+')"></a>'+
+		     '</li></a>'}else{
+		    	 result +=' <a href=workManageAllTaskDetail.html?id='+data.data[i].id+'><li style="background:url(images/planeListBg.png) no-repeat right center; background-size:15px 40px; padding:15px;">'+
+		            ' <h1>'+data.data[i].name+'('+data.data[i].goalStatusShow+')</h1>'+
+		            ' <p>负责人:&nbsp&nbsp'+data.data[i].chargerNameShow+'</p>'+
+		            ' <p>'+data.data[i].startDate+'—'+data.data[i].endDate+'</p>'+
+		            ' <p class="p2">任务数量：'+data.data[i].completionCriteria+'<span class="number">未完成数量：<em>'+data.data[i].syGoalNum+'</em></span></p>'+
+		        '<a href="#" id="xing" style="background:url(images/red_asterisk.png); background-size:20px 20px; width:20px; height:20px; display:block; float:right; margin-top: -125px;"  onclick="changeBg(this,\'monthgoal\','+taskId+','+userId+')"></a>'+
+		     '</li></a>'
+		     }
+				
+    
+	}
+		}
+	 $("#monthgoal").append(result);
+	 }
+	 });
+$.ajax({
+	url: 'http://'+serverIp+'/gtims/goal/newgoallist.do?userId='+userId+'&orgId='+orgId+'',
+	data:{'start':firstresult,'end':pagesize,'status':"3"},
+	dataType: 'json',
+	crossDomain: true,
+	async : false,
+	cache : false,
+	success: function(data) {
+		//alert(data.data.length);
+		var result = '';
+		monthago=data.data.length;
+		for(var i=0;i<monthago;i++){
+			if(data.data[i].isSubtask==1){
+				taskId = data.data[i].id;
+				if(taskId == data.data[i].taskId2){
+					result +=' <a href=workManageAllTaskDetail.html?id='+data.data[i].id+'><li style="background:url(images/planeListBg.png) no-repeat right center; background-size:15px 40px; padding:15px;">'+
+		            ' <h1>'+data.data[i].name+'('+data.data[i].goalStatusShow+')</h1>'+
+		            ' <p>负责人:&nbsp&nbsp'+data.data[i].chargerNameShow+'</p>'+
+		            ' <p>'+data.data[i].startDate+'—'+data.data[i].endDate+'</p>'+
+		            ' <p class="p2">任务数量：'+data.data[i].completionCriteria+'<span class="number">未完成数量：<em>'+data.data[i].syGoalNum+'</em></span></p>'+
+		        '<a href="#" id="xing" style="background:url(images/valid.png); background-size:20px 20px; width:20px; height:20px; display:block; float:right; margin-top: -125px;"  onclick="changeBg(this,\'monthgoalago\','+taskId+','+userId+')"></a>'+
+		     '</li></a>'}else{
+		    	 result +=' <a href=workManageAllTaskDetail.html?id='+data.data[i].id+'><li style="background:url(images/planeListBg.png) no-repeat right center; background-size:15px 40px; padding:15px;">'+
+		            ' <h1>'+data.data[i].name+'('+data.data[i].goalStatusShow+')</h1>'+
+		            ' <p>负责人:&nbsp&nbsp'+data.data[i].chargerNameShow+'</p>'+
+		            ' <p>'+data.data[i].startDate+'—'+data.data[i].endDate+'</p>'+
+		            ' <p class="p2">任务数量：'+data.data[i].completionCriteria+'<span class="number">未完成数量：<em>'+data.data[i].syGoalNum+'</em></span></p>'+
+		        '<a href="#" id="xing" style="background:url(images/red_asterisk.png); background-size:20px 20px; width:20px; height:20px; display:block; float:right; margin-top: -125px;"  onclick="changeBg(this,\'monthgoalago\','+taskId+','+userId+')"></a>'+
+		     '</li></a>'
+		     }
+				
+    
+	}
+		}
+	 $("#monthgoalago").append(result);
+	 }
+	 });
+	 
+	
+	 
+	mui.init();
+		//阻尼系数
+		var deceleration = mui.os.ios?0.003:0.0009;
+		mui('.mui-scroll-wrapper').scroll({
+			bounce: false,
+			indicators: true, //是否显示滚动条
+			deceleration:deceleration
+		});
+		 mui.ready(function() {
+				//循环初始化所有下拉刷新，上拉加载。
+				var idflag;
+				mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+					mui(pullRefreshEl).pullToRefresh({
+						up: {
+							callback: function() {
+								var self = this;
+								setTimeout(function() {
+									var ul = self.element.querySelector('.mui-table-view');
+									idflag=ul.getAttribute("id");
+									
+									ul.appendChild(createFragment(ul,index,3,idflag));
+									self.endPullUpToRefresh();
+								}, 1000);
+							}
+						}
+					});
+				});
+					var createFragment = function(ul, index, count,idflag) {
+					
+					var length = ul.querySelectorAll('li').length;
+					var fragment = document.createDocumentFragment();
+					var li;
+					var ind=index;
+					if(ind=="0"){
+						firstresult=startnow;
+						fistsize=now;
+					}else if(ind=="1"){
+						firstresult=startweek;
+						fistsize=week;
+					}else if(ind=="2"){
+						firstresult=startmonth;
+						fistsize=month;
+					}
+					else if(ind=="3"){
+						firstresult=startmonth;
+						fistsize=monthago;
+					}
+					if(fistsize<pagesize){ //
+						
+					}else{
+						firstresult=firstresult+pagesize;
+					$.ajax({
+						url: 'http://'+serverIp+'/gtims/goal/newgoallist.do?userId='+userId+'&orgId='+orgId+'',
+						data:{'start':firstresult,'end':count,'status':index},
+						dataType: 'json',
+						crossDomain: true,
+						async : false,
+						cache : false,
+						success: function(data) {
+							if(ind=="0"){
+								startnow=firstresult;
+							}else if(ind=="1"){
+								startweek=firstresult;
+							}else if(ind=="2"){
+								startmonth=firstresult;
+							}
+							else if(ind=="3"){
+								startmonthago=firstresult;
+							}
+							fistsize=data.data.length;
+							console.log("成功进入");
+							for(var i=0;i<fistsize;i++){
+								
+								console.log("idflag::"+idflag);
+								if(data.data[i].isSubtask==1){
+									taskId = data.data[i].id;
+									if(taskId == data.data[i].taskId2){
+										li = document.createElement('li'); 
+										li.setAttribute("style", 'background:url(images/planeListBg.png) no-repeat right center; background-size:15px 40px; padding:15px;');
+										/* li.setAttribute("onclick", 'javascript:changeBg(this,'+idflag+','+taskId+','+userId+')'); */
+										li.innerHTML='<a href=workManageAllTaskDetail.html?id='+data.data[i].id+'>'+
+						                   ' <h1>'+data.data[i].name+'('+data.data[i].goalStatusShow+')</h1>'+
+						                   ' <p>负责人:&nbsp&nbsp'+data.data[i].chargerNameShow+'</p>'+
+						                   ' <p>'+data.data[i].startDate+'—'+data.data[i].endDate+'</p>'+
+						                   ' <p class="p2">任务数量：'+data.data[i].completionCriteria+'<span class="number">未完成数量：<em>'+data.data[i].syGoalNum+'</em></span></p>'+
+						                   '<a href="#" id="xing" style="background:url(images/valid.png); background-size:20px 20px; width:20px; height:20px; display:block; float:right; margin-top: -125px;"  onclick="changeBg(this,'+idflag+','+taskId+','+userId+')"></a>'+
+						            '</a>'
+									}else{
+										var a = '<a href=workManageAllTaskDetail.html?id='+data.data[i].id+'>';
+										
+										li = document.createElement('li'); 
+										li.setAttribute("style", 'background:url(images/planeListBg.png) no-repeat right center; background-size:15px 40px; padding:15px;');
+										/* li.setAttribute("onclick", 'javascript:changeBg(this,'+idflag+','+taskId+','+userId+')'); */
+										li.innerHTML='<a href=workManageAllTaskDetail.html?id='+data.data[i].id+'>'+
+						                   ' <h1>'+data.data[i].name+'('+data.data[i].goalStatusShow+')</h1>'+
+						                   ' <p>负责人:&nbsp&nbsp'+data.data[i].chargerNameShow+'</p>'+
+						                   ' <p>'+data.data[i].startDate+'—'+data.data[i].endDate+'</p>'+
+						                   ' <p class="p2">任务数量：'+data.data[i].completionCriteria+'<span class="number">未完成数量：<em>'+data.data[i].syGoalNum+'</em></span></p>'+
+						                   '<a href="#" id="xing" style="background:url(images/red_asterisk.png); background-size:20px 20px; width:20px; height:20px; display:block; float:right; margin-top: -125px;"  onclick="changeBg(this,'+idflag+','+taskId+','+userId+')"></a>'+
+						            '</a>'
+									}
+										fragment.appendChild(li);
+								}
+								
+							}
+						 }
+						 });
+					}
+					
+					return fragment;
+				};
+			}); 
+		
+		function changeBg(obj,idflag,taskId,userId)
+		{
+			 var ulid="ul li a#xing";
+				$(ulid).css({"background":"url(images/red_asterisk.png) no-repeat right top","background-size":"20px 20px"});
+				$(obj).css({"background":"url(images/valid.png) no-repeat right top","background-size":"20px 20px"});
+				$.ajax({
+					url: 'http://'+serverIp+'/gtims/goal/ordertask.do?taskId='+taskId+'&userId='+userId+'',
+					success : function(data) {
+						if (data.success) {
+							swal(data.success);
+						} else {
+							swal(data.error);
+						}
+					}				
+				})
+			
+		}
+		document.addEventListener("backbutton", backMain, false);	
+		
+</script>
+</html>

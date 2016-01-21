@@ -1,0 +1,511 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<title>贯通综合管理系统-意向管理—新增机会信息</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link href="css/mui.min.css" rel="stylesheet" />
+<link href="css/mui.indexedlist.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/app.css" />
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link href="css/mobiscroll.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+<style>
+.mui-bar {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+#done.mui-disabled {
+	color: gray;
+}
+
+.mui-table-view-cell.mui-checkbox input[type=checkbox],.mui-table-view-cell.mui-radio input[type=radio] {
+	top: 16px;
+}
+</style>
+</head>
+<body>
+<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+	<!--侧滑菜单部分-->
+	<aside id="offCanvasSide" class="  mui-off-canvas-right" style="background: none">
+			<header class="mui-bar mui-bar-nav">
+				<a class=" mui-icon mui-icon-left-nav mui-pull-left" id="offCanvasHide"></a>
+				<span id="zhHead"></span>
+			</header>	
+			<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+				<div class="mui-scroll">				
+					<div class="mui-content">
+						<div id='list' class="mui-indexed-list">
+							<div class="mui-indexed-list-search mui-input-row mui-search">
+								<input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="请输入搜索内容">
+							</div>
+							<div class="mui-indexed-list-alert"></div>
+							<div class="mui-indexed-list-inner">
+								<div class="mui-indexed-list-empty-alert">没有数据</div>
+								<ul class="mui-table-view" id ="ryList">
+									<li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</aside>
+		<div class="mui-inner-wrap">
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">新增机会信息</h1>
+    <!-- <a class="headerL" href="javascript:history.go(-1);"><img src="images/return.png"></a>
+    新增机会信息 -->
+</header>
+<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div class="mui-content-padded">
+		<form class="mui-input-group" id="addJhForm">
+            <div class="mui-input-row">
+                <label><span style="color:red">*</span> 机会名称</label>
+                <input type="text" id="name" placeholder="请输入名称" validate="*" errorMsg="机会名称必填">
+            </div>
+            <!-- <p>
+            	<span style="color:red">*</span> 机会类型
+                <select name="projectType" id="projectType" validate="*" errorMsg="机会类型必填">
+                </select>
+            </p> -->
+            <div class="mui-input-row">
+            	<label><span style="color:red">*</span> 机会状态</label>
+                <select name="projectStatus" id="projectStatus"  validate="*" errorMsg="项目状态必填">
+                </select>
+            </div>
+            <div class="mui-input-row">
+            	<label><span style="color:red">*</span> 意&nbsp;向&nbsp; 值</label>
+               <select id="currentIntent" validate="*" errorMsg="意向值必填">
+                </select>
+            </div>
+            <div class="mui-input-row">
+            	<label><span style="color:red">*</span> 所属任务</label>
+               <select id="goalId" validate="*" errorMsg="所属任务必填">
+                </select>
+            </div>	
+           
+            <div class="mui-input-row" id="offCanvasShowKH">
+           	 	<label><span style="color:red">*</span> 客户</label>
+                <input type="text" placeholder="请输入名称" id="otherCompanyShow" readonly="readonly" validate="*" errorMsg="客户必填">
+                <input id="otherCompany" type="hidden"  name="otherCompany"  value="" />
+            </div>
+            <div class="mui-input-row">
+            	<label><span style="color:red">*</span> 所属省份</label>
+                <select value="" name="addressProvince" id="addressProvince" validate="*" errorMsg="省份必填" >
+				</select>
+            </div>
+            <div class="mui-input-row">
+            	<label><span style="color:red">*</span> 所属城市</label>
+                <select name="" id="addressCity" validate="*" errorMsg="城市必填">
+                    <option value="0">请选择市</option>
+                </select>
+				<input type="hidden" type="text" placeholder="" name="shi" id="shi" validate="*" errorMsg="项目状态必填"/>
+            </div>   
+
+           
+            <div class="mui-input-row">
+            	<label><span style="color:red">*</span> 所属区县</label>
+                <select name="" id="addressState" validate="*" errorMsg="区县必填">
+                    <option value="0">请选择区县</option>
+                </select>
+				<input type="hidden" type="text" placeholder="" name="qu" id="qu" validate="*" errorMsg="项目状态必填"/>
+            </div>
+			 <div class="mui-input-row">
+            	<label><span style="color:red">*</span> 所属街道</label>
+              <select name="" id="addressStreet" validate="*" errorMsg="街道必填">
+                    <option value="0">请选择街道</option>
+                </select>
+			   <input type="hidden" type="text" placeholder="" name="jie" id="jie" validate="*" errorMsg="项目状态必填"/>
+            </div>
+            <div class="mui-input-row">
+            	<label>&nbsp;所属地址</label>
+                <input type="text" placeholder="请输入详细地址" id="addressDetailed">
+            </div>
+            <div id="ziyuan">
+            
+            </div>
+        	<div class="mui-input-row" id="offCanvasShowWFDB">
+            <label><span style="color:red">*</span>我方负责人</label>
+			 <input type="text" class="mui-input  " id="projectManagerShow" value="" readonly="readonly" placeholder="请选择我方负责人" validate="*"  errorMsg="我方负责人必填">
+             <input id="projectManager" type="hidden"  name="projectManager"  value="" validate="*" />
+			</div>
+            <div class="mui-input-row" id="offCanvasShowKHDB">
+            <label><span style="color:red">*</span>对方负责人</label>
+            <input type="text" id="otherManagerShow" readonly="readonly" placeholder="请选择对方负责人">
+            <input id="otherManager" type="hidden"  name="otherManager"  value="" />
+            </div>
+            <div class="mui-input-row">
+            	<label><span></span>机会描述</label>
+            </div>
+            <textarea placeholder="请输入详细机会描述" id="note"></textarea>
+    <!-- <div class="DetailBotBtn1 DetailBotBtn2" id="cencel">
+        <a href="workManageIntent.html?code=&id=">取消新增</a>
+        <a href="#2" id="wancheng">确认新增</a>
+    </div> -->
+    <div class="mui-button-row" style="height:57px">
+		<div class="DetailBotBtn1 DetailBotBtn2">       
+			<a  class="back header_button  mui-action-back">取消新增</a>
+			<a href="javascript:void(0);" class="newproject header_button" id="tijiao">确认新增</a>
+		</div>
+	</div>
+</form>
+</div></div></div></div></div>
+<script src="lib/jquery-2.1.4.min.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/mui.indexedlist.js"></script>
+<script src="js/app.js"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/initInfo.js"></script>
+<script type="text/javascript" src="js/address.js"></script>
+<script type="text/javascript" src="js/iscroll.js" ></script>
+<script src="js/mobiscroll.min.js"></script>
+<script type="text/javascript">
+mui.init();
+//$(function () {});
+mui.ready(function() {
+intiBaseByType(serverIp,"sid","currentIntent","/dataDir/listName.do","yxz");
+var userId =localStorage.getItem("id");
+$('#chargerNameId').val(userId);
+//getxmList();
+//侧滑容器父节点
+var offCanvasWrapper = mui('#offCanvasWrapper');
+//主界面容器
+var offCanvasInner = offCanvasWrapper[0].querySelector('.mui-inner-wrap');
+//菜单容器
+var offCanvasSide = document.getElementById("offCanvasSide");
+if (!mui.os.android) {
+	var spans = document.querySelectorAll('.android-only');
+	for (var i = 0, len = spans.length; i < len; i++) {
+		spans[i].style.display = "none";
+	}
+}
+//主界面‘显示侧滑菜单’按钮的点击事件 ---客户 
+document.getElementById('offCanvasShowKH').addEventListener('tap', function() {
+	var title='<h1 class="mui-title">选择客户</h1>'+
+	'<a id="done" class="mui-btn mui-btn-link mui-pull-right mui-btn-blue mui-disabled">完成</a>';
+	document.querySelector('#zhHead').innerHTML = title;
+	getkhList();
+	offCanvasWrapper.offCanvas('show');
+	var header = document.querySelector('header.mui-bar');
+	var list = document.getElementById('list');
+	var done = document.getElementById('done');
+	//calc hieght
+	//list.style.height =(document.body.offsetHeight - header.offsetHeight) + 'px';
+	list.style.height = '100%';
+	//create
+	window.indexedList = new mui.IndexedList(list);
+	//done event
+	done.addEventListener('tap', function() {
+		var otherCompany = $("input[name='radio']:checked").val();
+		var otherCompanyShow = $("input[name='radio']:checked").attr("ryname");
+		if (otherCompany > 0) {
+		document.getElementById('otherCompanyShow').value=otherCompanyShow;
+		document.getElementById('otherCompany').value=otherCompany;
+		offCanvasWrapper.offCanvas('close');
+		 } else {
+			mui.swal('你没选择任何客户');
+		}
+		
+	}, false);
+	mui('.mui-indexed-list-inner').on('change', 'input', function() {
+		var count = list.querySelectorAll('input[type="radio"]:checked').length;
+		var value = count ? "完成(" + count + ")" : "完成";
+		done.innerHTML = value;
+		//mui.alert('你选择了: ' + radiovalue );
+		if (count) {
+			if (done.classList.contains("mui-disabled")) {
+				done.classList.remove("mui-disabled");
+			}
+		} else {
+			if (!done.classList.contains("mui-disabled")) {
+				done.classList.add("mui-disabled");
+			}
+		}
+	});
+});
+
+//主界面‘显示侧滑菜单’按钮的点击事件 ---我方代表 
+document.getElementById('offCanvasShowWFDB').addEventListener('tap', function() {
+	var title='<h1 class="mui-title">我方负责人</h1>'+
+	'<a id="done" class="mui-btn mui-btn-link mui-pull-right mui-btn-blue mui-disabled">完成</a>';
+	document.querySelector('#zhHead').innerHTML = title;
+	getWFDBList();
+	offCanvasWrapper.offCanvas('show');
+	var header = document.querySelector('header.mui-bar');
+	var list = document.getElementById('list');
+	var done = document.getElementById('done');
+	//calc hieght
+	//list.style.height =(document.body.offsetHeight - header.offsetHeight) + 'px';
+	list.style.height = '100%';
+	//create
+	window.indexedList = new mui.IndexedList(list);
+	//done event
+	done.addEventListener('tap', function() {
+		var projectManager = $("input[name='radio']:checked").val();
+		var projectManagerShow = $("input[name='radio']:checked").attr("ryname");
+		if (projectManager > 0) {
+		document.getElementById('projectManagerShow').value=projectManagerShow;
+		document.getElementById('projectManager').value=projectManager;
+		offCanvasWrapper.offCanvas('close');
+		 } else {
+			mui.swal('你没选择任何负责人');
+		}
+		
+	}, false);
+	mui('.mui-indexed-list-inner').on('change', 'input', function() {
+		var count = list.querySelectorAll('input[type="radio"]:checked').length;
+		var value = count ? "完成(" + count + ")" : "完成";
+		done.innerHTML = value;
+		//mui.alert('你选择了: ' + radiovalue );
+		if (count) {
+			if (done.classList.contains("mui-disabled")) {
+				done.classList.remove("mui-disabled");
+			}
+		} else {
+			if (!done.classList.contains("mui-disabled")) {
+				done.classList.add("mui-disabled");
+			}
+		}
+	});
+});
+
+//主界面‘显示侧滑菜单’按钮的点击事件 ---对方代表  
+document.getElementById('offCanvasShowKHDB').addEventListener('tap', function() {
+	var title='<h1 class="mui-title">客户负责人</h1>'+
+	'<a id="done" class="mui-btn mui-btn-link mui-pull-right mui-btn-blue mui-disabled">完成</a>';
+	document.querySelector('#zhHead').innerHTML = title;
+	getKHDBList();
+	offCanvasWrapper.offCanvas('show');
+	var header = document.querySelector('header.mui-bar');
+	var list = document.getElementById('list');
+	var done = document.getElementById('done');
+	//calc hieght
+	//list.style.height =(document.body.offsetHeight - header.offsetHeight) + 'px';
+	list.style.height = '100%';
+	//create
+	window.indexedList = new mui.IndexedList(list);
+	//done event
+	done.addEventListener('tap', function() {
+		var otherManager = $("input[name='radio']:checked").val();
+		var otherManagerShow = $("input[name='radio']:checked").attr("ryname");
+		if (otherManager > 0) {
+		document.getElementById('otherManagerShow').value=otherManagerShow;
+		document.getElementById('otherManager').value=otherManager;
+		offCanvasWrapper.offCanvas('close');
+		 } else {
+			mui.swal('你没选择任何负责人 ');
+		}
+		
+	}, false);
+	mui('.mui-indexed-list-inner').on('change', 'input', function() {
+		var count = list.querySelectorAll('input[type="radio"]:checked').length;
+		var value = count ? "完成(" + count + ")" : "完成";
+		done.innerHTML = value;
+		//mui.alert('你选择了: ' + radiovalue );
+		if (count) {
+			if (done.classList.contains("mui-disabled")) {
+				done.classList.remove("mui-disabled");
+			}
+		} else {
+			if (!done.classList.contains("mui-disabled")) {
+				done.classList.add("mui-disabled");
+			}
+		}
+	});
+});
+//菜单界面，‘关闭侧滑菜单’按钮的点击事件//
+document.getElementById('offCanvasHide').addEventListener('tap', function() {
+	offCanvasWrapper.offCanvas('close');
+});
+
+intiBaseByType(serverIp,"ptid","projectType","/dataDir/listName.do","mblb");//projectType
+intiBaseByType(serverIp,"pstatus","projectStatus","/dataDir/listName.do","xmzt");//projectStatus
+intiBaseByType(serverIp,"sid","currentIntent","/dataDir/listName.do","yxz");
+
+//intiBaseDic(serverIp,"chid","chanceId","/chance/listName.do");//chanceId
+intiBaseDic(serverIp,"gid","goalId","/goal/listName.do?chargerName="+localStorage.getItem("id"));//goalId
+		/* var cel='<a href="workManageIntent.html.html">取消</a>';
+		$('#cencel').append(cel); */
+		var postId =localStorage.getItem("postId");
+		//默认是拓展
+		var projectType = '9';
+		//如果登陆用户是资源或者资源经理里新建的机会为资源 
+		if(postId=='8'||postId =='15'){
+			projectType = '10';
+			var ziyuan ='<div class="mui-input-row">'+
+	               '<label><span style="color:red">*</span>  派&nbsp; 件 &nbsp;量</label>'+
+	                '<input type="number" placeholder="请输入派件量" id="sendOut" validate="n" errorMsg="派件量必须是整数">'+
+	            '</div>'+
+	            '<div class="mui-input-row">'+
+	            	'<label><span style="color:red">*</span> 派件价格</label>'+
+	                '<input type="number" placeholder="请输入派件价格"  id="sendOutFee" validate="n2" errorMsg="派件价格必须是数字">'+
+	            '</div>'+
+	            '<div class="mui-input-row">'+
+	            	'<label><span style="color:red">*</span> 揽&nbsp; 件 &nbsp;量</label>'+
+	                '<input type="number" placeholder="请输入揽件量"  id="receive" validate="n" errorMsg="揽件量必须是整数">'+
+	            '</div>'+
+	            '<div class="mui-input-row">'+
+	            	'<label><span style="color:red">*</span> 揽件价格</label>'+
+	                '<input type="number" placeholder="请输入揽件价格"  id="receiveFee" validate="n2" errorMsg="揽件价格必须是数字">'+
+	            '</div>';
+			$('#ziyuan').prepend(ziyuan);
+		}
+		var tjButton = document.getElementById('tijiao');
+		tjButton.addEventListener('tap', function(event) {
+			var userId =localStorage.getItem("id");
+		
+			
+			var business_status = 0;
+			var project_or_intent = "0";
+				//validateForm验证
+				var result = true;
+				$("form input[type='text']").each(function(){
+					if($(this).attr("validate")!=null&&!validateForm($(this))){
+						result = false;
+						return result;
+					}
+					
+				});
+				if(result != false){
+				$("select").each(function(){
+					if($(this).attr("validate")!=null&&!validateForm($(this))){
+						result = false;
+						return result;
+					}
+				});}
+			if(result){
+				$.ajax({
+					type:'post',
+					url: 'http://'+serverIp+'/gtims/project/insertForPhone.do',
+					data: {'createrId':userId,'modifyPersonId':userId,'name':$('#name').val(),'projectManager':$('#projectManager').val(),'projectType':projectType,'otherCompany':$('#otherCompany').val(),'otherManager':$('#otherManager').val(),'siteName':$('#siteName').val(),'addressProvince':$('#addressProvince').val(),'addressCity':$('#addressCity').val(),'addressState':$('#addressState').val(),'addressStreet':$('#addressStreet').val(),'addressDetailed':$('#addressDetailed').val(),'goalId':$('#goalId').val(),'sendOut':$('#sendOut').val(),'sendOutFee':$('#sendOutFee').val(),'receive':$('#receive').val(),'receiveFee':$('#receiveFee').val(),'currentIntent':$('#currentIntent').val(),'projectStatus':$('#projectStatus').val(),'chanceId':$('#chanceId').val(),'note':$('#note').val(),'business_status':business_status,"projectOrIntent":project_or_intent},
+					dataType: 'json',
+					crossDomain: true,	
+					success: function(data) {
+						swal({
+							  title: "机会信息提交成功！",
+							  confirmButtonText: "ok"
+							}, function(){
+								location.href='workManageIntent.html?code=&id=';
+							});
+					},
+					error:function(msg){
+						swal("机会信息提交失败！");
+						
+					}
+				});
+			}
+			})
+			
+			//participants.value = userName ;
+			 //主界面和侧滑菜单界面均支持区域滚动；
+					mui('#offCanvasSideScroll').scroll();
+					mui('#offCanvasContentScroll').scroll();
+					 //实现ios平台原生侧滑关闭页面；
+					if (mui.os.plus && mui.os.ios) {
+						mui.plusReady(function() { //5+ iOS暂时无法屏蔽popGesture时传递touch事件,直接屏蔽popGesture功能
+							plus.webview.currentWebview().setStyle({
+								'popGesture': 'none'
+							});
+						});
+					}
+					
+					});
+		
+			//查询客户
+			function getkhList() {
+				$.ajax({
+			url: 'http://'+serverIp+'/gtims/customer/list.do?userId='+localStorage.getItem("id"),
+			async: false,
+			data:{'start':'0','end':'10000'},
+			dataType: 'json',
+			crossDomain: true,
+			success: function(data) {
+			 var html = "",obj=data.data;
+				for (var i = 0; i < obj.length; i++) {
+				    html+='<li class="mui-table-view-cell mui-indexed-list-item mui-radio mui-media mui-left">'+
+					'<input type="radio"  name="radio"  value="'+obj[i].id+'" ryname="'+obj[i].name+'" /> '+
+									'<div class="mui-media-body mui-ellipsis">'+obj[i].name+'('+obj[i].customerTypeShow+')'+
+										'<p class="mui-ellipsis">'+obj[i].phoneOffice+'</p>'+
+									'</div></li>';
+				}
+			document.querySelector('#ryList').innerHTML = html;
+			}
+			});
+			}
+			//查询我方代表
+			function getWFDBList() {
+				$.ajax({
+					url: 'http://'+serverIp+'/gtims/user/findSelectMember.do?userId='+localStorage.getItem("id"),
+					async: false,
+					data:{'start':'0','end':'10000'},
+					dataType: 'json',
+					crossDomain: true,
+					success: function(data) {
+					 var html = "",obj=data.data;
+						for (var i = 0; i < obj.length; i++) {
+						    html+='<li class="mui-table-view-cell mui-indexed-list-item mui-radio mui-media mui-left">'+
+							'<input type="radio"  name="radio"  value="'+obj[i].id+'" ryname="'+obj[i].nickname+'" /> '+
+											'<div class="mui-media-body mui-ellipsis">'+obj[i].nickname+'('+obj[i].orgIdShow+')'+
+												'<p class="mui-ellipsis">'+obj[i].phone+'</p>'+
+											'</div></li>';
+						}
+					document.querySelector('#ryList').innerHTML = html;
+				}
+				});
+						}
+			
+			
+			//查询我方代表
+			function getKHDBList() {
+				$.ajax({
+					url: 'http://'+serverIp+'/gtims/linkman/list.do?userId='+localStorage.getItem("id"),
+					async: false,
+					data:{'start':'0','end':'10000'},
+					dataType: 'json',
+					crossDomain: true,
+					success: function(data) {
+					 var html = "",obj=data.data;
+						for (var i = 0; i < obj.length; i++) {
+						    html+='<li class="mui-table-view-cell mui-indexed-list-item mui-radio mui-media mui-left">'+
+							'<input type="radio"  name="radio"  value="'+obj[i].id+'" ryname="'+obj[i].name+'" /> '+
+											'<div class="mui-media-body mui-ellipsis">'+obj[i].name+'('+obj[i].address+')'+
+												'<p class="mui-ellipsis">'+obj[i].phoneMobile+'</p>'+
+											'</div></li>';
+						}
+					document.querySelector('#ryList').innerHTML = html;
+				}
+				});
+						}
+		
+</script>
+</body>
+</html>	
+
+
+
+
+
+
+		
+
+	
+		
+
+
+
+

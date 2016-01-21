@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title></title>
+    
+    <link href="css/mui.min.css" rel="stylesheet"/>
+	<link href="css/mui.indexedlist.css" rel="stylesheet" />
+	<script src="js/mui.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+		<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+	<style>
+			
+			.mui-bar {
+				-webkit-box-shadow: none;
+				box-shadow: none;
+			}
+			#done.mui-disabled{
+				color: gray;
+			}
+			.mui-table-view-cell.mui-checkbox input[type=checkbox], .mui-table-view-cell.mui-radio input[type=radio]{
+			top:16px;
+			}
+		</style>
+</head>
+<body>
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+			<!--侧滑菜单部分-->
+			<aside id="offCanvasSide" class="  mui-off-canvas-right" style="background:none"> 
+				
+			<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+					<header class="mui-bar mui-bar-nav">
+						<a class=" mui-icon mui-icon-left-nav mui-pull-left" id="offCanvasHide"></a>
+						<h1 class="mui-title">选择人员</h1>
+						<a id='done' class="mui-btn mui-btn-link mui-pull-right mui-btn-blue mui-disabled">完成</a>
+					</header>
+			<div class="mui-content">
+			 <div id='list' class="mui-indexed-list">
+			  <div class="mui-indexed-list-search mui-input-row mui-search">
+					<input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="请输入搜索内容">
+				</div>
+				<div class="mui-indexed-list-alert"></div>
+				<div class="mui-indexed-list-inner">
+				<div class="mui-indexed-list-empty-alert">没有数据</div>
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="张三" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							张三
+							<p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+						</div>
+					 </li>
+							<li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="张四" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							张四
+							<p class='mui-ellipsis'>工程</p>
+						</div>
+					 </li>
+					 <li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="张五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							张五
+							<p class='mui-ellipsis'>张五？</p>
+						</div>
+					 </li>
+					 <li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="张6" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							张6
+							<p class='mui-ellipsis'>张6</p>
+						</div>
+					 </li>
+					 <li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="张7" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							张7
+							<p class='mui-ellipsis'>张7</p>
+						</div>
+					 </li>
+					 <li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李四" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李四
+							<p class='mui-ellipsis'>李四</p>
+						</div>
+					 </li>
+						<li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li>
+					 <li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li>
+					 <li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li><li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li>
+					 <li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li><li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li><li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li><li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li><li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li><li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li><li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li><li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li><li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li><li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li><li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li>
+					</ul>
+				</div>
+			</div>
+		</div>
+					</div>
+				</div>
+			</aside>
+			<!--主界面部分-->
+			<div class="mui-inner-wrap">
+				
+				<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">机会新增</h1>
+		</header>
+				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div class="mui-content-padded">
+				<form class="mui-input-group">
+				
+					<div class="mui-input-row">
+						<label>Input2</label>
+						<input type="text" class="mui-input-clear  datec"  id="datey" value="2015-11-10 10:10"   placeholder="带清除按钮的输入框">
+					</div>
+					<div class="mui-input-row">
+						<label>选择人员</label>
+						<input type="text" class="mui-input  "  id="xzry" value=""   readonly="readonly" placeholder="请选择人员">
+						<input  id="xzryid" type="hidden" value=""/>
+						<a class="mui-navigate-right" id="offCanvasShow"   > xxx</a>
+					</div>
+				</form>
+						</div>
+
+						
+
+					</div>
+				</div>
+				<!-- off-canvas backdrop -->
+				<div class="mui-off-canvas-backdrop"></div>
+			</div>
+		</div>
+		<script src="js/mui.indexedlist.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.ready(function() {
+			 //侧滑容器父节点
+			var offCanvasWrapper = mui('#offCanvasWrapper');
+			 //主界面容器
+			var offCanvasInner = offCanvasWrapper[0].querySelector('.mui-inner-wrap');
+			 //菜单容器
+			var offCanvasSide = document.getElementById("offCanvasSide");
+			if (!mui.os.android) {
+				var spans = document.querySelectorAll('.android-only');
+				for (var i = 0, len = spans.length; i < len; i++) {
+					spans[i].style.display = "none";
+				}
+			}
+			//主界面‘显示侧滑菜单’按钮的点击事件
+			document.getElementById('offCanvasShow').addEventListener('tap', function() {
+				offCanvasWrapper.offCanvas('show');
+			});
+			 //菜单界面，‘关闭侧滑菜单’按钮的点击事件//
+			document.getElementById('offCanvasHide').addEventListener('tap', function() {
+				offCanvasWrapper.offCanvas('close');
+			});
+				var header = document.querySelector('header.mui-bar');
+				var list = document.getElementById('list');
+				var done = document.getElementById('done');
+				//calc hieght
+				//list.style.height =(document.body.offsetHeight - header.offsetHeight) + 'px';
+				list.style.height = '100%';
+				//create
+				window.indexedList = new mui.IndexedList(list);
+				//done event
+				done.addEventListener('tap', function() {
+					var checkboxArray = [].slice.call(list.querySelectorAll('input[type="checkbox"]'));
+					var checkedValues = [],ryids=[];
+					checkboxArray.forEach(function(box) {
+						if (box.checked) {
+						   //checkedValues.push(box.parentNode.innerText);
+						   checkedValues.push(box.getAttribute("ryname"));
+							ryids.push(box.value);
+						}
+					});
+					if (checkedValues.length > 0) {
+					//mui.alert('你选择了: ' + checkedValues);
+					document.getElementById('xzry').value=checkedValues;
+					document.getElementById('xzryid').value=ryids;
+					offCanvasWrapper.offCanvas('close');
+					 } else {
+						mui.swal('你没选择任何人员');
+					}
+					
+				}, false);
+				mui('.mui-indexed-list-inner').on('change', 'input', function() {
+					var count = list.querySelectorAll('input[type="checkbox"]:checked').length;
+					var value = count ? "完成(" + count + ")" : "完成";
+					done.innerHTML = value;
+					if (count) {
+						if (done.classList.contains("mui-disabled")) {
+							done.classList.remove("mui-disabled");
+						}
+					} else {
+						if (!done.classList.contains("mui-disabled")) {
+							done.classList.add("mui-disabled");
+						}
+					}
+				});
+			
+			 //主界面和侧滑菜单界面均支持区域滚动；
+			mui('#offCanvasSideScroll').scroll();
+			mui('#offCanvasContentScroll').scroll();
+			 //实现ios平台原生侧滑关闭页面；
+			if (mui.os.plus && mui.os.ios) {
+				mui.plusReady(function() { //5+ iOS暂时无法屏蔽popGesture时传递touch事件,直接屏蔽popGesture功能
+					plus.webview.currentWebview().setStyle({
+						'popGesture': 'none'
+					});
+				});
+			}
+			
+			});
+			
+		
+			
+		</script>
+	</body>
+</html>

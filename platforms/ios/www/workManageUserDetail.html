@@ -1,0 +1,58 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<title>员工详情</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+<body>
+<header class="header warp100 clearfix">
+    <a class="headerL" href="javascript:history.go(-1);"><img src="images/return.png"></a>
+    员工详情
+</header>
+<form action="" method="" class="main_form mt50">
+<div class="mainContent">
+	<div class="warp100 marginTop10">
+    <!--YGXQ begin-->
+    <div class="yginfo">
+      <h1 id="name"></h1>
+      <span id="post">拓展人员 (<em id="status"></em>)</span>
+      <span id="phone"></span>
+      <span id="email"></span>  
+    </div>
+    <!--YGXQ end-->
+    </div>
+    <ul class="ygdetail_list" id="content">
+       
+    </ul>
+</div>
+</form>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript">
+	var id = location.href.split('?')[1].split('=')[1];
+	$.ajax({
+		url: 'http://'+ serverIp +'/gtims/user/editForPhone.do',
+		async: false,
+		data:{'start':'0','end':'10000','id':id},
+		dataType: 'json',
+		crossDomain: true,
+		success: function(data) {
+             $("#name").text(data.name);
+             $("#phone").text(data.phone);
+             $("#email").text(data.email);
+             $("#status").text(data.status);
+             $("#post").text(data.post);
+             var result = '<li><a href="workManageChance.html?code=&id='+data.id+'">全部线索<span>'+data.chanceCount+'</span></a></li><li><a href="workManageIntent.html?code=&id='+data.id+'">全部机会<span>'+data.intentCount+'</span></a></li><li><a href="workManageProject.html?code=&id='+data.id+'">全部项目<span>'+data.projectCount+'</span></a></li><li><a href="workManageDeal.html?code=&id='+data.id+'">全部协议<span>'+data.dealCount+'</span></a></li>';		
+             $("#content").prepend(result);
+		}
+			 
+	});
+</script>
+</body>
+</html>

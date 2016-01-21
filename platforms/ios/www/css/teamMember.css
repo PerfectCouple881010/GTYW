@@ -1,0 +1,22 @@
+@charset "utf-8";
+/* CSS Document */
+
+.mainCon{ width:100%; height:auto; padding-top:60px; position:relative;}
+.groupInfoDiv{ width:100%; height:auto; background:#FFF; margin-top:15px; clear:both;}
+.groupInfoDiv h2{ width:95%; line-height:35px; padding-left:15px; font-weight:normal;}
+.groupInfoDiv h4{ width:95%; line-height:22px; padding-left:15px; font-weight:normal; color:#69a5ff;}
+.groupInfoDiv h4#time{ color:#999999;}
+.groupInfoDiv h3{ width:92%; height:auto; line-height:25px; padding-left:15px; padding-right:10px; color:#666666; font-weight:normal;}
+.btn{ width:100%; height:35px; padding-bottom:10px; padding-top:15px;}
+.edit,.del{ width:120px; height:35px; color:#FFF; text-align:center; line-height:35px; background:#69a5ff; font-size:1rem; letter-spacing:2px; float:right;  margin-right:15px;}
+
+.infoList{ width:100%; height:auto; background:#FFF; margin-top:15px;}
+.infoList h3{ width:95%; line-height:40px; padding-left:15px; font-weight:normal;}
+.infoList ul{ width:100%; height:auto;}
+.infoList ul li{ width:92%; height:65px; position:relative; line-height:20px; list-style:none; margin-left:4%; border-bottom:1px #CCCCCC solid; background:url(../images/del_03.png) no-repeat right; background-size:18px auto; padding-top:5px;color:#333;}
+.infoList ul li img{ width:12px; height:auto; margin-right:5px;}
+.infoList ul li span{ margin-right:5px; font-size:0.8rem;color:#666;}
+.infoList ul li span#address{ font-size:12px; color:#999999;}
+.infoList h4{ width:100%; height:55px; line-height:55px; text-align:center; color:#ff6600; font-weight:normal;}
+.infoList h4 a{color:#ff6600;}
+#delPic{ width:50px; height:65px; float:right;position: absolute; top: 0; right:0; padding:0; margin:0; opacity:0;}

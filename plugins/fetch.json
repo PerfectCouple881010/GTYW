@@ -1,0 +1,36 @@
+{
+    "cordova-plugin-whitelist": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-whitelist@1"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-device": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-device"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-appinfo": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-appinfo"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cn.jpush.phonegap.JPushPlugin": {
+        "source": {
+            "type": "local",
+            "path": "/Users/Winter/Downloads/jpush-phonegap-plugin-master 2"
+        },
+        "is_top_level": true,
+        "variables": {
+            "API_KEY": "cdd3c6c2339c602ecebe595f"
+        }
+    }
+}

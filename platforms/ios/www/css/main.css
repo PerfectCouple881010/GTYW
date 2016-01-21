@@ -1,0 +1,278 @@
+﻿input,select{font-size: 12px;}
+/*首页*/
+.banner{width: 100%; display: block; background:url(../images/indexBan.jpg) no-repeat; background-size:100% 100%; padding:0; position:relative; }
+.banner>p{color:#fff; font-size:15px; text-align: center; }
+.banner p.bot1{text-align:center; margin-bottom:3px;}
+/*.banner p.bot1 em{ font-size:20px;}*/
+.banner p.bot2{ margin-top:4px; font-size:12px; text-align:right;}
+#syrw{color:#fff;}
+#syrw:visited{color:#fff;}
+#syrw:active{color:#fff;}
+.completeBox{ position:absolute; top:14px; left:10px;}
+.completeBox p span{ display:inline-block; vertical-align:middle; width:12px; height:12px; background:#1fa1de; margin-right:4px;}
+.completeBox p{ font-size:14px; margin-bottom:5px;}
+.completeBox p span.yellow{ background:#ffde00;}
+
+.cirwrap{ margin: 0 20%; padding: 0; padding-bottom: 94px; }
+.cir1{ margin-top:20px;  border-radius: 59px; font-size: 18px; text-align: center;float: left; background: #fff; color: #000; box-shadow: 0px 0px 0px 5px #52ff87, 0px 0px 0px 10px #ff527f, 0px 0px 0px 15px #52bcff, 0px 0px 0px 20px #ffb852; }
+.cir2{ margin-top:20px;border-radius: 59px; font-size: 18px; text-align: center;float: right; background: #000; color: #fff; box-shadow:0px 0px 0px 5px #52ff87, 0px 0px 0px 10px #ff527f, 0px 0px 0px 15px #52bcff, 0px 0px 0px 20px #ffb852;}
+.cir1 p.num,.cir2 p.num{ width:30px; height:30px; padding:10px;font-size: 24px; text-align: center; line-height: 30px;}
+.active{ background: #000;}
+.active1{ background: #fff; }
+.active .num{ color: #fff; }
+.active1 .num{color: #000; }
+.tasn{ width:70px;display: block; position: absolute; bottom: 0;   font-size: 24px; margin-left: -15px; z-index: 4; text-align: center;}
+.banner p .allTaskNum{ width: 40px;height: 0px; position: absolute; left:50%; bottom:0px; margin-left: -35px; display:block;border-top: 30px solid #ebab4e;border-left: 15px solid transparent;
+	border-right: 15px solid transparent;}
+.banner p.allTask{ height:30px;width:100%;font-size:13px;position: absolute; left:0; bottom:25px; text-align: center;}
+.banner p.allTask a{color:#fff;}
+.banner p.allTask a:visited{color:#fff;}
+.banner p.allTask a:active{color:#fff;}
+.banner p.allTaskNum{ }
+.unTask{}
+.unTask span{  position: absolute; width:30px; height: 208px;
+	display: block; color: #fff; top: -12px; margin-left: 22px; }
+.unTask span:nth-child(1){ -moz-transform: rotate(-75deg);
+    	-webkit-transform: rotate(-75deg);
+    	-o-transform: rotate(-75deg);
+    	transform: rotate(-75deg);
+		}
+.unTask span:nth-child(2){  -moz-transform: rotate(-65deg);
+    	-webkit-transform: rotate(-65deg);
+    	-o-transform: rotate(-65deg);
+    	transform: rotate(-65deg);
+		}
+.unTask span:nth-child(3){  -moz-transform: rotate(-55deg);
+    	-webkit-transform: rotate(-55deg);
+    	-o-transform: rotate(-55deg);
+    	transform: rotate(-55deg);
+		}
+
+.unTask span:nth-child(4){  -moz-transform: rotate(-45deg);
+    	-webkit-transform: rotate(-45deg);
+    	-o-transform: rotate(-45deg);
+    	transform: rotate(-45deg);
+		}
+.unTask span:nth-child(5){  -moz-transform: rotate(-35deg);
+    	-webkit-transform: rotate(-35deg);
+    	-o-transform: rotate(-35deg);
+    	transform: rotate(-35deg);}
+.reTask{}
+.reTask span{  position: absolute; width:30px; height: 208px; margin-top:-10px; margin-left: -7px; display: block; top: 0; color: #fff; }
+.reTask span:nth-child(1){ -moz-transform: rotate(35deg);
+    	-webkit-transform: rotate(35deg);
+    	-o-transform: rotate(35deg);
+    	transform: rotate(35deg);
+		}
+.reTask span:nth-child(2){  -moz-transform: rotate(45deg);
+    	-webkit-transform: rotate(45deg);
+    	-o-transform: rotate(45deg);
+    	transform: rotate(45deg);
+		}
+.reTask span:nth-child(3){  -moz-transform: rotate(55deg);
+    	-webkit-transform: rotate(55deg);
+    	-o-transform: rotate(55deg);
+    	transform: rotate(55deg);
+		}
+
+.reTask span:nth-child(4){  -moz-transform: rotate(65deg);
+    	-webkit-transform: rotate(65deg);
+    	-o-transform: rotate(65deg);
+    	transform: rotate(65deg);
+		}
+.reTask span:nth-child(5){  -moz-transform: rotate(75deg);
+    	-webkit-transform: rotate(75deg);
+    	-o-transform: rotate(75deg);
+    	transform: rotate(75deg);}		
+/*.banner p.complete{ position:absolute; top:14px; left:66%;}
+.banner p.complete img{ display:block; margin-left:-13px; width:107px;}
+.banner p.residual{position:absolute; bottom:45%; right:70%;}
+.banner p.residual img{ display:block; margin-right:-13px; width:107px;}
+*/
+
+
+.canvasBg{ background:url(../images/bannerbg.gif) no-repeat; background-size: 100% 100%; border-radius:50%; position:absolute; left:35%; top:30px;box-shadow: 0 0 80px #fff;}
+.canvasBg p{color:#000;  text-align:center;}
+.canvasBg p.allTask{ font-size:21px;padding:20px 10px 0;}
+.canvasBg p.allTaskNum{ font-size:49px; font-family:arial;}
+.indexList li{border:1px solid #ebebeb; border-left: none; border-top: none; width:24.4%; height: 80px;
+text-align: center; float:left; font-size: 12px; padding:10px 0 6px; position: relative;; }
+.indexList li img{ max-height: 50%; margin-bottom: 5px; margin-top: 10px;}
+.indexList li:nth-child(4){border-right: none;}
+.indexList li:nth-child(8){border-right: none;}
+.indexList li .tip{ display: block; font-size:10px; width: 14px; height: 41px; color: #fff; line-height: 15px; position: absolute; right: 2px; top: 0; background: url(../images/indexListBg.jpg) no-repeat; background-size: 14px auto;}
+.indexList li p{ font-size: 10px; color:#ccc; line-height: 1.2em; }
+.indexList li p.p1{ font-size: 16px; color: #333;padding-top: 9px;}
+.indexList li p.p2{ font-size: 13px; color: #333;}
+
+.planeBoxW{ margin-top: 10px;}
+.planeBoxW h1{ height: 40px; line-height: 40px; font-size: 18px; }
+.planeBoxW h1 a{color:#000; font-size: 12px; float: right;}
+.planeBoxW h1 a img{ width:15px; height: 15px; vertical-align: sub; margin-right: 4px;}
+.planeBox dl{ background:url(../images/planBgR.png) no-repeat right center; padding: 10px 0; background-size:15px auto;border-top:1px solid #b5b5b5;   }
+.planeBox dl1{ padding: 10px 0; background-size:15px auto;border-top:1px solid #b5b5b5;   }
+.planeBox dl1 dd p{ font-size: 12px; line-height: 1.5em;}
+.planeBox dl1 dd p.p1{ font-size: 12px; line-height: 3em;}
+.planeBox dl dt{ float: left; width: 10%;}
+.planeBox dl dt img{ max-width: 100%;}
+.planeBox dl dd{ float: left; padding-top: 2px; margin-left: 10px; display: inline;}
+.planeBox dl dd p{ font-size: 12px; line-height: 1.5em;}
+.planeBox dl dd p.p1{ font-size: 16px; line-height: 1em;}
+
+/*工作管理*/
+.search{ width:100%; text-align:center;}
+.search input{ font-family:"Microsoft Yahei";outline:none; width:94%; height: 35px; border-radius:40px; background:url(../images/magnifier.png) left center no-repeat #fff; background-size:30px auto; border:none; text-indent:40px;}
+
+/*工作计划*/
+.planeListBox li{border-bottom:8px solid #ebebeb; padding:10px 0;}
+.planeListBox li a.planeList{ display:block;background:url(../images/planeListBg.png) no-repeat right center; background-size:11px auto;}
+.planeListBox li h1{ font-size:17px; color:#ff6600; line-height:1.5em;}
+.planeListBox li p{ font-size:14px; line-height:1.5em; color:#666666;}
+.planeListBox li p span.img img{ width:12px; margin-right:4px; display:block;}
+.planeListBox li p span.img{vertical-align:middle; display:inline-block;}
+.planeListBox li p em{ color:#47c9ff; margin-left:15px;}
+.planeListBox li p span.author{ margin-left:10px; display:inline;}
+.planeListBox li p.p2{color:#162aeb;}
+.planeListBox li p.p2 span.number{color:#e91818; margin-left:15px;}
+.planeListBox li p.p2 span.number em{ font-size:16px; color:#e91818; font-weight:bold; margin-left:0;} 
+
+/*联系人管理*/
+.mainContentLinkman{ padding-bottom:105px; padding-top:110px; }
+
+.linkmanBox{background:#fff;background-attachment:fixed;}
+.linkmanBox .linkman{ padding:10px 0; display:block;border-bottom:1px solid #ebebeb;}
+.linkmanBox dl{background:url(../images/planeListBg.png) no-repeat right center; background-size:11px auto; }
+.linkmanBox dt{ float:left; margin-right:10px;}
+.linkmanBox dt img{width:45px;}
+.linkmanBox dd{ float:left;}
+.linkmanBox dd p{ font-size:14px; color:#333333;}
+.linkmanBox dd p.p1{ font-size:16px; line-height:1.5em;}
+.linkmanBox dd p.p1 em{ color:#999; font-size:12px;}
+
+.linkmanAdd{ height:45px; line-height:45px; font-size:16px;border-top:1px solid #ebebeb; text-align:center; position:fixed; bottom:0px; left:0; }
+.linkmanAdd img{  width:16px;}
+.linkmanAdd span{vertical-align:middle; margin-right:6px; display:inline-block;}
+
+
+.linkHeader{ position:fixed; top:0; left:0;}
+.linkSearch{ position:fixed; top:60px; left:0; background:#ebebeb; width:100%; padding-bottom:10px;}
+
+/*我的审批*/
+.myApprovalTab li{ float:left; border-right:1px solid #999; height:40px; line-height:40px; width:49.8%; text-align:center; cursor:pointer}
+.myApprovalTab li:nth-child(2){border-right: none;}
+.myApprovalTab li a{color:#999;}
+.myApprovalTab li.cur{ border-bottom:1px solid #ff6600;}
+.myApprovalTab li.cur a{color:#333;}
+
+/*全部任务*/
+.taskBox li{ float:left;height:30px; line-height:30px; padding:5px 0; width:23%; text-align:center; background:url(../images/taskBoxbg.png) right center no-repeat;}
+.taskBox li a{text-align:center;color:#999;}
+.taskBox li.cur a{border-bottom:1px solid #ff6600;color:#333;}
+.taskBox select{height:30px; width:100%;border:none; text-indent:15px;color:#999; font-size:20px; font-family:"Microsoft Yahei"; outline:none;}
+
+/*工作计划详情*/
+.detailTop h1{ font-size:18px;color:#333;line-height:1.5em; margin-bottom:4px;}
+.detailTop h1 em{ font-size:14px;color:#666; margin-left:10px;}
+.detailTop p{color:#999;font-size:13px;line-height:1.5em;}
+.detailTop p.address{color:#69a5ff;font-size:15px;}
+.detailTop p.address img{ vertical-align:middle; width:12px; vertical-align:middle; margin-right:4px;}
+.detailTop p.particMo{color:#666;font-size:15px;}
+.detailTop h1 a{ float:right;}
+.detailTop h1 a img{ width:15px; vertical-align:middle;}
+
+.planDetailDate p{ border-bottom:1px solid #b5b5b5; padding-bottom:2px; height:35px; line-height:35px; color:#666; font-size:14px;}
+.planDetailDate p input{height:35px; text-align:right; color:#666; border:none; outline:none; margin-left:10px; float:right;font-family:"Microsoft Yahei";}
+.planDetailDate p span.taskNum{ float:right;}
+.planDetailDate p.blue{ color:#70a9ff;}
+.planDetailDate p.red{ color:#f50f2a;}
+.planDetailDate p:last-child{ border-bottom:none; }
+
+.DetailBot h1{ height:35px; line-height:35px; font-size:15px;border-bottom:1px solid #b5b5b5; margin-bottom:5px;}
+.DetailBot h1 a{ float:left;width: 100%;}
+.DetailBot h1 a img{ width:15px; vertical-align:middle; float: right; padding-top: 5px;}
+.DetailBot p{ font-size:13px; line-height:1.5em;}
+.DetailBot p input{height:25px; color:#999; border:none; outline:none; margin-left:10px; font-family:"Microsoft Yahei"; width:60%;}
+.orgCri{ width:10px; height:10px; border-radius:50%; display:inline-block; background:#ff6600; margin-right:4px; line-height:1.5em;}
+.DetailBotCont{ padding:5px 14px;}
+.DetailBotCont input{ width:100%; height:30px;font-family:"Microsoft Yahei";font-size:12px; border:none; outline:none;}
+.DetailBot textarea{ width:90%; height: 70px; line-height:1.5em; padding:5px;font-family:"Microsoft Yahei";font-size:12px; border:none; outline:none;}
+.DetailBotContBtn{ font-size:11px; color:#69a5ff; display:inline-block; float:right;}
+
+.DetailBotBtn1{ text-align:center; margin:8px 0 20px;}
+.DetailBotBtn1 a{ display:inline-block; width:50%; background:#ff6600; font-size:19px; color:#fff; height:36px; line-height:36px;}
+.DetailBotBtn2 a{width:40%; margin:0 3%;}
+
+/*任务详情*/
+.taskDetailDate p{ font-size:15px;}
+.DetailBot p.taskDetail{ font-size:12px;}
+/*完善意向信息*/
+.intentDetail p{ border-bottom:1px solid #b5b5b5; padding-bottom:2px; height:35px; line-height:35px; color:#666; font-size:15px;}
+.intentDetail p input{height:35px; color:#999; border:none; outline:none; margin-left:13px; font-family:"Microsoft Yahei"; width:45%;}
+.intentDetail p select{height:35px; color:#999; border:none; outline:none; margin-left:10px; font-family:"Microsoft Yahei"; width:45%;}
+.DetailBotLine p{border-bottom:1px solid #b5b5b5; }
+.DetailBotLine p input{ height:35px;}
+
+.DetailBot p.DetailBotIntentDe{ line-height:25px;}
+
+/*审核*/
+p.intentInput input{ width:100%; margin-left:0;}
+/*计划新增*/
+.planAddDate{ background:url(../images/planAddDate.png) no-repeat right center;}
+.planAddJiao{ background:url(../images/planAddJiao.png) no-repeat right center;margin-left:13px;}
+.DetailBot p input.DetailBotAdd{ margin-left:14px; width:68%;}
+.intentDetail p input.taskAddInput{ width:38%;}
+.intentDetail p span.taskAddLine{ font-size:22px;}
+.intentDetail p:last-child{ border-bottom:none; }
+
+/*登陆*/
+.loginBoxW{ position:relative; width:100%; background:url(../images/loginBg.jpg) no-repeat; background-size:100% 100%;}
+
+.loginPhoto{ width:35%; border:2px solid #fff;  border-radius:100% 100%; overflow:hidden; margin:0 auto; margin-bottom:30px; max-width:200px; max-height:200px;}
+.loginPhoto img{ width:100%; height:100%;display:block;}
+
+.login{ width:100%;}
+.login label{ display:inline-block;margin:0 8%;width:84%; position:relative; background:#fff; text-align:right; }
+.login label.user_name{border-radius:6px 6px 0 0 ; border-bottom:1px solid #b5b5b5; background-size: 30px auto; }
+.login label.ueer_key{border-radius: 0 0 6px 6px;}
+.login label img{ position:absolute; left:5%; top:12px; width:25px;}
+.login input{ width:83%; border:none; font-size:12px; line-height:50px; background:none; outline:none; color:#999;}
+
+.loginBtn{ text-align:center; margin-top:30px;}
+.loginBtn a{ width:40%;font-size:20px; line-height:36px; text-align:center; color:#441b74; display:inline-block;background:#fff; opacity: 0.6;filter: progid:DXImageTransform.Microsoft.Alpha(opacity=60);}
+
+.forget{ width:84%; padding:0 8%;display:inline-block; color:#fff; text-align:right; font-size:10px;  margin-top:10px;}
+@media screen and (min-width: 330px) and (max-width: 450px){
+
+.canvasBg p.allTask{ font-size:25px;}
+.canvasBg p.allTaskNum{ font-size:67px;}
+}
+@media screen and (min-width: 451px) and (max-width: 1024px){
+#canvas-holder{ width:200px; height: 200px;}
+.banner p.complete{ position:absolute; top:14px; left:58%;}
+.banner p.residual{position:absolute; bottom:45%; right:64%;}
+.canvasBg p.allTask{ font-size:32px; padding:30px 10px 0;}
+.canvasBg p.allTaskNum{ font-size:80px;}
+}
+/*数据统计*/
+.sel1{width:99.6%; font-size: 16px; font-family: "微软雅黑"; height: 50px; line-height: 50px;border-left: none; border-right: none;border-bottom: none; background: #fff;}
+.sel1:focus{outline: none;}
+.sel1 option{width: 99.6%;}
+.fil1{width: 100%;height: 50px;}
+.fil1 .sel2{width: 49.8%; height: 50px; float: left; font-size: 16px; font-family: "微软雅黑";  border-left: none;}
+.fil1 .sel2 option{margin: 0 auto;}
+.fil1 .sel2:focus{outline: none;}
+.fil1 .sel2:last-child{border-right: none;}
+.qdcx{ color: #999;font-size: 16px; font-family: "微软雅黑"; display: block; line-height: 50px; text-align: right; text-decoration: none; padding-right:24px;  }
+.chart_wrap{ width:100%; max-height:80%;background: #fff; border-top: 10px solid #ebebeb; width:100%; height: auto;}
+.chart_wrap img{ border: none; width: 100%; }
+/*员工详情*/
+.yginfo{padding: 10px; background: #fff;}
+.yginfo h1{ line-height: 56px; }
+.yginfo span{ display: block; font-size: 16px; line-height: 32px;}
+.yginfo span:first-of-type{color: #69a5ff;}
+.yginfo span:nth-of-type(2){ background: url(../images/icon_tel.png) 0 5px no-repeat; background-size: 20px 20px; text-indent: 30px; }
+.yginfo span:nth-of-type(3){ background: url(../images/icon_xf.png) 0 7px  no-repeat; background-size: 20px 16px; text-indent: 30px; }
+.ygdetail_list{}
+.ygdetail_list li{margin-top: 10px; text-indent: 10px; background: #fff; line-height: 60px;}
+.ygdetail_list li a{font-size: 18px; color: #333; display: block; background: url(../images/icon_jt.png) 98% center no-repeat; text-decoration: none;}
+.ygdetail_list li a span{ width: 25px; padding:0 5px;text-align:center; font-size: 14px; display:inline-block; text-indent: 0px; background: url(../images/icon_qp.png) center no-repeat; color: #fff;}

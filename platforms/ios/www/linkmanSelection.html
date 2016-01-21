@@ -1,0 +1,94 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<title>贯通综合管理系统-工作管理-联系人管理</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="js/frozen.css">
+<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+		<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+<body>
+<header class="header warp100 clearfix linkHeader">
+    <a class="headerL" href="#2"><img src="images/return.png"></a>
+    联系人管理
+    <a class="headerR" href="#2" id="wancheng">确认</a>
+</header>
+<div class="linkSearch">
+    <!-- <div class="search marginTop10">
+        <input type="text" placeholder="输入关键词查找联系人">
+    </div> -->
+</div>    
+<div class="mainContentLinkman">
+	
+     <div class="ui-form ui-border-t" id="management_list">
+          
+     </div>
+    
+    <div class="linkmanAdd warp100">
+    	<span><img src="images/linkmanAdd.png"></span>添加联系人
+    </div>
+</div>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript">
+var userId =localStorage.getItem("id");
+$.ajax({
+	url: 'http://'+serverIp+'/gtims/linkman/list.do?userId='+userId,
+	async: false,
+	data:{'start':'0','end':'10'},
+	dataType: 'json',
+	crossDomain: true,
+	success: function(data) {
+		var result = '';
+		var address = '';
+		for(var i=0;i<data.data.length;i++){
+			address=data.data[i].address;
+			address.text().substring(0,5)+"...";
+			swal(address);
+			result += '<ul class="ui-list ui-list-text ui-list-checkbox ui-border-b"><li class="ui-border-t"><label class="ui-checkbox"><input type="checkbox" value="'+data.data[i].id+'" name="checkids"/></label><p><a href="#2" class="linkman"><img src="images/linkman.png"></a><div style="margin-left:0px;"><p class="p1  ui-nowrap ui-whitespace" style=" color:#000;">'+data.data[i].name+'<em>（'+address+'）</em></p><p style=" color:#000;">'+data.data[i].phoneMobile+'</p></div></p></li></ul>';
+		}
+$('#management_list').append(result);
+
+$('#searchName').blur(function(){
+var searchName = $('#searchName').val();
+$.ajax({
+	url: 'http://'+ serverIp +'/gtims/linkman/list.do?userId='+userId,
+	async: false,
+	data:{'start':'0','end':'10'},
+	dataType: 'json',
+	crossDomain: true,
+	success: function(data) {
+		//alert(data.data.length);
+		var result = '';
+		for(var i=0;i<data.data.length;i++){
+			result +='<a href="workManagelinkmanDetail.html?id='+data.data[i].id+'" class="linkman"><dl class="clearfix warp90"><dt><img src="images/linkman.png"></dt>';
+			result +='<dd><p class="p1">'+data.data[i].name+'<em>（'+data.data[i].address+'）</em></p></a>';
+			result +='<p>'+data.data[i].phoneMobile+'</p></dd></dl></a>';
+		}
+	 $('#management_list').empty().append(result)
+}
+})
+})
+	},
+	error:function(msg){
+		swal("访问出错！");
+	}
+});
+
+$('#wancheng').on('click',function(){
+	var chkvalue ='';
+	 $('input[name="checkids"]:checked').each(function(){//遍历每一个名字为checkids的复选框，其中选中的执行函数      
+		chkvalue+=$(this).val()+","; 
+	 });
+		chkvalue=chkvalue.substring(0,chkvalue.length-1);
+	if(chkvalue!=''){
+				location.href='http://'+serverIp+'/gtims/linkman/linkmanlist.do?ids='+chkvalue;
+	}
+})
+</script>
+</body>
+</html>

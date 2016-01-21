@@ -1,0 +1,149 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<title>贯通综合管理系统-统计管理— 城市员工统计</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+<body>
+<header class="header warp100 clearfix">
+    <a class="headerL" href="javascript:history.go(-1);"><img src="images/return.png"></a>
+    员工统计
+</header>
+<form action="" method="" class="main_form mt50">
+<div class="mainContent">
+	<div class="warp100 marginTop10">
+    <!--top begin-->
+    <!-- <select class="sel1" id="projectStatus">
+		<option value="1">城市</option>
+		<option value="2">岗位</option>
+    </select> -->
+    <div class="line"></div>
+    <!-- <div class="fil1">
+        <select class="sel2" id="year">
+            
+        </select>
+        <select class="sel2" id="term">
+        </select>
+    </div> -->
+    <!-- <a class="qdcx" onclick="submit()">确定查询</a> -->
+    <!--top end-->
+   
+    <div id="main" style="height:450px;width:100%;align:center;padding-top:0px;"></div>
+    </div>
+</div>
+
+</form>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script src="js/echarts-all.js"></script>
+<script type="text/javascript" src="js/initInfo.js"></script>
+<script type="text/javascript">
+			//intiBaseByType(serverIp,"sp","staffpost","/report/listName.do");//planStatus
+			var userId =localStorage.getItem("id");
+			var uId =localStorage.getItem("id");
+   			var code="";
+   			/* 
+   			function submit(){
+   				var status=$("#projectStatus").val();
+   	   			if(status=="1"){
+	   	   			$.ajax({
+	       				url: 'http://'+ serverIp +'/gtims/report/findstaffreport.do',
+	       				async: false,
+	       				data:{},
+	       				dataType: 'json',
+	       				crossDomain: true,
+	       				success: function(data) {
+	       					country(data)
+	       				}
+	       				
+	       			})
+   	   			}else if(status=="2"){
+	   	   			$.ajax({
+	                	url:'http://'+ serverIp +'/gtims/report/findCityStaffReport.do',
+	                	async: false,
+	                	data:{code:code},
+	                	dataType: 'json',
+	       				crossDomain: true,
+	       				success: function(data) {
+	       					post(data);
+	       				}
+	                })
+   	   			}  				
+   			}
+   			 */
+   			$.ajax({
+       				url: 'http://'+ serverIp +'/gtims/report/findUserCode.do',
+       				async: false,
+       				data:{uId:uId},
+       				dataType: 'json',
+       				crossDomain: true,
+       				success: function(data) {
+       					code=data.code;
+       				}
+       				
+       			})
+   			
+   				
+                	$.ajax({
+	                	url:'http://'+ serverIp +'/gtims/report/findCityStaffReport.do',
+	                	async: false,
+	                	data:{code:code},
+	                	dataType: 'json',
+           				crossDomain: true,
+           				success: function(data) {
+           					city(data);
+           				}
+	                })
+            
+   			
+   		 function city(data){
+			var myChart = echarts.init(document.getElementById('main'));
+             option = {
+             	    title : {
+             	    },
+             	    tooltip : {
+             	        trigger: 'item',
+             	        formatter: "{a} <br/>{b} : {c}"
+             	    },
+             	    textStyle:{
+                         fontSize:20,
+                     },
+             	    toolbox: {
+             	        show : true,
+             	        feature : {
+             	            mark : {show: true},
+             	            dataView : {show: true, readOnly: false},
+             	            restore : {show: true},
+             	            saveAsImage : {show: true}
+             	        }
+                     
+             	    },
+             	    calculable : true,
+             	    series : [
+             	        {
+             	            name:'饼图',
+             	            type:'pie',
+             	            radius : '60%',
+             	            center: ['50%', '35%'],
+             	            data:data
+             	        }
+             	    ]
+             	};
+     
+             // 为echarts对象加载数据 
+             myChart.setOption(option); 
+             
+             myChart.on('click', function (param) {
+             		location.href='workManageUser.html?code='+code+'&post='+urlencode(param.name);
+	     		 });
+             }
+   		 
+    </script>
+</body>
+</html>

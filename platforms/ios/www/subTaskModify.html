@@ -1,0 +1,372 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<title>贯通综合管理系统-全部任务—子任务修改</title>
+<link href="css/mui.min.css" rel="stylesheet" />
+<link href="css/mui.indexedlist.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/app.css" />
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<!-- <link href="css/common.css" rel="stylesheet" type="text/css" /> -->
+
+<link href="css/mobiscroll.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+		<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+<style>
+.mui-bar {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+#done.mui-disabled {
+	color: gray;
+}
+
+.mui-table-view-cell.mui-checkbox input[type=checkbox],.mui-table-view-cell.mui-radio input[type=radio] {
+	top: 16px;
+}
+</style>
+</head>
+<body>
+<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+	<!--侧滑菜单部分-->
+	<aside id="offCanvasSide" class="  mui-off-canvas-right" style="background: none">
+			<header class="mui-bar mui-bar-nav">
+				<a class=" mui-icon mui-icon-left-nav mui-pull-left" id="offCanvasHide"></a>
+				<span id="zhHead"></span>
+			</header>	
+			<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+				<div class="mui-scroll">				
+					<div class="mui-content">
+						<div id='list' class="mui-indexed-list">
+							<div class="mui-indexed-list-search mui-input-row mui-search">
+								<input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="请输入搜索内容">
+							</div>
+							<div class="mui-indexed-list-alert"></div>
+							<div class="mui-indexed-list-inner">
+								<div class="mui-indexed-list-empty-alert">没有数据</div>
+								<ul class="mui-table-view" id ="ryList">
+									<li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</aside>
+		<div class="mui-inner-wrap">
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">子任务修改</h1>
+    <!-- <a class="headerL" href="javascript:history.go(-1);"><img src="images/return.png"></a>
+   子任务修改 -->
+</header>
+<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div class="mui-content-padded">
+<form class="mui-input-group" id="addJhForm">
+            <div class="mui-input-row">
+               <label> <span style="color:red">*</span> 任务名称</label>
+                <input type="text" placeholder="请输入名称" value="" name="goalname" id="name" validate="*" errorMsg="任务名称必填">
+            </div>
+            <div class="mui-input-row">
+              <label><span style="color:red">*</span> 任务类型</label>
+                <select value="" name="goalClass" id="goalClass"  validate="*" errorMsg="任务类型必填">
+                	<option>请选择类型</option>
+                </select>
+                <input type="hidden" type="text" placeholder="" name="gtid" id="gtid"/> 
+                <input type="hidden" type="text" placeholder="" name="goalClass" id="goalClass"/> 
+            </div>
+            <div class="mui-input-row">
+               <label> <span style="color:red">*</span> 任务状态</label>
+                <select value="" name="goalStatus"  id="goalStatus" validate="*" errorMsg="子任务必选">
+                	<option>请选择状态</option>
+                 </select>
+                 <input type="hidden" type="text" placeholder="" name="goalStatus" id="goalStatus"/> 
+                <input type="hidden" type="text" placeholder="" name="gStatusId" id="gStatusId"/>
+            </div>
+            <!-- <div class="mui-input-row">
+                <label><span style="color:red">*</span> 任务周期</label>
+                 <input type="text" value=""  id="zhouqi" validate="*" errorMsg="任务周期必填" placeholder="请输入周期">
+            </div> -->
+            <div class="mui-input-row">
+                <label><span style="color:red">*</span> 开始时间</label>
+                <input type="text" class="taskAddInput kbtn begin" id="startDate" placeholder="开始日期">
+            </div>
+             <div class="mui-input-row">
+              <label><span style="color:red">*</span> 结束时间</label>
+                <input type="text" class="taskAddInput kbtn end" id="endDate" validate="d" errorMsg="结束时间不能小于开始时间" placeholder="结束日期">
+            </div>
+            <div class="mui-input-row">
+              <label> <span style="color:red">*</span> 任务数量</label>
+                <input type="text" placeholder="请输入数量" placeholder="" id="completionCriteria" validate="n" errorMsg="任务数据必须是整数">
+            </div>
+        	<!-- <h1>任务描述</h1>
+            <P><span class="orgCri"></span>负&nbsp;责&nbsp;人
+            	<select id="chargerNameId" style="width:60%;" value="" name="chargerNameId" class="select" datatype="">
+				</select>
+				<input type="hidden" type="text" placeholder="" name="chargerNameId" id="chargerNameId"/> 
+                <input type="hidden" type="text" placeholder="" name="chargerName" id="chargerName"/> 
+            </P> -->
+            <div class="mui-input-row" id="offCanvasShowFZR">
+	            <label><span style="color:red">*&nbsp;</span>负&nbsp;责&nbsp;人</label>
+	            <input type="text" class="mui-input  " id="chargerName" value="" readonly="readonly" placeholder="请选择联系人" validate="*" errorMsg="联系人必填">
+	            <input id="chargerNameId" type="hidden"  name="chargerNameId"  value="" />
+	            <!-- <a class="mui-navigate-right" id="offCanvasShowFZR"  /></a> -->
+		 		</div>
+		 <div class="mui-input-row">
+            <label><span style="color:red"></span>任务描述</label>
+        </div>
+            <textarea placeholder="请输入详细任务描述" value="" id="description"></textarea>
+   <!--  <div class="DetailBotBtn1 DetailBotBtn2" >
+    	<a href=workManageAllTask.html class="back header_button">取消修改</a>
+        <a href="javascript:void(0);" class="newproject header_button" id="wancheng">确认修改</a>
+    </div> -->
+    <div class="mui-button-row" style="height:57px">
+		<div class="DetailBotBtn1 DetailBotBtn2">       
+			<a  class="back header_button  mui-action-back">取消修改</a>
+			<a href="javascript:void(0);" class="newproject header_button" id="tijiao">确认修改</a>
+		</div>
+	</div>
+<div id="datePlugin"></div>
+</form>
+</div></div></div></div></div>
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/mui.indexedlist.js"></script>
+<script src="js/app.js"></script>
+<script type="text/javascript" src="js/jquery-1.9.1.js" ></script>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/initInfo.js"></script>
+<script type="text/javascript" src="js/date.js" ></script>
+<script type="text/javascript" src="js/iscroll.js" ></script>
+<script src="js/mobiscroll.min.js"></script>
+<link href="css/mobiscroll.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+$(function(){
+	$('#startDate').mobiscroll().datetime({theme: 'android-holo-light', lang: 'zh',display: 'bottom'});
+	$('#endDate').mobiscroll().datetime({theme: 'android-holo-light', lang: 'zh',display: 'bottom'});
+      
+});
+intiBaseDic(serverIp,"pid","chargerNameId","/user/listName.do");
+intiBaseByType(serverIp,"gtid","goalClass","/dataDir/listName.do","mblx");//项目类别的列表
+intiBaseByType(serverIp,"gStatusId","goalStatus","/dataDir/listName.do","jhzt");
+mui.init();
+//$(function () {});
+		mui.ready(function() {
+		intiBaseByType(serverIp,"sid","currentIntent","/dataDir/listName.do","yxz");
+  var userId =localStorage.getItem("id");
+		$('#chargerNameId').val(userId);
+		//getxmList();
+	  //侧滑容器父节点
+		var offCanvasWrapper = mui('#offCanvasWrapper');
+		 //主界面容器
+		var offCanvasInner = offCanvasWrapper[0].querySelector('.mui-inner-wrap');
+		 //菜单容器
+		var offCanvasSide = document.getElementById("offCanvasSide");
+		if (!mui.os.android) {
+			var spans = document.querySelectorAll('.android-only');
+			for (var i = 0, len = spans.length; i < len; i++) {
+				spans[i].style.display = "none";
+			}
+		}
+		//主界面‘显示侧滑菜单’按钮的点击事件 ---负责人
+		document.getElementById('offCanvasShowFZR').addEventListener('tap', function() {
+			var title='<h1 class="mui-title">选择负责人</h1>'+
+			'<a id="done" class="mui-btn mui-btn-link mui-pull-right mui-btn-blue mui-disabled">完成</a>';
+			document.querySelector('#zhHead').innerHTML = title;
+			var goalClass = $("#goalClass option:selected").val();
+			if(goalClass==''){
+				swal("请选择任务类型！");
+			}else if(goalClass==7){//个人目标时
+				getFZRList();
+				offCanvasWrapper.offCanvas('show');
+			}else{//团队目标时 
+				getZZJGList();
+				offCanvasWrapper.offCanvas('show');
+			} 
+			
+			//offCanvasWrapper.offCanvas('show');
+			var header = document.querySelector('header.mui-bar');
+			var list = document.getElementById('list');
+			var done = document.getElementById('done');
+			//calc hieght
+			//list.style.height =(document.body.offsetHeight - header.offsetHeight) + 'px';
+			list.style.height = '100%';
+			//create
+			window.indexedList = new mui.IndexedList(list);
+			//done event
+			done.addEventListener('tap', function() {
+				var projectId = $("input[name='radio']:checked").val();
+				var projectName = $("input[name='radio']:checked").attr("ryname");
+				if (projectId > 0) {
+				document.getElementById('chargerName').value=projectName;
+				document.getElementById('chargerNameId').value=projectId;
+				offCanvasWrapper.offCanvas('close');
+				 } else {
+					mui.swal('你没选择任务');
+				}
+				
+			}, false);
+			mui('.mui-indexed-list-inner').on('change', 'input', function() {
+				var count = list.querySelectorAll('input[type="radio"]:checked').length;
+				var value = count ? "完成(" + count + ")" : "完成";
+				done.innerHTML = value;
+				//mui.alert('你选择了: ' + radiovalue );
+				if (count) {
+					if (done.classList.contains("mui-disabled")) {
+						done.classList.remove("mui-disabled");
+					}
+				} else {
+					if (!done.classList.contains("mui-disabled")) {
+						done.classList.add("mui-disabled");
+					}
+				}
+			});
+		});
+		 //菜单界面，‘关闭侧滑菜单’按钮的点击事件//
+		document.getElementById('offCanvasHide').addEventListener('tap', function() {
+			offCanvasWrapper.offCanvas('close');
+		});
+
+
+		
+		var id = location.href.split('?')[1].split('=')[1];
+
+		$.ajax({
+			type:'post',
+			url: 'http://'+serverIp+'/gtims/goal/editForPhone.do',
+			data: {'id':id},
+			dataType: 'json',
+			crossDomain: true,	
+			success: function(data) {
+				$('#name').val(data.name);
+				$('#description').val(data.description);
+				$('#goalClass').val(data.goalClass);
+				$('#goalType').val(data.goalType);
+				$('#chargerName').val(data.chargerNameShow);
+				$('#chargerNameId').val(data.chargerName);
+				$('#startDate').val(data.startDate);
+				$('#endDate').val(data.endDate);
+				$('#goalStatus').val(data.goalStatus);
+				$('#goalStatusShow').val(data.goalStatusShow);
+				$('#completionCriteria').val(data.completionCriteria);
+				$('#note').val(data.note);
+				$('#zhouqi').val(data.zhouqi);
+
+			},
+			error:function(msg){
+				swal("访问出错！");
+			}
+		});
+
+
+		var tjButton = document.getElementById('tijiao');
+		tjButton.addEventListener('tap', function(event) {
+			var userId =localStorage.getItem("id");
+			//validateForm页面验证
+			var result = true;
+			$("form input[type='text']").each(function(){
+				if($(this).attr("validate")!=null&&!validateForm($(this))){
+					result = false;
+				}
+			});
+			$("select").each(function(){
+				if($(this).attr("validate")!=null&&!validateForm($(this))){
+					result = false;
+				}
+			});
+			if(result){
+			$.ajax({
+				type:'post',
+				url: 'http://'+serverIp+'/gtims/goal/updateForPhone.do',
+				data: {'modifyPersonId':userId,'name':$('#name').val(),'description':$('#description').val(),'goalClass':$('#goalClass').val(),'chargerName':$('#chargerNameId').val(),'startDate':$('#startDate').val(),'endDate':$('#endDate').val(),'completionCriteria':$('#completionCriteria').val(),'id':id,/* 'zhouqi':$('#zhouqi').val(), */'goalStatus':$('#goalStatus').val()},
+				dataType: 'json',
+				crossDomain: true,	
+				success: function(data) {
+					location.href='workManageAllTask.html';
+				},
+				error:function(msg){
+					swal("访问出错！");
+				}
+			});
+			}
+			})
+			
+			
+			//participants.value = userName ;
+			 //主界面和侧滑菜单界面均支持区域滚动；
+					mui('#offCanvasSideScroll').scroll();
+					mui('#offCanvasContentScroll').scroll();
+					 //实现ios平台原生侧滑关闭页面；
+					if (mui.os.plus && mui.os.ios) {
+						mui.plusReady(function() { //5+ iOS暂时无法屏蔽popGesture时传递touch事件,直接屏蔽popGesture功能
+							plus.webview.currentWebview().setStyle({
+								'popGesture': 'none'
+							});
+						});
+					}
+					
+					});
+		//查询负责人
+		function getFZRList() {
+			var chargerNameId = $('#chargerNameId').val();
+			$.ajax({
+				url: 'http://'+serverIp+'/gtims/user/findSelectMember.do?userId='+localStorage.getItem("id"),
+				async: false,
+				data:{'start':'0','end':'10000'},
+				dataType: 'json',
+				crossDomain: true,
+				success: function(data) {
+				 var html = "",obj=data.data;
+					for (var i = 0; i < obj.length; i++) {
+					    html+='<li class="mui-table-view-cell mui-indexed-list-item mui-radio mui-media mui-left">'+
+						'<input type="radio"  name="radio"  value="'+obj[i].id+'" ryname="'+obj[i].nickname+'"  ';
+						if(chargerNameId==obj[i].id){
+							html+=' checked="checked" ';
+						}				
+						html+='/><div class="mui-media-body mui-ellipsis">'+obj[i].nickname+'('+obj[i].orgIdShow+')'+
+											'<p class="mui-ellipsis">'+obj[i].phone+'</p>'+
+										'</div></li>';
+					}
+				document.querySelector('#ryList').innerHTML = html;
+			}
+			});
+					}
+		
+		//查询组织机构 
+		function getZZJGList() {
+			var chargerNameId = $('#chargerNameId').val();
+			$.ajax({
+				url: 'http://'+serverIp+'/gtims/org/allGroupForPhone.do?userId='+localStorage.getItem("id")+'&orgId='+localStorage.getItem("orgId"),
+				async: false,
+				data:{'start':'0','end':'10000'},
+				dataType: 'json',
+				crossDomain: true,
+				success: function(data) {
+				 var html = "",obj=data.data;
+					for (var i = 0; i < obj.length; i++) {
+					    html+='<li class="mui-table-view-cell mui-indexed-list-item mui-radio mui-media mui-left">'+
+						'<input type="radio"  name="radio"  value="'+obj[i].id+'" ryname="'+obj[i].name+'"  ';
+						if(chargerNameId==obj[i].id){
+							html+=' checked="checked" ';
+						}			
+						html+='/><div class="mui-media-body mui-ellipsis">'+obj[i].name+'('+obj[i].code+')'+
+											'<p class="mui-ellipsis">'+obj[i].note+'</p>'+
+										'</div></li>';
+					}
+				document.querySelector('#ryList').innerHTML = html;
+			}
+			});
+					}
+</script>
+</body>
+</html>

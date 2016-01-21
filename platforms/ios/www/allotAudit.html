@@ -1,0 +1,123 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<title>贯通综合管理系统-工作管理—审核任务分配</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+
+<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+
+</head>
+<body>
+<header class="header warp100 clearfix">
+    <a class="headerL" href="javascript:history.go(-1);"><img src="images/return.png"></a>
+<div id="headTitle">审核任务分配</div>
+    <a class="headerR" href="#2"></a>
+</header>
+<div class="mainContent">
+	<!-- <div class="search marginTop10">
+    	<input type="text" placeholder="输入关键词查找您的任务">
+    </div> -->
+	<ul class="planeListBox warp100 marginTop10" id="management_list">
+    </ul>
+    
+</div>
+<script type="text/javascript">
+</script>
+<script type="text/javascript" src="js/index.js"></script>
+<script>
+		var userId =localStorage.getItem("id");
+		var orgId =localStorage.getItem("orgId");
+		var status = location.href.split('?')[1].split('&')[1].split('=')[1];
+		//查询要分配资源人员信息 
+		$.ajax({
+			
+			url: 'http://'+ serverIp +'/gtims/user/sameDeptUsers.do?userId='+userId+'&orgId='+orgId,
+			async: false,
+			data:{'start':'0','end':'10'},
+			dataType: 'json',
+			crossDomain: true,
+			success: function(data) {
+				//alert(data.data.length);
+				var result = '';
+				for(var i=0;i<data.data.length;i++){
+					result +='<li><h1 style=" padding-left:20px;">'+data.data[i].nickname+'</h1>'+
+							 '<p style=" padding-left:20px;">电子邮件 ：'+data.data[i].email+'</p><p style=" padding-left:20px;">移动电话 ：'+data.data[i].phone+
+							 '</p><input type="button" onclick="allot(' + data.data[i].id + ','+ data.data[i].id + ', this);" value="分配" style="background: #fff; border:2px solid #CCC; padding:3px; border-radius: 7px; float:right; margin-right:20px; margin-top:-40px;"></li>'
+				}
+     		$('#management_list').prepend(result);
+
+     		$('#management_list').delegate('.items','click',function(){
+	
+				if($(this).children('.manage_show').is(':visible') == false){
+					$(this).children('.manage_show').show();
+					}else{
+						$(this).children('.manage_show').hide();
+						};
+				$(this).siblings().children('.manage_show').hide();
+				
+				});
+			},
+			error:function(msg){
+				swal("访问出错！");
+			}
+		});
+		
+	
+	//搜索功能
+	$('#searchName').blur(function(){
+	var searchName = $('#searchName').val();
+	swal(searchName);
+	$.ajax({
+		url: 'http://'+ serverIp +'/gtims/user/sameDeptUsers.do?userId='+userId+'&name='+searchName+'&orgId='+orgId,
+		async: false,
+		data:{'start':'0','end':'10'},
+		dataType: 'json',
+		crossDomain: true,
+		success: function(data) {
+			//alert(data.data.length);
+			var result = '';
+			for(var i=0;i<data.data.length;i++){
+				result += '<li class="items"><span class="list_manage">'+data.data[i].name+'</span><div class="manage_show bort"><ul class="main_form_list_1"><li><a href="intentDetail.html?id='+data.data[i].id+'"><label>'+'项目名称'+'</label><span  class="w70" >'+data.data[i].name+'</span></a></li>'+'<li><label>'+'项目经理'+'</label><span  class="w70" >'+data.data[i].projectManagerShow+'</span></li>'+'<li><label>'+'项目类型'+'</label><span  class="w70" >'+data.data[i].projectTypeShow+'</span></li>'+'<li><label>'+'客户'+'</label><span  class="w70" >'+data.data[i].otherCompany+'</span></li>'+'<li><label>'+'对方负责人'+'</label><span class="w70" >'+data.data[i].otherManager+'</span></li>'+'<li><label>'+'站点名称'+'</label><span class="w70" >'+data.data[i].siteName+'</span></li>'+'<li><label>'+'项目状态'+'</label><span class="w70" >'+data.data[i].projectStatusShow+'</span></li>'+'</ul>'+'<a href="projectedit.html?id='+data.data[i].id+'" class="amend">'+'修改'+'</a><a href="javascript:void(0);" onclick="subtask(' + data.data[i].id + ')" class="amend">'+'提交审核'+'</a></li>';
+		}
+		 $('.management_list').empty().append(result)
+	}
+	})
+	})
+//搜索方法结束
+
+// 分配任务
+		function allot(auditorId,status, obj){
+			var taskId = location.href.split('?')[1].split('&')[0].split('=')[1];
+			var status = location.href.split('?')[1].split('&')[1].split('=')[1];
+			$.ajax({
+				url: 'http://'+ serverIp +'/gtims/taskAllot/insert.do?status='+status+'',
+				type:'post',
+				async: false,
+				data:{'taskId':taskId,'auditorId': auditorId},
+				dataType: 'json',
+				crossDomain: true,
+				success: function(data) {
+					swal({
+						  title: data.msg,
+						  confirmButtonText: "ok"
+						}, function(){
+							$(obj).parents(".items").css("background-color","#ff9900");
+							window.location="workManageMyApproval.html";
+						});
+				},
+				error:function(msg){
+					swal('分配失败!');
+					console.log(msg);
+				}
+			});
+		}
+
+</script>
+</body>
+</html>

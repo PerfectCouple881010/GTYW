@@ -1,0 +1,175 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+<title>贯通综合管理系统-工作管理—协议详情</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+<body>
+	<header class="header warp100 clearfix" id='back'>
+		
+		 协议详情 
+	</header>
+	<div class="mainContent">
+		<div class="warp100 marginTop10">
+			<div class="detailTop borderBot10">
+				<h1>
+					<span id="name"></span><em>(协议状态:<span id="dealStatusName"></span>)
+					</em>
+				</h1>
+			</div>
+			<div class="planDetailDate borderBot10">
+				<p class="clearfix">
+					所属会谈<span class="taskNum" id="talkContentName"></span>
+				</p>
+				<p class="clearfix" onclick="toproject()">
+					所属机会<span class="taskNum" id="projectName"></span>
+				</p>
+				<p class="clearfix">
+					协议类型<span class="taskNum" id="dealType"></span>
+				</p>
+			</div>
+			<div class="planDetailDate borderBot10">
+				<p class="clearfix">
+					草 拟 人<span class="taskNum" id="dealWrite"></span>
+				</p>
+				<p class="clearfix">
+					签 署 人<span class="taskNum" id="customerSigner"></span>
+				</p>
+				<p class="clearfix">
+					签署时间<span class="taskNum" id="signDate"></span>
+				</p>
+			</div>
+
+			<div class="planDetailDate borderBot10">
+				<p class="clearfix">
+					附件<span class="taskNum" id="dealFile"></span>
+				</p>
+				<p class="clearfix">
+					盖章时间<span class="taskNum" id="sealDate"></span>
+				</p>
+				<p class="clearfix">
+					合同生效时间<span class="taskNum" id="effectiveTime"></span>
+				</p>
+			</div>
+
+			<div class="DetailBot borderBot10">
+				<h1>计划描述</h1>
+				<!--<P>
+					<span class="orgCri"></span>参与人：<span class="participantsname">
+				</P>-->
+				<p class="DetailBotCont" id="description"></p>
+			</div>
+			<div class="DetailBot borderBot10 clearfix" >
+	        	<h1>审核意见</h1>
+	        	<div id="opinion"></div>
+        	</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/initInfo.js"></script>
+	<script type="text/javascript">
+		var userId =localStorage.getItem("id");
+		var id = location.href.split('?')[1].split('=')[1].split('&')[0];
+		var cityId = location.href.split('&')[1].split('=')[1];
+		var back='<a class="headerL" href="workManageMyApproval.html"><img src="images/return.png"></a>';
+		$('#back').prepend(back);
+		var projectId="";
+        	$.ajax({
+			type : 'post',
+			url : 'http://' + serverIp + '/gtims/deal/editForPhone.do',
+			data : {
+				'id' : id
+			},
+			dataType : 'json',
+			crossDomain : true,
+			success : function(data) {
+            	$('#name').text(data.name);
+				$('#talkContentName').text(data.talkContentName);
+				$('#dealType').text(data.dealTypeName);
+				$('#dealWrite').text(data.nickName);
+				$('#writeDate').text(data.writeDate);
+				$('#dealStatusName').text(data.dealStatusName);
+				$('#customerSigner').text(data.customerSignerShow);
+				$('#signDate').text(data.signDate);
+				$('#sealDate').text(data.sealDate);
+			  //$('#dealFile').text(data.dealFile);暂定
+			  //$('#note').text(data.note);
+				$('#effectiveTime').text(data.effectiveTime);
+				$('#period').text(data.period);
+	            $('#description').text(data.description);
+	            $('#projectName').text(data.projectName);
+	            projectId=data.projectId;
+			},
+			error : function(msg) {
+				swal("访问出错！");
+			}
+		});
+        	
+        	$.ajax({
+    			type:'post',
+    			url: 'http://'+ serverIp +'/gtims/check/findCheck.do?dealId='+id+'&userId='+userId+'',
+    			async: true,
+    			data:{'start':'0','end':'10'},
+    			dataType: 'json',
+    			crossDomain: true,
+    			success: function(data) {
+    					var result='';
+    					for(var i=0;i<data.length;i++){
+    						result+='<a href="#2"><P style=" line-height:30px; color:#6d6d6d;"><span class="orgCri"></span>审核人： '+data[i].operatorIdShow+'</P><P style=" line-height:30px; color:#6d6d6d;">审核意见： '+data[i].checkInf+'</P><a/>';
+    					}
+    					
+    					$('#opinion').prepend(result);
+    				},
+    				error:function(msg){
+    					swal("访问出错！");
+    				}
+    		});
+			var click="";
+			function submit(id){
+				if(click==""){
+				$.ajax({
+					type:'post',
+					url: 'http://'+serverIp+'/gtims/deal/dealcommitForPhone.do',
+					header:{
+						'Access-Control-Allow-Origin':'*'
+					},
+					data: {
+						'createrId':userId,'modifyPersonId':userId,'id':id
+					},
+					dataType: 'json',
+					crossDomain: true,	
+					success: function(data) {
+						location.href='workManageDealDetail.html?id='+id+'&code=';
+					},
+					error:function(msg){
+						swal("提交审核失败");
+					}
+				});
+			  	click="false";
+			 }
+			}
+			
+			function toproject(){
+				window.location.href='workManageIntentDetail.html?id='+projectId+'&code=';
+			}
+</script>
+</body>
+</html>
+	
+		
+	
+
+
+
+
+
+
+

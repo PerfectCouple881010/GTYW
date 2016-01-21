@@ -1,0 +1,13 @@
+/*
+ * 个性化css，可以覆盖标准mui的css定义；
+ * 在实际项目开发时，建议为App单独写一个css文件，从而实现项目的自定义皮肤功能；
+ * 
+ * */
+header.mui-bar{ background: url(../images/topbg.png) no-repeat; background-size: 100% 100%;}
+.mui-title {color: #fff; font-size:22px;}
+/* === Remove input autofocus webkit === */
+*:focus {outline: none;}
+.DetailBotBtn1{ text-align:center; margin:8px 0 20px;}
+.DetailBotBtn1 a{ display:inline-block; width:50%; background:#ff6600; font-size:19px; color:#fff; height:36px; line-height:36px;}
+.DetailBotBtn2 a{width:40%; margin:0 3%;}
+

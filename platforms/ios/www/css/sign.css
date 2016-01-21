@@ -1,0 +1,35 @@
+@charset "utf-8";
+/* CSS Document */
+
+.mainCon{ width:100%; height:auto; margin-top:60px; position:relative;}
+.bannerDiv{ width:100%; height:auto; position:relative;}
+.bannerDiv img#bannerBg{ width:100%; height:auto;}
+.bannerDiv .signInfo{ width:100%; height:auto; position:absolute; top:0; z-index:2;}
+.bannerDiv .signInfo img#head{ width:20%; height:auto; border:2px #FFFFFF solid; border-radius:50%; margin-left:5%; margin-top:3%;}
+.signDetail{ width:68%; float:right; height:100px; margin-right:2%;}
+.signDetail h3#signSL{ width:100%; line-height:35px; font-size:1.1rem; border-bottom:2px #FFFFFF solid; letter-spacing:0.25rem; text-align:center; color:#FFF;}
+.signDetail h3 span{ font-size:1.75rem;}
+.signDetail h3#name{ width:40%; line-height:3rem; color:#FFF; font-size:1.1rem; float:left;}
+.signDetail h3#time{ width:55%; line-height:1.5rem; color:#FFF; font-size:0.9rem; float:right; text-align:center;}
+.signDetail h3#time span{ font-size:12px;}
+
+.mapDiv{ width:100%; height:auto;}
+.mapDivAll{ width:100%; height:120px;}
+.mapDiv .mapDivAll img#map{ width:100%; height:auto; margin:0;}
+.addressNow{ width:100%; height:120px; background:#FFF; margin:0; position:relative;}
+.addressNow h3#nowAddressTit{ line-height:2rem; color:#333333; font-size:1.1rem; margin-left:10px;}
+.addressNow h3#nowAddress{ margin-left:10px; color:#333333;}
+.addressNow h4{ margin-left:10px; line-height:1.5rem; color:#999999;}
+.addressNow h3#choose{ width:100%; text-align:center; line-height:2rem; color:#ff6600;}
+.addressNow img#downJT{ margin-left:46.5%; width:7%; height:auto; position:absolute; bottom:5%;}
+
+.beizhuDiv{ width:100%; height:80px; background:#FFF; margin-top:10px;}
+.beizhuDiv .beizhuInput{ width:95%; height:85%; margin-right:2%; margin-left:10px; margin-top:3%; color:#999999; font-size:0.9rem; border:0;}
+
+#signBtn{ width:35%; height:auto; margin-left:32.5%; margin-top:20px;}
+
+.locationDiv{ width:100%; min-height:52.5%; position:absolute; bottom:-9%; background:#fff; margin-bottom:0; border-top:1px #CCCCCC solid; display:none;}
+.locationDiv ul{ width:95%; margin:auto; background:#fff;}
+.locationDiv ul li{ width:100%; height:55px; border-bottom:1px #CCCCCC solid; list-style:none; line-height:25px;}
+.locationDiv ul li h3{ color:#000;}
+.locationDiv ul li span{ color:#666666;}

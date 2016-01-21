@@ -1,0 +1,77 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<title>贯通综合管理系统-工作管理—运营详情</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+
+
+<body>
+<header class="header warp100 clearfix">
+    <a class="headerL" href="workManageRun.html"><img src="images/return.png"></a>
+    运营详情
+</header>
+<div class="mainContent">
+	<div class="warp100 marginTop10">
+      
+        <div class="planDetailDate borderBot10">
+            <p class="clearfix">运营店长<span class="taskNum" id="run_manager_name"></span></p>
+            <p class="clearfix">联系方式<span class="taskNum" id="contact_information"></span></p>
+			<p class="clearfix">固定电话<span class="taskNum" id="telephone"></span></p>
+			<p class="clearfix">所属项目<span class="taskNum" id="project_id"></span></p>
+        </div>
+      <div class="DetailBot borderBot10">
+        	<h1>计划描述</h1>
+              <p class="DetailBotCont" id="description"></p>
+        </div>     
+     
+    </div>
+  <div class="DetailBotBtn1">
+        <a href="#2" id="Modify">修改</a>
+    </div>
+    
+</div>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/initInfo.js"></script>
+<script type="text/javascript">
+		var id = location.href.split('?')[1].split('=')[1];
+		$.ajax({
+			type:'post',
+			url: 'http://'+serverIp+'/gtims/run/editForPhone.do',
+			data: {'id':id},
+			dataType: 'json',
+			crossDomain: true,	
+			success: function(data) {
+				$('#description').text(data.description);
+				$('#run_manager').text(data.run_manager);
+				$('#run_manager_name').text(data.run_manager_name);
+				$('#contact_information').text(data.contact_information);
+				$('#telephone').text(data.telephone);
+				$('#project_id').text(data.project_id_show);
+			},
+			error:function(msg){
+				swal("访问出错！");
+			}
+		});
+		
+		$("#Modify").attr("href","workManageRunModify.html?id="+id);
+
+</script>
+</body>
+</html>
+
+      
+
+		
+          
+       
+
+
+

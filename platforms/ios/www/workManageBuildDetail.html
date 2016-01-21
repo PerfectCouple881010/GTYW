@@ -1,0 +1,83 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<title>贯通综合管理系统-工作管理—建设详情</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+		<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+
+
+<body>
+<header class="header warp100 clearfix">
+    <a class="headerL" href="workManageBuild.html"><img src="images/return.png"></a>
+    建设详情
+</header>
+<div class="mainContent">
+	<div class="warp100 marginTop10">
+        <div class="planDetailDate borderBot10">
+		    <p class="clearfix">建设阶段<span class="taskNum" id="build_stage"></span></p>
+            <p class="clearfix">建设内容<span class="taskNum" id="build_content"></span></p>
+            <p class="clearfix">所属项目<span class="taskNum" id="project_id"></span></p>
+            <p class="clearfix">开始时间<span class="taskNum" id="start_date"></span></p>
+		   <p class="clearfix">交付结束时间<span class="taskNum" id="delivery_date"></span></p>
+        </div>
+       
+		 <div class="DetailBot borderBot10">
+        	<h1>计划描述</h1>
+            <P><span class="orgCri"></span>建设负责人：<span class="participantsname"><span id="build_charge_show"></span></P>
+            <p class="DetailBotCont" id="description"></p>
+        </div>
+    </div>
+  <div class="DetailBotBtn1">
+        <a href="#2" id="Modify">修改</a>
+    </div>
+    
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/initInfo.js"></script>
+<script type="text/javascript">
+var id = location.href.split('?')[1].split('=')[1];
+var userId =localStorage.getItem("id");
+		$.ajax({
+			type:'post',
+			url: 'http://'+serverIp+'/gtims/build/editForPhone.do',
+			data: {'id':id},
+			dataType: 'json',
+			crossDomain: true,	
+			success: function(data) {
+				$('#id').val(data.id);
+				$('#description').text(data.description);
+				$('#build_stage').text(data.build_stage_show);
+				$('#build_content').text(data.build_content);
+				$('#project_id').text(data.project_id_show);
+				$('#start_date').text(data.start_date);
+				$('#delivery_date').text(data.delivery_date);
+				$('#build_charge').text(data.build_charge_show);
+				$('#build_charge_show').text(data.build_charge_show);
+				$('#note').text(data.note);
+			},
+			error:function(msg){
+				swal("访问出错！");
+			}
+		});
+
+		$("#Modify").attr("href","workManageBuildModify.html?id="+id);
+
+</script>
+</body>
+</html>
+	
+		
+
+          
+       
+
+
+

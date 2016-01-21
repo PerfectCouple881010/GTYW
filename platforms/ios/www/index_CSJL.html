@@ -1,0 +1,278 @@
+﻿        <!doctype html>
+        <html>
+        <head>
+        <meta charset="utf-8">
+        <meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+        <title>贯通综合管理系统-我的首页（城市经理版）</title>
+        <link rel="stylesheet" type="text/css" href="css/base.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+        <link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+		<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+        </head>
+        <body>
+        <header class="header warp100 clearfix">贯通综合管理系统 <a class="headerR" href="workManageLinkman.html">联系人</a></header>
+        <div class="mainContent">
+            <div class="banner warp100">
+                <a id="syrw" href="workManageAllTaskDetail"><p class="bot1 warp90" id="allTask"></p></a>
+                <div class="cirwrap">
+                    <div class="cir1">
+                        <p class="num" id="unTask"></p>
+                        <p class="unTask">
+                            <span>未</span>
+                            <span>完</span>
+                            <span>成</span>
+                            <span>任</span>
+                            <span>务</span>
+                        </p>
+                    </div>
+                    <div class="cir2">
+                        <p class="num" id="reTask"></p>
+                        <p class="reTask">
+                            <span>已</span>
+                            <span>完</span>
+                            <span>成</span>
+                            <span>任</span>
+                            <span>务</span>
+                        </p>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <p class="allTask" >剩余天数</p>
+               <p><span class="allTaskNum"><span class="tasn" id="countdown"></span></span></p>
+            </div>
+           <ul class="indexList warp100 clearfix" id="area" >
+        
+    		</ul>  
+    		<ul class="indexList warp100 clearfix marginTop10" id="indexwork"></ul>
+           <!--  <ul class="indexList warp100 clearfix marginTop10">
+				<li>
+                    <a href="workManageAllTask.html"><img src="images/indexList5_TZ.png"><br></a>
+                    任务管理
+                </li> 
+                 <li>
+                    <a href="workManageAllTaskAdd.html"><img src="images/AddGoal.png"><br></a>
+                    添加任务
+                </li>
+                <li>
+                    <a href="workManageAllTask.html"><img src="images/indexList6_TZ.png"><br></a>
+                    近期任务
+                </li>
+                <li>
+                    <a href="workManageCustomer.html"><img src="images/indexList7_TZ.png"><br></a>
+                    客户管理
+                </li>
+                <li onclick="window.location.href='sign.html'">
+				<img src="images/sign.png"><br>
+				签到
+			</li>
+              
+            </ul>   -->
+            <div class="planeBoxW warp100">
+                <h1 class="warp92 clearfix">我的工作计划<a href="workManagePlanAdd.html"><img src="images/planAdd.png">添加计划</a></h1>
+                <div class="warp92 planeBox" id="plan">
+                <!-- <dl class="clearfix">
+                        <dt><img src="images/planBg.png"></dt>
+                        <dd>
+                            <p class="p1">拜访客户</p>
+                            <p>2015年10月20日下午2:00</p>
+                        </dd>
+                    </dl>
+                    <dl class="clearfix">
+                        <dt><img src="images/planBg.png"></dt>
+                        <dd>
+                            <p class="p1">拜访客户</p>
+                            <p>2015年10月20日下午2:00</p>
+                        </dd>
+                    </dl>
+                    <dl class="clearfix">
+                        <dt><img src="images/planBg.png"></dt>
+                        <dd>
+                            <p class="p1">拜访客户</p>
+                            <p>2015年10月20日下午2:00</p>
+                        </dd>
+                    </dl>
+
+                    <dl class="clearfix">
+                        <dt><img src="images/planBg.png"></dt>
+                        <dd>
+                            <p class="p1">拜访客户</p>
+                            <p>2015年10月20日下午2:00</p>
+                        </dd>
+                    </dl>  -->
+                 </div>
+            </div>
+        </div>
+        </body>
+        <footer class="footer clearfix">
+    <dl class="dl1" onclick="window.location.href=''">
+        <dt style="background:url(images/bot-11.png);background-size: 26.5px auto;">我的首页</dt>
+        <dd>我的首页</dd>
+    </dl>
+     <dl class="dl2 current2" onclick="window.location.href='workManage.html'">
+        <dt>工作管理</dt>
+        <dd>工作管理</dd>
+     
+    </dl>
+    <dl class="dl3" onclick="cancel()">
+        <dt>注销</dt>
+        <dd>注销</dd>
+    </dl> 
+</footer>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript">
+document.addEventListener("backbutton", exitApp, false);
+		var id =localStorage.getItem("id");
+		
+		//显示总任务 
+		$.ajax({
+			url: 'http://'+serverIp+'/gtims/goal/findCityForPhone.do?userId='+id,
+			dataType: 'json',
+			crossDomain: true,
+			async: false,
+			success: function(data) {
+				$("#allTask").text(data.name.substring(0,16));
+	            $("#countdown").text(data.daysheng);//剩余总天数
+			    $("#tasn").text(data.completionCriteria);//总任务
+				$("#unTask").text(data.psycounts);//剩余任务
+	            $("#reTask").text(data.completionCriteria-data.psycounts);//完成的任务
+	            
+	            $('#syrw').attr("href","workManageAllTaskDetail.html?id="+data.id);
+	            var resultStateList = '';
+				for(var j=0;j<data.data.length;j++){
+					var n = data.data[j].addressStateCounts;				
+					resultStateList +='<a href="workManageProject.html"><li>'+
+					'<p class="p1">'+data.data[j].addressState+'</p>'+		            
+		            '<p>'+data.data[j].addressState+'</p>'+
+		            '<span class="tip" id="Counts" >1</span>'+
+		        '</li></a>'
+		        $('#area').append(resultStateList);
+		        $('#Counts').append(n);
+				}
+				
+			},
+			error:function(msg){
+			}
+		});
+		
+		//显示首页任务
+		$.ajax({
+			url: 'http://'+serverIp+'/gtims/goal/findIndexWorkList.do?userId='+id,
+			dataType: 'json',
+			//crossDomain: true,
+			//async: false,
+			success: function(data)  {
+				if(data.data.length==4){
+					for(var i =0;i<data.data.length;i++){
+						var result ="<li onclick=window.location.href='"+data.data[i].url+"'><img src="+data.data[i].picture+"><br>"+data.data[i].name+"</li>";
+							$('#indexwork').append(result);
+					}
+				}else{
+						for(var i =0;i<data.data.length;i++){
+							var result='';
+							switch(data.data[i].id){
+							case 1:result ="<li onclick=window.location.href='"+data.data[i].url+"'><img src="+data.data[i].picture+"><br>"+data.data[i].name+"</li>";
+								  	break;
+							case 4:result ="<li onclick=window.location.href='"+data.data[i].url+"'><img src="+data.data[i].picture+"><br>"+data.data[i].name+"</li>";
+									break;
+							case 10:result ="<li onclick=window.location.href='"+data.data[i].url+"'><img src="+data.data[i].picture+"><br>"+data.data[i].name+"</li>";
+									break;
+							case 14:result ="<li onclick=window.location.href='"+data.data[i].url+"'><img src="+data.data[i].picture+"><br>"+data.data[i].name+"</li>";
+									break;
+							}	
+								$('#indexwork').append(result);	
+					}
+				}
+				},
+			error:function(msg){
+				swal("没有加载到首页任务！");
+			}
+		});
+	
+		
+		var nickname =localStorage.getItem("nickname");
+		$.ajax({
+			url: 'http://'+serverIp+'/gtims/plan/listPlanForPhone.do?id='+id,
+			dataType: 'json',
+			crossDomain: true,
+			success: function(data) {
+				if(data.length>0){
+				for(var i =0;i<data.length;i++){
+					var result='';				
+					result +='<a href="workManagePlan.html" style="color:#333;"><dl class="clearfix" >'+
+					'<dt><img src="images/planBg.png"></dt>'+
+                    '<dd>'+
+                    '<p class="p1">'+data[i].name+'</p>'+
+                    '<p>'+data[i].date+'</p>'+
+                    '</dd>'+
+                    '</dl></a>';
+					$('#plan').append(result);
+				}
+			}else{
+				var result='';				
+				result +='<dl class="clearfix" >'+
+                '<dd>'+
+                '<p class="p1">暂无工作计划！</p>'+
+                '<p></p>'+
+                '</dd>'+
+                '</dl>';
+				$('#plan').append(result);
+			}
+		},
+		error:function(msg){
+		}
+	});
+</script>
+        <script src="js/jquery.js"></script>
+        <script src="js/chart.js"></script>
+        <script>
+            $(function(){
+                var vWidth=$(window).width();
+                var indexList=$('.indexList');
+                indexList.find('li').width((vWidth-3)/4)
+        		
+        		
+        		$('#canvasBg').css({
+        			width:vWidth*0.4-20,
+        			height:vWidth*0.4-20,
+        			left:vWidth*0.3+10,
+        		})
+            })
+        	
+        //焦点图
+
+        	var doughnutData = [
+        			{
+        				value: 15,
+        				color:"#ffde00",
+        				label: "Red"
+        			},
+        			{
+        				value: 85,
+        				color: "#1fa1de",
+        				label: "Green"
+        			}
+        		];
+
+        		/* window.onload = function(){
+        			var ctx = document.getElementById("chart-area").getContext("2d");
+        			window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {responsive : true});
+        		}; */
+
+
+
+        </script>
+        <script src="js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript">
+           $(function(){
+            setInterval(function(){ 
+                $(".cir1").toggleClass("active");
+                $(".cir2").toggleClass("active1");
+                 },2000);
+           } );
+        </script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=rZbDqcx92rblrNPE93h0S0gm"></script>
+<script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>      
+</html>

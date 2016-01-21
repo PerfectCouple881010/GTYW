@@ -1,0 +1,322 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<title>贯通综合管理系统-客户管理—客户新增</title>
+<link href="css/mui.min.css" rel="stylesheet" />
+<link href="css/mui.indexedlist.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/app.css" />
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link href="css/mobiscroll.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+<style>
+.mui-bar {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+#done.mui-disabled {
+	color: gray;
+}
+
+.mui-table-view-cell.mui-checkbox input[type=checkbox],.mui-table-view-cell.mui-radio input[type=radio] {
+	top: 16px;
+}
+</style>
+</head>
+<body>
+<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+	<!--侧滑菜单部分-->
+	<aside id="offCanvasSide" class="  mui-off-canvas-right" style="background: none">
+			<header class="mui-bar mui-bar-nav">
+				<a class=" mui-icon mui-icon-left-nav mui-pull-left" id="offCanvasHide"></a>
+				<span id="zhHead"></span>
+			</header>	
+			<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+				<div class="mui-scroll">				
+					<div class="mui-content">
+						<div id='list' class="mui-indexed-list">
+							<div class="mui-indexed-list-search mui-input-row mui-search">
+								<input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="请输入搜索内容">
+							</div>
+							<div class="mui-indexed-list-alert"></div>
+							<div class="mui-indexed-list-inner">
+								<div class="mui-indexed-list-empty-alert">没有数据</div>
+								<ul class="mui-table-view" id ="ryList">
+									<li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</aside>
+		<div class="mui-inner-wrap">
+<header class="mui-bar mui-bar-nav">
+   <!--  <a class="headerL" href="javascript:history.go(-1);"><img src="images/return.png"></a> -->
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title"> 客户新增</h1>
+    <!-- <a class="headerL" href="javascript:history.go(-1);"><img src="images/return.png"></a>
+    客户新增 -->
+</header>
+<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div class="mui-content-padded">
+		<form class="mui-input-group" id="addJhForm">
+            <div class="mui-input-row">
+              <label><span style="color:red">*</span><span> 客户名称</span></label>
+                <input type="text" placeholder="请输入名称" id="name" validate="*" errorMsg="客户名称必填">
+            </div>
+            <div class="mui-input-row">
+            	<label><span style="color:red">*</span> 类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型</label>
+                <select value="" name="customerType" id="customerType" validate="*" errorMsg="类型必填" >
+       			</select> 
+            </div>
+            <div class="mui-input-row">
+                <label><span style="color:red">*</span> 行&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业</label>
+                <input type="text" placeholder="请输入行业" id="industry" validate="*" errorMsg="行业必填">
+            </div>
+            <div class="mui-input-row">
+               <label><span style="color:red">&nbsp;&nbsp;</span>传&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;真</label>
+                <input type="text" placeholder="请输入传真" id="phoneFax" validate="" errorMsg="请输入正确的传真格式">
+            </div>
+			<div class="mui-input-row">
+               <label><span style="color:red">*</span> 所属省份</label>
+                <select value="" name="addressProvince" id="addressProvince" validate="*" errorMsg="省份必填" >
+				</select>
+            </div>
+            <div class="mui-input-row">
+                <label><span style="color:red">*</span> 所属城市</label>
+                <select name="" id="addressCity" validate="*" errorMsg="城市必填">
+                    <option value="0">请选择市</option>
+                </select>
+            </div>  
+             <div class="mui-input-row">
+                <label><span style="color:red">*</span> 所属区县</label>
+                <select name="" id="addressState" validate="*" errorMsg="区县必填">
+                    <option value="0">请选择区县</option>
+                </select>
+            </div>
+            <div class="mui-input-row">
+                <label><span style="color:red">*</span> 所属街道</label>
+                <select name="" id="addressStreet" validate="*" errorMsg="街道必填">
+                    <option value="0">请选择街道</option>
+                </select>
+            </div>
+            <div class="mui-input-row">
+               <label><span >&nbsp;</span> 详细地址</label>
+                <input type="text" placeholder="请输入详细地址" id="addressDetailed">
+            </div>   
+            <div class="mui-input-row">
+               <label><span style="color:red">*</span>邮政编码</label>
+                <input type="text" placeholder="请输入邮编" id="addressPostalcode" validate="yb" errorMsg="请输入正确的邮政编码格式">
+            </div>
+            <div class="mui-input-row">
+              <label><span >&nbsp;</span> 网&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址</label>
+                <input type="text" placeholder="请输入网址" id="website">
+            </div>
+            <div class="mui-input-row">
+               <label><span style="color:red">*</span> 办公电话</label>
+                <input type="text" placeholder="请输入办公电话" id="phoneOffice" validate="p" errorMsg="请填写正确的电话格式">
+            </div>  
+            <div class="mui-input-row">
+              <label><span style="color:red">*</span> 手&nbsp;机&nbsp;</label>
+                <input type="text" placeholder="请输入其他电话" id="phoneAlternate" validate="mp" errorMsg="请填写正确的手机号码格式">
+            </div>
+            <div class="mui-input-row" id="offCanvasShowFZR" >
+               <label><span style="color:red">*&nbsp;</span>负&nbsp;责&nbsp;人</label>
+               <input type="text" class="mui-input  " id="chargePersonName" value="" readonly="readonly" placeholder="请选择客户负责人" validate="*" errorMsg="客户负责人必填">
+               <input id="chargePerson" type="hidden"  name="chargePerson"  value="" />
+               <!-- <a class="mui-navigate-right" id="offCanvasShowFZR"  /></a> -->
+                <!-- <input type="text" placeholder="请输入客户负责人" id="chargePerson" validate="*" errorMsg="客户负责人必填"> -->
+            </div>  
+            <div class="mui-input-row">
+               <label><span>&nbsp;&nbsp;</span>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注</label>
+                <input type="text" placeholder="请输入备注" id="note">
+            </div>    
+    <div class="mui-button-row" style="height:57px">
+		<div class="DetailBotBtn1 DetailBotBtn2">       
+			<a  class="back header_button  mui-action-back">取消新增</a>
+			<a href="javascript:void(0);" class="newproject header_button" id="tijiao">确认新增</a>
+		</div>
+	</div> 
+</form>
+</div></div></div></div></div>
+<script type="text/javascript" src="js/jquery-1.9.1.js" ></script>
+<!-- <script type="text/javascript" src="js/jquery.js"></script> -->
+<script src="lib/jquery-2.1.4.min.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/mui.indexedlist.js"></script>
+<script src="js/app.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/initInfo.js"></script>
+<script type="text/javascript" src="js/address.js"></script>
+<script type="text/javascript" src="js/iscroll.js" ></script>
+<script src="js/mobiscroll.min.js"></script>
+<script type="text/javascript">
+mui.init();
+//$(function () {});
+		mui.ready(function() {
+var userId =localStorage.getItem("id");
+		//getxmList();
+	  //侧滑容器父节点
+		var offCanvasWrapper = mui('#offCanvasWrapper');
+		 //主界面容器
+		var offCanvasInner = offCanvasWrapper[0].querySelector('.mui-inner-wrap');
+		 //菜单容器
+		var offCanvasSide = document.getElementById("offCanvasSide");
+		if (!mui.os.android) {
+			var spans = document.querySelectorAll('.android-only');
+			for (var i = 0, len = spans.length; i < len; i++) {
+				spans[i].style.display = "none";
+			}
+		}
+		
+		//主界面‘显示侧滑菜单’按钮的点击事件 ---负责人
+		document.getElementById('offCanvasShowFZR').addEventListener('tap', function() {
+			var title='<h1 class="mui-title">选择负责人</h1>'+
+			'<a id="done" class="mui-btn mui-btn-link mui-pull-right mui-btn-blue mui-disabled">完成</a>';
+			document.querySelector('#zhHead').innerHTML = title;
+			gethtList();
+			offCanvasWrapper.offCanvas('show');
+			var header = document.querySelector('header.mui-bar');
+			var list = document.getElementById('list');
+			var done = document.getElementById('done');
+			//calc hieght
+			//list.style.height =(document.body.offsetHeight - header.offsetHeight) + 'px';
+			list.style.height = '100%';
+			//create
+			window.indexedList = new mui.IndexedList(list);
+			//done event
+			done.addEventListener('tap', function() {
+				var chargePerson = $("input[name='radio']:checked").val();
+				var chargePersonName = $("input[name='radio']:checked").attr("ryname");
+				if (chargePerson > 0) {
+				document.getElementById('chargePersonName').value=chargePersonName;
+				document.getElementById('chargePerson').value=chargePerson;
+				offCanvasWrapper.offCanvas('close');
+				 } else {
+					mui.swal('你没选择任何负责人');
+				}
+				
+			}, false);
+			mui('.mui-indexed-list-inner').on('change', 'input', function() {
+				var count = list.querySelectorAll('input[type="radio"]:checked').length;
+				var value = count ? "完成(" + count + ")" : "完成";
+				done.innerHTML = value;
+				//mui.alert('你选择了: ' + radiovalue );
+				if (count) {
+					if (done.classList.contains("mui-disabled")) {
+						done.classList.remove("mui-disabled");
+					}
+				} else {
+					if (!done.classList.contains("mui-disabled")) {
+						done.classList.add("mui-disabled");
+					}
+				}
+			});
+		});
+		
+		 //菜单界面，‘关闭侧滑菜单’按钮的点击事件//
+		document.getElementById('offCanvasHide').addEventListener('tap', function() {
+			offCanvasWrapper.offCanvas('close');
+		});
+
+
+intiBaseByType(serverIp,"khlbid","customerType","/dataDir/listName.do","khlx");//客户类别的列表
+		var userId =localStorage.getItem("id");
+		var tjButton = document.getElementById('tijiao');
+        tjButton.addEventListener('tap', function(event) {
+			//validateForm验证
+			var result = true;
+			$("form input[type='text']").each(function(){
+				if($(this).attr("validate")!=null&&!validateForm($(this))){
+					result = false;
+					return result;
+				}
+				
+			});
+			if(result != false){
+			$("select").each(function(){
+				if($(this).attr("validate")!=null&&!validateForm($(this))){
+					result = false;
+					return result;
+				}
+			});}
+			if(result){
+			$.ajax({
+			type:'post',
+			url: 'http://'+serverIp+'/gtims/customer/insertForPhone.do',
+			data: {'createrId':userId,'modifyPersonId':userId,'name':$('#name').val(),
+				'customerType':$('#customerType').val(),
+				'industry':$('#industry').val(),
+				'phoneFax':$('#phoneFax').val(),
+				'addressProvince':$('#addressProvince').val(),
+				'addressCity':$('#addressCity').val(),
+				'addressState':$('#addressState').val(),
+				'addressStreet':$('#addressStreet').val(),
+				'addressDetailed':$('#addressDetailed').val(),
+				'addressPostalcode':$('#addressPostalcode').val(),
+				'website':$('#website').val(),
+				'phoneOffice':$('#phoneOffice').val(),
+				'phoneAlternate':$('#phoneAlternate').val(),
+				'chargePerson':$('#chargePerson').val(),
+				'note':$('#note').val()},
+			dataType: 'json',
+			crossDomain: true,	
+			success: function(data) {
+				location.href='workManageCustomer.html';
+			},
+			error:function(msg){
+				swal("访问出错！");
+			}
+		});
+			}
+			})
+			
+			 //participants.value = userName ;
+		   	 //主界面和侧滑菜单界面均支持区域滚动；
+		   			mui('#offCanvasSideScroll').scroll();
+		   			mui('#offCanvasContentScroll').scroll();
+		   			 //实现ios平台原生侧滑关闭页面；
+		   			if (mui.os.plus && mui.os.ios) {
+		   				mui.plusReady(function() { //5+ iOS暂时无法屏蔽popGesture时传递touch事件,直接屏蔽popGesture功能
+		   					plus.webview.currentWebview().setStyle({
+		   						'popGesture': 'none'
+		   					});
+		   				});
+		   			}
+		   			
+		   			});
+				//查询负责人	
+				function gethtList() {
+					$.ajax({
+				url: 'http://'+serverIp+'/gtims/linkman/list.do?userId='+localStorage.getItem("id"),
+				async: false,
+				data:{'start':'0','end':'10000'},
+				dataType: 'json',
+				crossDomain: true,
+				success: function(data) {
+				 var html = "",obj=data.data;
+					for (var i = 0; i < obj.length; i++) {
+					    html+='<li class="mui-table-view-cell mui-indexed-list-item mui-radio mui-media mui-left">'+
+						'<input type="radio"  name="radio"  value="'+obj[i].id+'" ryname="'+obj[i].name+'" /> '+
+										'<div class="mui-media-body mui-ellipsis">'+obj[i].name+'('+obj[i].address+')'+
+											'<p class="mui-ellipsis">'+obj[i].phoneMobile+'</p>'+
+										'</div></li>';
+					}
+				document.querySelector('#ryList').innerHTML = html;
+			}
+			});
+				}
+</script>
+</body>
+</html>

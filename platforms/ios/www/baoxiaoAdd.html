@@ -1,0 +1,167 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<title>贯通综合管理系统-工作管理—报销单新增</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+<body>
+<header class="header warp100 clearfix">
+    <a class="headerL" href="javascript:history.go(-1);"><img src="images/return.png"></a>
+    报销单新增
+</header>
+<div class="mainContent">
+	<form>
+	<div class="warp100 marginTop10">
+        <div class="intentDetail borderBot10">
+            <p>
+              <span style="color:red">*</span> 报销名称
+                <input type="text" placeholder="请输入名称" id="name" validate="*" errorMsg="报销名称必填">
+            </p>
+            <p>
+              <span style="color:red">*</span> 报销金额
+                <input type="text" id="feeSum" placeholder="请输入金额" validate="nn" errorMsg="报销金额必填且必须为数字">(元)
+            </p>
+        </div>
+        <div class="intentDetail borderBot10">
+            <p>
+                <span style="color:red">&nbsp;</span> 所属项目
+                <select  name="projectId" class="select" value="" id="projectId"   validate="" errorMsg="所属项目必选">
+                	<option>请选择所属项目</option>
+                </select>
+            </p>
+            <p>
+               <span style="color:red">&nbsp;</span> 关联申请
+               <select  name="applyId" class="select" value="" id="applyId"  validate="" errorMsg="关联申请必选" >
+                	<option>请选择关联申请</option>
+                </select>
+            </p>
+             <p>
+               <span style="color:red">*</span> 申请类型
+                <select  name="feeType" class="select" value="" id="feeType" validate="*" errorMsg="申请类型必选"  >
+                	<option>请选择类型</option>
+                </select>
+            </p>
+        </div>    
+        
+        <div class="DetailBot borderBot10">
+        	<h1>报销内容</h1>
+            <textarea placeholder="请输入详细报销内容" id="content"></textarea>
+        </div>
+        	<!-- 图片上传 -->
+         <div id="box" class="DetailBot borderBot10">
+        	<h1>发票照片</h1>
+            <div class="add" style=" min-height:100px; margin-top:20px;">
+            <!-- <img src="images/addChance.png" style=" margin-left:15px;"> -->
+            <div id="upload" class="adds"></div> 
+			<input type="hidden" id="feeFic" name="feeFic" value="">
+		</div>
+    </div>
+    <div class="DetailBotBtn1 DetailBotBtn2">
+       <a href="javascript:history.go(-1);" class="back header_button">取消新增</a>
+        <a  href="javascript:void(0);" class="newproject header_button" id="wancheng">确认新增</a>
+    </div>
+    
+</div>
+</form>
+<script type="text/javascript" src="js/jquery.js"></script>
+<!-- <script type="text/javascript" src="js/jquery.datetimepicker.js"></script> -->
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/initInfo.js"></script>
+<script type="text/javascript" src="diyUpload/js/webuploader.html5only.min.js"></script>
+<script type="text/javascript" src="diyUpload/js/diyUpload.js"></script>
+
+<script type="text/javascript">
+intiBaseDic(serverIp,"pid","projectId","/project/listName.do");//projectId
+intiBaseDic(serverIp,"pid","applyId","/apply/listName.do");//applyId
+intiBaseByType(serverIp,"jhid","feeType","/dataDir/listName.do","bxfy");//feeType
+
+$('#wancheng').on('click',function(){
+	var userId =localStorage.getItem("id");
+		//validateForm验证
+		var result = true;
+		$("form input[type='text']").each(function(){
+			if($(this).attr("validate")!=null&&!validateForm($(this))){
+				result = false;
+				return result;
+			}
+			
+		});
+		if(result != false){
+		$("select").each(function(){
+			if($(this).attr("validate")!=null&&!validateForm($(this))){
+				result = false;
+				return result;
+			}
+		});}
+			if(result){
+			$.ajax({
+				
+			type:'post',
+			url: 'http://'+serverIp+'/gtims/expense/insertForPhone.do',
+			data: {'createrId':userId,'modifyPersonId':userId,'name':$('#name').val(),
+				'projectId':$('#projectId').val(),
+				'content':$('#content').val(),
+				'expensePerson':userId,
+				'applyId':$('#applyId').val(),
+				'feeSum':$('#feeSum').val(),
+				'feeType':$('#feeType').val(),
+				'feeFic':$('#feeFic').val(),
+				'expenseDate':$('#expenseDate').val(),
+				'note':$('#note').val()},
+			dataType: 'json',
+			crossDomain: true,	
+			success: function(data) {
+				location.href='baoxiaolist.html';
+			},
+			error:function(msg){
+				swal("访问出错！");
+			}
+		});
+			}
+			});
+
+
+var imgs ="";
+$('#upload').diyUpload({
+	url:'http://'+serverIp+'/gtims/picture/upload.do?ctype=fybx',
+	//解决跨域问题
+	/*  beforeSend:function(xhr)
+	 {
+	    xhr.setRequestHeader("Origin", "http://localhost:8080");
+	 xhr.setRequestHeader("Access-Control-Request-Method", "POST");
+	 },  */
+	success:function( data ) {
+		for(var i=0;i<data.length;i++){
+			imgs+=","+data[i].url;
+		console.info(data[i].url);
+		}
+		document.getElementById("feeFic").value=imgs;
+	},
+	error:function( err ) {
+		console.info( err );	
+	},
+
+	chunked:true,
+	// 分片大小
+	chunkSize:512 * 1024,
+	//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
+	fileNumLimit:50,
+	fileSizeLimit:500000 * 1024,
+	fileSingleSizeLimit:50000 * 1024,
+	accept: {
+			title:"Images",
+			extensions:"gif,jpg,jpeg,bmp,png",
+			mimeTypes:"image/*"
+	}
+});
+</script>
+
+</body>
+</html>

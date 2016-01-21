@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<title>贯通综合管理系统—申请单详情</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+
+<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+<body>
+<header class="header warp100 clearfix">
+    <a class="headerL" href="javascript:history.go(-1);"><img src="images/return.png"></a>
+    申请单详情
+
+</header>
+<div class="mainContent">
+	<div class="warp100 marginTop10">
+        <div class="detailTop borderBot10">
+            <h1 ><span id="name"></span></h1>
+            <p class="partic">费用金额&nbsp;&nbsp;&nbsp;<span  id="feeSum"></span></p>
+            <p class="partic">审核状态&nbsp;&nbsp;&nbsp;<span  id="check_status"></span></p>
+        </div>
+        <div class="planDetailDate borderBot10">
+            <p class="clearfix">申请类型&nbsp;&nbsp;&nbsp;<span  id="feeType"></span></p>
+            <p class="clearfix">所属项目&nbsp;&nbsp;&nbsp;<span  id="projectId"></span></p>
+        </div>
+        <div class="DetailBot borderBot10">
+        	<h1> 申请内容</h1>
+            <P><span class="orgCri"></span>内容：<span class="participantsname"></P>
+            <p class="DetailBotCont" id="content"></p>
+        </div>
+        <div class="DetailBot borderBot10 clearfix" >
+	        	<h1>审核意见</h1>
+	        	<div id="opinion"></div>
+        </div>
+    </div>
+  <div class="DetailBotBtn1" id="Modify">
+    </div>
+    
+</div>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/initInfo.js"></script>
+<script type="text/javascript">
+		var userId =localStorage.getItem("id");
+		var id = location.href.split('?')[1].split('=')[1];
+	    // var id=21;
+		$.ajax({
+			type:'post',
+			url: 'http://'+serverIp+'/gtims/apply/editForPhone.do',
+			data: {'id':id},
+			dataType: 'json',
+			crossDomain: true,	
+			success: function(data) {
+			console.log(data)
+				$('#name').text(data.name);
+				$('#feeSum').text(data.feeSum);
+				if(data.check_status==1){
+					$('#check_status').text("审核中");
+				}
+				if(data.check_status==2){
+					$('#check_status').text("审核通过");
+				}
+				if(data.check_status==3){
+					$('#check_status').text("审核不通过");
+					/* var Modify1='<a href="feiyongModify.html?id='+data.id +'">修改</a>';
+					$('#Modify').append(Modify1); */
+				}
+				
+                $('#feeType').text(data.feeName);
+				$('#projectId').text(data.project_name);
+				$('#content').text(data.content);
+			},
+			error:function(msg){
+				swal("访问出错！");
+			}
+		});
+		
+		$.ajax({
+			type:'post',
+			url: 'http://'+ serverIp +'/gtims/check/findCheck.do?applyId='+id+'&userId='+userId+'',
+			async: true,
+			data:{'start':'0','end':'10'},
+			dataType: 'json',
+			crossDomain: true,
+			success: function(data) {
+					var result='';
+					for(var i=0;i<data.length;i++){
+						result+='<a href="#2"><P style=" line-height:30px; color:#6d6d6d;"><span class="orgCri"></span>审核人： '+data[i].operatorIdShow+'</P><P style=" line-height:30px; color:#6d6d6d;">审核意见： '+data[i].checkInf+'</P><a/>';
+					}
+					
+					$('#opinion').prepend(result);
+				},
+				error:function(msg){
+					swal("访问出错！");
+				}
+		});
+		//列表返回权限 
+	 /*	var postId =localStorage.getItem("postId");
+	 	if(postId == '8'||postId == '15'){
+	 		var backResult='<a href="index_ziyuan.html" class="back header_button">返回</a>';
+	 	}else if(postId == '9'){
+	 		var backResult='<a href="index.html" class="back header_button">返回</a>';
+	 	}else if(postId == '10'||postId == '13'){
+	 		var backResult='<a href="index_jianshe.html" class="back header_button">返回</a>';
+	 	}else if(postId == '11'||postId=='14'){
+	 		var backResult='<a href="index-yun.html" class="back header_button">返回</a>';
+	 	}else if(postId == '12'){
+	 		var backResult='<a href="index_city.html" class="back header_button">返回</a>';
+	 	}else if(postId == '2'||postId=='16'||postId=='17'){
+	 		var backResult='<a href="index_leader.html" class="back header_button">返回</a>';
+	 	}else{
+	 		var backResult='<a href="index.html" class="back header_button">返回</a>';
+	 	}
+		
+		$('#head_back').append(backResult);*/
+		
+</script>
+
+
+</body>
+</html>

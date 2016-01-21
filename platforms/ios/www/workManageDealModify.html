@@ -1,0 +1,372 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<title>贯通综合管理系统-工作管理—协议修改</title>
+<link href="css/mui.min.css" rel="stylesheet" />
+<link href="css/mui.indexedlist.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/app.css" />
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+<link href="css/mobiscroll.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+<style>
+.mui-bar {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+#done.mui-disabled {
+	color: gray;
+}
+
+.mui-table-view-cell.mui-checkbox input[type=checkbox],.mui-table-view-cell.mui-radio input[type=radio] {
+	top: 16px;
+}
+</style>
+<!-- <link href="css/common.css" rel="stylesheet" type="text/css" /> -->
+
+</head>
+<body>
+<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+	<!--侧滑菜单部分-->
+	<aside id="offCanvasSide" class="  mui-off-canvas-right" style="background: none">
+			<header class="mui-bar mui-bar-nav">
+				<a class=" mui-icon mui-icon-left-nav mui-pull-left" id="offCanvasHide"></a>
+				<span id="zhHead"></span>
+			</header>	
+			<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+				<div class="mui-scroll">				
+					<div class="mui-content">
+						<div id='list' class="mui-indexed-list">
+							<div class="mui-indexed-list-search mui-input-row mui-search">
+								<input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="请输入搜索内容">
+							</div>
+							<div class="mui-indexed-list-alert"></div>
+							<div class="mui-indexed-list-inner">
+								<div class="mui-indexed-list-empty-alert">没有数据</div>
+								<ul class="mui-table-view" id ="ryList">
+									<li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</aside>
+		<div class="mui-inner-wrap">
+<header class="mui-bar mui-bar-nav">
+   <!--  <a class="headerL" href="javascript:history.go(-1);"><img src="images/return.png"></a> -->
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title"> 协议修改 </h1>
+    <!-- <a class="headerL" href="workManageDeal.html"><img src="images/return.png"></a>
+    协议修改 -->
+</header>
+<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div class="mui-content-padded">
+		<form class="mui-input-group" id="addJhForm">
+            <div class="mui-input-row">
+               <label><span style="color:red">*</span> 协议名称</label>
+               <input type="text" id="name" placeholder="请输入协议名称" validate="*" errorMsg="协议名称必填"/>
+            </div>
+            <div class="mui-input-row">
+   	   			<label><span style="color:red">*</span> 所属会谈</label>
+              <select id="planTalkId" class="select" validate="*" errorMsg="所属会谈必填">
+              </select>
+              <input type="hidden" id="pid"/>      
+            </div>
+            <div class="mui-input-row">
+               <label><span style="color:red">*</span> 协议类型</label>
+                <select id="dealType" class="select" validate="*" errorMsg="协议类型必填">
+                </select>  
+            </div>
+            <div class="mui-input-row">
+                 <label><span style="color:red">*</span> 签署时间</label>
+                 <input type="text" class="kbtn" id="signDate" placeholder="请输入签署时间" validate="*" errorMsg="签署时间必填" /> 
+                 
+            </div>
+			<div class="mui-input-row" id="offCanvasShowQSR" >
+            	<label><span style="color:red">*</span> 签 署 人</label>
+            	<input type="text" class="mui-input  " id="customerSignerName" value="" readonly="readonly" placeholder="请选择所属会谈" validate="*" errorMsg="所属会谈必填">
+               <input id="customerSigner" type="hidden"  name="customerSigner"  value="" />
+               <!-- <a class="mui-navigate-right" id="offCanvasShowQSR"  /></a>  -->
+               <!-- <input type="text" id="customerSigner" placeholder="请输入签署人"  validate="*" errorMsg="签署人必填"/> -->
+            </div>
+		    <!-- <p style="height: 86px;">
+                盖章图片
+			   <input type="file" id="dealFile" multiple="multiple"/>
+			   <input id="do-upload" type="submit" value="上传" />
+			   <input id="do-upload" type="button" value="上传" />
+             </p>  -->
+
+			  <!-- <div class="mui-input-row">
+                <label><span style="color:red">*</span> 盖章图片</label>
+			   <input type="file" id="dealFile" multiple="multiple" />
+             </div>  -->
+            <div class="mui-input-row">
+			   <label><span style="color:red">*</span> 盖章时间</label>
+               <input type="text" class="kbtn" placeholder="请输入盖章时间" id="sealDate" validate="*" errorMsg="盖章时间必填"/>
+            </div>
+			<div class="mui-input-row">
+			  <label><span style="color:red">*</span> 生效时间</label>
+               <input type="text" class="kbtn" placeholder="请输入合同生效时间" id="effectiveTime" validate="*" errorMsg="合同生效时间必填"/>
+            </div>
+		    <div class="mui-input-row">
+			  <label><span style="color:red">*</span> 期限/月</label>
+              <input type="text"  class="kbtn" id="period" placeholder="以整数月位单位" validate="nn" errorMsg="期限必须是整数"/>
+            </div>
+        
+        <div class="mui-input-row">
+        	<label>协议描述</label>
+        </div>
+            <textarea placeholder="请输入详细协议描述" id="description"></textarea>
+    <div class="mui-button-row" style="height:57px">
+		<div class="DetailBotBtn1 DetailBotBtn2">       
+			<a  class="back header_button  mui-action-back">取消修改</a>
+			<a href="javascript:void(0);" class="newproject header_button" id="tijiao">确认修改</a>
+		</div>
+	</div>
+    <!-- <div class="DetailBotBtn1 DetailBotBtn2">
+        <a href="workManageDeal.html" id="cancelAdd">取消修改</a>
+        <a href="#2" id="wancheng">确认修改</a>
+    </div> -->
+    
+</form>
+</div></div></div></div></div>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<!-- <script type="text/javascript" src="js/date.js" ></script> -->
+<script type="text/javascript" src="js/iscroll.js" ></script>
+<script src="js/mobiscroll.min.js"></script>
+<script>
+$(function(){
+	$('#signDate').mobiscroll().datetime({theme: 'android-holo-light', lang: 'zh',display: 'bottom'});
+	$('#sealDate').mobiscroll().datetime({theme: 'android-holo-light', lang: 'zh',display: 'bottom'});
+	$('#effectiveTime').mobiscroll().datetime({theme: 'android-holo-light', lang: 'zh',display: 'bottom'});
+});
+</script>
+<script src="lib/jquery-2.1.4.min.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/mui.indexedlist.js"></script>
+<script src="js/app.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/initInfo.js"></script>
+ <!-- Mobiscroll JS and CSS Includes -->
+<script src="js/mobiscroll.min.js"></script>
+<script type="text/javascript">
+mui.init();
+//$(function () {});
+		mui.ready(function() {
+		intiBaseByType(serverIp,"sid","currentIntent","/dataDir/listName.do","yxz");
+var userId =localStorage.getItem("id");
+		$('#chargerNameId').val(userId);
+		//getxmList();
+	  //侧滑容器父节点
+		var offCanvasWrapper = mui('#offCanvasWrapper');
+		 //主界面容器
+		var offCanvasInner = offCanvasWrapper[0].querySelector('.mui-inner-wrap');
+		 //菜单容器
+		var offCanvasSide = document.getElementById("offCanvasSide");
+		if (!mui.os.android) {
+			var spans = document.querySelectorAll('.android-only');
+			for (var i = 0, len = spans.length; i < len; i++) {
+				spans[i].style.display = "none";
+			}
+		}
+		
+		//主界面‘显示侧滑菜单’按钮的点击事件 ---签署人
+		document.getElementById('offCanvasShowQSR').addEventListener('tap', function() {
+			var title='<h1 class="mui-title">选择签署人</h1>'+
+			'<a id="done" class="mui-btn mui-btn-link mui-pull-right mui-btn-blue mui-disabled">完成</a>';
+			document.querySelector('#zhHead').innerHTML = title;
+			gethtList();
+			offCanvasWrapper.offCanvas('show');
+			var header = document.querySelector('header.mui-bar');
+			var list = document.getElementById('list');
+			var done = document.getElementById('done');
+			//calc hieght
+			//list.style.height =(document.body.offsetHeight - header.offsetHeight) + 'px';
+			list.style.height = '100%';
+			//create
+			window.indexedList = new mui.IndexedList(list);
+			//done event
+			done.addEventListener('tap', function() {
+				var customerSigner = $("input[name='radio']:checked").val();
+				var customerSignerName = $("input[name='radio']:checked").attr("ryname");
+				if (customerSigner > 0) {
+				document.getElementById('customerSignerName').value=customerSignerName;
+				document.getElementById('customerSigner').value=customerSigner;
+				offCanvasWrapper.offCanvas('close');
+				 } else {
+					mui.swal('你没选择任何签署人');
+				}
+				
+			}, false);
+			mui('.mui-indexed-list-inner').on('change', 'input', function() {
+				var count = list.querySelectorAll('input[type="radio"]:checked').length;
+				var value = count ? "完成(" + count + ")" : "完成";
+				done.innerHTML = value;
+				//mui.alert('你选择了: ' + radiovalue );
+				if (count) {
+					if (done.classList.contains("mui-disabled")) {
+						done.classList.remove("mui-disabled");
+					}
+				} else {
+					if (!done.classList.contains("mui-disabled")) {
+						done.classList.add("mui-disabled");
+					}
+				}
+			});
+		});
+		
+		 //菜单界面，‘关闭侧滑菜单’按钮的点击事件//
+		document.getElementById('offCanvasHide').addEventListener('tap', function() {
+			offCanvasWrapper.offCanvas('close');
+		});
+
+intiBaseDic(serverIp,"pid","planTalkId","/planTalk/listIntentName.do");//planTalkId
+intiBaseByType(serverIp,"dtid","dealType","/dataDir/listName.do","xylx");
+//intiBaseByType(serverIp,"dsid","dealStatus","/dataDir/listName.do","xyzt");
+		var id = location.href.split('?')[1].split('=')[1];
+		
+		$.ajax({
+			type:'post',
+			url: 'http://'+serverIp+'/gtims/deal/editForPhone.do',
+			data: {'id':id},
+			dataType: 'json',
+			crossDomain: true,	
+			success: function(data) {				
+				$('#name').val(data.name);
+				$('#description').val(data.description);
+				$('#planTalkId').val(data.planTalkId);
+				$('#dealType').val(data.dealType);
+				$('#dealWrite').val(data.dealWrite);
+				$('#writeDate').val(data.writeDate);
+				$('#dealStatus').val(data.dealStatus);
+				$('#customerSigner').val(data.customerSigner);
+				$('#customerSignerName').val(data.customerSignerShow);
+				$('#signDate').val(data.signDate);
+				$('#sealDate').val(data.sealDate);
+			  //$('#dealFile').val(data.dealFile);暂定
+				$('#note').val(data.note);
+				$('#effectiveTime').val(data.effectiveTime);
+				$('#period').val(data.period);
+			},
+			error:function(msg){
+				swal("访问出错！");
+			}
+		});
+		 var tjButton = document.getElementById('tijiao');
+	        tjButton.addEventListener('tap', function(event) {
+			var userId =localStorage.getItem("id");
+				//validateForm验证
+				var result = true;
+				$("form input[type='text']").each(function(){
+					if($(this).attr("validate")!=null&&!validateForm($(this))){
+						result = false;
+						return result;
+					}
+					
+				});
+				if(result != false){
+				$("select").each(function(){
+					if($(this).attr("validate")!=null&&!validateForm($(this))){
+						result = false;
+						return result;
+					}
+				});}
+			if(result){
+			$.ajax({
+				type:'post',
+				url: 'http://'+serverIp+'/gtims/deal/updateForPhone.do',
+				header:{
+					'Access-Control-Allow-Origin':'*'
+				},
+				data: {
+					'modifyPersonId':userId,'id':id,
+					'name':$('#name').val(),
+					'planTalkId':$('#planTalkId').val(),
+					'dealType':$('#dealType').val(),
+					'dealWrite':$('#dealWrite').val(),
+					'customerSigner':$('#customerSigner').val(),
+					'signDate':$('#signDate').val(),
+					'sealDate':$('#sealDate').val(),
+					//'dealFile':$('#dealFile').val(),
+					'effectiveTime':$('#effectiveTime').val(),
+					'period':$('#period').val(),
+					'description':$('#description').val()
+
+				},
+				dataType: 'json',
+				crossDomain: true,	
+				success: function(data) {
+					location.href='workManageDeal.html?code=&id=';
+				},
+				error:function(msg){
+					swal("访问出错！");
+				}
+			});
+			}
+		});
+	        
+	        //participants.value = userName ;
+	      	 //主界面和侧滑菜单界面均支持区域滚动；
+	      			mui('#offCanvasSideScroll').scroll();
+	      			mui('#offCanvasContentScroll').scroll();
+	      			 //实现ios平台原生侧滑关闭页面；
+	      			if (mui.os.plus && mui.os.ios) {
+	      				mui.plusReady(function() { //5+ iOS暂时无法屏蔽popGesture时传递touch事件,直接屏蔽popGesture功能
+	      					plus.webview.currentWebview().setStyle({
+	      						'popGesture': 'none'
+	      					});
+	      				});
+	      			}
+	      			
+	      			});
+	   		//查询签署人 	
+	   		function gethtList() {
+	   			var customerSigner = $('#customerSigner').val(); 
+	   			$.ajax({
+	   		url: 'http://'+serverIp+'/gtims/linkman/list.do?userId='+localStorage.getItem("id"),
+	   		async: false,
+	   		data:{'start':'0','end':'10000'},
+	   		dataType: 'json',
+	   		crossDomain: true,
+	   		success: function(data) {
+	   		 var html = "",obj=data.data;
+	   			for (var i = 0; i < obj.length; i++) {
+	   			    html+='<li class="mui-table-view-cell mui-indexed-list-item mui-radio mui-media mui-left">'+
+	   				'<input type="radio"  name="radio"  value="'+obj[i].id+'" ryname="'+obj[i].name+'" ';
+	   					if(obj[i].id==customerSigner){
+	   						html+=' checked="checked" ';
+	   					}			
+	   				html+=' /><div class="mui-media-body mui-ellipsis">'+obj[i].name+'('+obj[i].address+')'+
+	   									'<p class="mui-ellipsis">'+obj[i].phoneMobile+'</p>'+
+	   								'</div></li>';
+	   			}
+	   		document.querySelector('#ryList').innerHTML = html;
+	   	}
+	   	});
+	   		}
+</script>
+</body>
+</html>             
+            		 
+
+	         
+			 
+               
+			
+	   
+       
+		
+     

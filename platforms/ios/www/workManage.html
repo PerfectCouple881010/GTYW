@@ -1,0 +1,104 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<title>贯通综合管理系统-工作管理</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+		<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+		<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+<body>
+<header class="header warp100 clearfix">贯通综合管理系统<a class="headerR" href="sign.html"><img src="images/sign.png" height="16px" width="22px" alt="签到"></a></header>
+<div class="mainContent"   id="content">
+   
+</div>
+<footer class="footer clearfix">
+    <dl class="dl1" id="index">
+        
+        
+    </dl>
+     <dl class="dl2 current2" onclick="window.location.href=''">
+			<dt style="background:url(images/bot-22.png);background-size: 29px auto;background-position:0 1px;">工作管理</dt>
+			<dd>工作管理</dd>
+		</dl>
+     <dl class="dl3" onclick="cancel()">
+        <dt>注销</dt>
+        <dd>注销</dd>
+    </dl> 
+                     
+</footer>
+</body>
+<script src="js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script>
+    $(function(){
+        var vWidth=$(window).width();
+        var indexList=$('.indexList');
+        indexList.find('li').width((vWidth-3)/4)
+        
+        var userId=localStorage.getItem("id") ;
+		$.ajax({
+		url: 'http://'+serverIp+'/gtims/user/loadmenu.do',
+		data:{'userId':userId},
+		dataType: 'json',
+		type:'POST',
+		crossDomain: true,
+		success: function(data) {
+			if(data){
+				result="";
+				$.each(data, function(i) {
+				    result+="<ul class='indexList warp100 clearfix marginTop10'>";
+				    var d=data[i];
+				    $.each(d, function(j) {
+				    	result+="<li onclick=window.location.href='"+d[j].url+"'><img src="+d[j].pictureUrl+"><br>"+d[j].name+"</li>";
+				    });
+				    result+=" </ul>";
+				});
+				 $("#content").append(result);
+			}else{
+				swal({
+					  title: "你没有登录请重新登录!",
+					  confirmButtonText: "ok"
+					}, function(){
+						location.href="login.html";
+					});
+				
+			}
+		},
+		error:function(msg){
+		
+		}
+});
+    })
+    
+    
+    //我的首页（根据不同角色返回不同首页 ）
+    //列表返回权限 
+	 	var postId =localStorage.getItem("postId");
+	 	if(postId == '8'||postId == '15'){
+	 		var backResult='<a href="index_ZY.html"><dt>我的首页</dt></a><dd>我的首页</dd>';
+	 	}else if(postId == '9'){
+	 		var backResult='<a href="index_TZ.html"><dt>我的首页</dt></a><dd>我的首页</dd>';
+	 	}else if(postId == '10'||postId == '13'){
+	 		var backResult='<a href="index_JS.html"><dt>我的首页</dt></a><dd>我的首页</dd>';
+	 	}else if(postId == '11'||postId=='14'){
+	 		var backResult='<a href="index_YY.html"><dt>我的首页</dt></a><dd>我的首页</dd>';  
+	 	}else if(postId == '12'){
+	 		var backResult='<a href="index_CSJL.html"><dt>我的首页</dt></a><dd>我的首页</dd>';
+	 	}else if(postId == '2'||postId=='16'||postId=='17'){
+	 		var backResult='<a href="index_CEO.html"><dt>我的首页</dt></a><dd>我的首页</dd>';
+	 	}else{
+	 		var backResult='<a href="index_XZ.html"><dt>我的首页</dt></a><dd>我的首页</dd>';
+	 	}
+		
+		$('#index').append(backResult);
+		
+document.addEventListener("backbutton", exitApp, false);
+</script>
+</html>

@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<title>贯通综合管理系统-工作管理—签到记录</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+
+<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+		<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+<body>
+<header class="header warp100 clearfix" id="returnIndex">
+   <!--  <a class="headerL" href="workManage.html"><img src="images/return.png"></a> -->
+    打卡记录
+</header>
+<div class="mainContent">
+	<!-- <div class="search marginTop10">
+    	<input type="text" placeholder="输入关键词查找审批信息">
+    </div> -->
+<!--     <ul class="myApprovalTab clearfix warp100 marginTop10" id="myApprovalTab">
+    	<li class="cur"><a href="#2">待审批</a></li>
+    	<li><a href="#2">已分配</a></li>
+    </ul> -->
+    <div id="myApprovalTabBox">
+        <ul class="planeListBox warp100 marginTop10" id="management_list">
+        </ul>
+<!--         <ul class="planeListBox warp100 marginTop10" style="display:none;" id="management_listAllot">
+        </ul> -->
+    </div>
+    
+</div>
+</body>
+<script src="js/jquery.js"></script>
+<script type="text/javascript" src="js/return.js"></script>
+<script>
+	
+	
+    $(function(){
+       $('#myApprovalTab li').click(function(){
+			$(this).addClass('cur').siblings().removeClass('cur');
+			var index=$(this).index();
+			$('#myApprovalTabBox').find('ul').eq(index).show().siblings().hide();   
+		})
+    })
+</script>
+
+<script type="text/javascript" src="js/index.js"></script>
+<script>
+		var userId =localStorage.getItem("id");
+		$.ajax({
+			url: 'http://'+ serverIp +'/gtims/attendancePhone/listSignInfo.do',
+			async: false,
+			type:'post',
+			data:{'start':'0','end':'100','userId':userId},
+			dataType: 'json',
+			crossDomain: true,
+			success: function(data) {
+				var result = '';
+				if(data.length>0){
+					for(var i=0;i<data.length;i++){
+						result += '<li style="padding:10px;"><h1>'+localStorage.getItem("nickname")+'</h1>'+
+		                		  '<p><span class="img"><img src="images/date.png"></span>'+data[i].time+'</p>'+
+		                		  '<p><img src="images/address.png">'+data[i].address+'</p>'+
+		                		  '<p>参照物：'+castValue(data[i].standby1)+'</p>'+
+		                		  '<p>备注：'+castValue(data[i].standby2)+'</p>';
+						result+='</li>';
+					}
+				}
+				$('#management_list').prepend(result);
+
+			},
+			error:function(msg){
+				swal("访问出错！");
+			}
+		});
+		
+		
+	<!--util-->
+	function castValue(value){
+		if(value==undefined){
+			return '';
+		}
+		if(value==null){
+			return '';
+		}
+		return value;
+	}
+		
+</script>
+
+</html>

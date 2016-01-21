@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<title>贯通综合管理系统-全部任务—任务详情</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+		<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+<body>
+<header class="header warp100 clearfix" >
+    <a class="headerL" href="javascript:history.go(-1);"><img src="images/return.png"></a>
+    子任务详情
+
+</header>
+<div class="mainContent">
+	<div class="warp100 marginTop10">
+        <div class="detailTop borderBot10">
+            <h1 id="name"></h1>
+ <!--  <p class="address" id=""><img src="images/address.png">海淀区</p> -->          
+            <p class="partic">任务类型：<span id="goalClass"></span></p>
+           <!--  <P>任务周期：<span id="zhouqi"></span></P> -->
+        </div>
+        <div class="planDetailDate borderBot10">
+            <p class="clearfix">任务数量<span class="taskNum" id="completionCriteria"></span></p>
+            <p class="clearfix blue">已完成任务<span class="taskNum" id="zongpcounts" >3</span></p>
+            <p class="clearfix red">未完成任务<span class="taskNum" id="syGoalNum" >9</span></p>
+        </div>
+        <div class="DetailBot borderBot10">
+        	<h1>任务描述</h1>
+            <P><span class="orgCri"></span>负责人：<span id="chargerName"></span></P>
+            <p><span class="orgCri"></span>内容：<span id="description"></span></p>
+        </div>
+		    
+    <div class="DetailBotBtn1 DetailBotBtn2" id="addupdate">
+        
+    </div>
+    
+</div>
+
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript">
+
+		var id = location.href.split('?')[1].split('=')[1];
+		
+		$.ajax({
+			type:'post',
+			url: 'http://'+serverIp+'/gtims/goal/editForPhone.do',
+			data: {'id':id},
+			dataType: 'json',
+			crossDomain: true,	
+			success: function(data) {
+				$('#name').text(data.name);
+				$('#description').text(data.description);
+				$('#goalClass').text(data.goalClassShow);
+				$('#goalType').text(data.goalTypeShow);
+				$('#chargerName').text(data.chargerNameShow);
+				/* $('#zhouqi').text(data.zhouqi); */
+				$('#startDate').text(data.startDate);
+				$('#endDate').text(data.endDate);
+				$('#completionCriteria').text(data.completionCriteria);
+				$('#note').text(data.note);
+				$('#syGoalNum').text(data.syGoalNum);			
+				$('#zongpcounts').text(data.zongpcounts);
+				var editResult='<a href="subTaskModify.html?id='+data.id +'">修改</a>';
+				$('#addupdate').append(editResult);
+			},
+			error:function(msg){
+				swal("访问出错！");
+			}
+		});
+		
+
+
+</script>
+</body>
+</html>

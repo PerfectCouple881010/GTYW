@@ -1,0 +1,25 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.gt.crmtest"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.gt.crmtest"
+        },
+        "cordova-plugin-appinfo": {
+            "PACKAGE_NAME": "com.gt.crmtest"
+        },
+        "cn.jpush.phonegap.JPushPlugin": {
+            "API_KEY": "cdd3c6c2339c602ecebe595f",
+            "PACKAGE_NAME": "com.gt.crmtest"
+        }
+    },
+    "dependent_plugins": {}
+}

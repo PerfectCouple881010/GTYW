@@ -1,0 +1,114 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+<title>贯通综合管理系统-工作管理—全部任务</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="css/iscroll-load-data.css" />
+<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+		<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+<style type="text/css" media="all">
+body,ul,li {
+	padding:0;
+	margin:0;
+	border:0;
+}
+
+</style>
+<body>
+	<header class="header warp100 clearfix" id="returnIndex" style="margin-buttom:60px;">
+		审批记录 
+	</header>
+		<div id="wrapper"  class="mainContent">
+			<div class="scroller">
+				<ul id="thelist"  class="planeListBox warp100 marginTop10" >
+				</ul>
+				<div id="scroller-pullUp">
+					<span class="pullUpLabel" style="text-align: center;">上拉显示更多...</span>
+				</div>
+			</div>
+		</div>
+</body>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/return.js"></script>
+<script type="text/javascript" src="js/iscroll-probe.js"></script>
+<script type="text/javascript" src="js/iscroll-load-data.js"></script>
+<script type="text/javascript">
+$(function () {
+var postId =localStorage.getItem("postId");
+var userId =localStorage.getItem("id");
+var firstresult = 0,pagesize = 6,fistsize=0;
+	//查询待审核
+	$.ajax({
+		url: 'http://'+ serverIp +'/gtims/task/MylistRecord.do?userId='+userId,
+		async: false,
+		data:{'start':firstresult,'end':pagesize},
+		dataType: 'json',
+		crossDomain: true,
+		success: function(data) {
+			var result = '';
+			fistsize=data.data.length;
+			for(var i=0;i<fistsize;i++){
+				//result += '<li class="items"><span class="list_manage"><font style="font-weight:bold;">任务类型：</font>'+data.data[i].task_name+'&nbsp;&nbsp;&nbsp;&nbsp;<font style="font-weight:bold;">提交人：</font>'+data.data[i].submit_name+'&nbsp;&nbsp;&nbsp;&nbsp;<font style="font-weight:bold;">申请名称：</font>'+data.data[i].apply_name+'</span><div class="manage_show bort"><ul class="main_form_list_1"><li><a href="#"><label>'+'任务名称'+'</label><span  class="w70" >'+data.data[i].task_name+'</span></a></li>'+'<li><label>'+'申请的名称'+'</label><span  class="w70" >'+data.data[i].apply_name+'</span></li>'+'<li><label>'+'申请人姓名'+'</label><span  class="w70" >'+data.data[i].submit_name+'</span></li>'+'<li><label>'+'当前审批人 '+'</label><span  class="w70" >'+data.data[i].aud_name+'</span></li></ul>';
+					result+='<li><h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>审核时间：'+data.data[i].date+'</p><p>审批人：'+data.data[i].aud_name+'</p><p>'+'<span class="author">审核意见：'+data.data[i].checkInf+'</span></p></li>';
+			}
+			$('#thelist').prepend(result);
+	
+		},
+		error:function(msg){
+			swal("访问出错！");
+		}
+	});
+
+	function dropBottomAction(cb){
+		if(fistsize<pagesize){ //
+			//cb(null);
+			console.log('别刷了，没有了');
+			IS.pullUpEl.className = 'nonedb';
+			IS.pullUpEl.querySelector('.pullUpLabel').innerHTML = "木有数据了";	
+		}else{
+			firstresult=firstresult+pagesize;
+			console.log(firstresult);
+			setTimeout(function(){
+	    		var d=document.createDocumentFragment();
+	    		$.ajax({
+	    			url: 'http://'+ serverIp +'/gtims/task/MylistRecord.do?userId='+userId,
+	    			async: false,
+	    			data:{'start':firstresult,'end':pagesize},
+	    			dataType: 'json',
+	    			crossDomain: true,
+	    			success: function(data) {
+	    				fistsize=data.data.length;
+	    				for(var i=0;i<fistsize;i++){
+	    					//result += '<li class="items"><span class="list_manage"><font style="font-weight:bold;">任务类型：</font>'+data.data[i].task_name+'&nbsp;&nbsp;&nbsp;&nbsp;<font style="font-weight:bold;">提交人：</font>'+data.data[i].submit_name+'&nbsp;&nbsp;&nbsp;&nbsp;<font style="font-weight:bold;">申请名称：</font>'+data.data[i].apply_name+'</span><div class="manage_show bort"><ul class="main_form_list_1"><li><a href="#"><label>'+'任务名称'+'</label><span  class="w70" >'+data.data[i].task_name+'</span></a></li>'+'<li><label>'+'申请的名称'+'</label><span  class="w70" >'+data.data[i].apply_name+'</span></li>'+'<li><label>'+'申请人姓名'+'</label><span  class="w70" >'+data.data[i].submit_name+'</span></li>'+'<li><label>'+'当前审批人 '+'</label><span  class="w70" >'+data.data[i].aud_name+'</span></li></ul>';
+	    					var li=document.createElement('li');
+	    						li.innerHTML='<h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>审核时间：'+data.data[i].date+'</p><p>审批人：'+data.data[i].aud_name+'</p><p>'+'<span class="author">审核意见：'+data.data[i].checkInf+'</span></p>';
+	    					d.appendChild(li);
+	    				}
+	    				cb(d);
+	    		
+	    			},
+	    			error:function(msg){
+	    				swal("访问出错！");
+	    			}
+	    		});
+	    		},500);
+		}
+	}
+	function loaded(){
+		var wrapper=document.querySelector('#wrapper');
+		var content=document.querySelector('#thelist');
+		var IS=new IScrollLoadData(wrapper,content,{},dropBottomAction,30);
+	}
+	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+	var wrapper=document.querySelector('#wrapper');
+	var content=document.querySelector('#thelist');
+	var IS=new IScrollLoadData(wrapper,content,{},dropBottomAction,30);
+});	
+</script>
+</html>

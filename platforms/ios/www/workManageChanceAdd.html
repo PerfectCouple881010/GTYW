@@ -1,0 +1,319 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<title>线索新增</title>
+<link href="css/mui.min.css" rel="stylesheet" />
+<link href="css/mui.indexedlist.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/app.css" />
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+		<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+<style>
+.mui-bar {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+#done.mui-disabled {
+	color: gray;
+}
+
+.mui-table-view-cell.mui-checkbox input[type=checkbox],.mui-table-view-cell.mui-radio input[type=radio] {
+	top: 16px;
+}
+</style>
+</head>
+<body>
+	
+
+	<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+	<!--侧滑菜单部分-->
+	<aside id="offCanvasSide" class="  mui-off-canvas-right" style="background: none">
+			<header class="mui-bar mui-bar-nav">
+				<a class=" mui-icon mui-icon-left-nav mui-pull-left" id="offCanvasHide"></a>
+				<h1 class="mui-title">选择人员</h1>
+				<a id='done' class="mui-btn mui-btn-link mui-pull-right mui-btn-blue mui-disabled">完成</a>
+			</header>	
+			<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+				<div class="mui-scroll">				
+					<div class="mui-content">
+						<div id='list' class="mui-indexed-list">
+							<div class="mui-indexed-list-search mui-input-row mui-search">
+								<input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="请输入搜索内容">
+							</div>
+							<div class="mui-indexed-list-alert"></div>
+							<div class="mui-indexed-list-inner">
+								<div class="mui-indexed-list-empty-alert">没有数据</div>
+								<ul class="mui-table-view" id ="ryList">
+									<li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+									
+									</li>
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</aside>
+		<!--主界面部分-->
+		<div class="mui-inner-wrap">
+
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">线索新增</h1>
+			</header>
+			<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div class="mui-content-padded">
+					<form class="mui-input-group" id="addJhForm">
+					<input id="createrId" type="hidden"  name="createrId"  value="" />
+					<input id="modifyPersonId" type="hidden"  name="modifyPersonId"  value="" />
+					<input  id="chargerNameId"    name="chargerName" type="hidden" class="  mui-input"   />
+					<div class="mui-input-row">
+						<label><span style="color:red">*</span>线索名称</label>
+						<input   id="name" name="name"  type="text" class="mui-input-clear mui-input" placeholder="请输入名称" validate="*" errorMsg="线索名称必填"/>
+						</div>
+					<div class="mui-input-row">
+						<label><span style="color:red">*</span>地点</label>
+						<input  name="place"  id="place" type="text" class="mui-input-clear mui-input" placeholder="请输入地点" validate="*" errorMsg="线索地点必填"/>
+					</div>
+					<div class="mui-input-row" id="offCanvasShow">
+								<label><span style="color:red">*</span>联系人</label> 
+								<input type="text" class="mui-input  " id="xzry" value="" readonly="readonly" placeholder="请选择联系人" validate="*" errorMsg="联系人必填"> 
+								<input id="xzryid" type="hidden"  name="linkman"  value="" /> 
+								<!-- <a class="mui-navigate-right" id="offCanvasShow"  /></a> -->
+					</div>
+					<div class="mui-input-row">
+						<label><span style="color:red">*</span>意向值</label>
+						<select id="currentIntent" name="currentIntent" class="mui-select" placeholder="请选择意向值" validate="*" errorMsg="意向值必填"/>
+						</select>
+					</div>
+					<div class="mui-input-row">
+                		<label><span style="color:red">&nbsp;</span>所属任务</label>
+            	  		<select value="" name="goalId" id="goalId"  validate="" errorMsg="所属任务必选"></select>
+            		</div>
+					<!-- <div class="mui-input-row">
+								<label>负责人</label> <input type="text" class="mui-input  " id="fzr" value="" readonly="readonly" placeholder="请选择负责人"> 
+								<input id="fzrid" type="hidden" value="" /> <a class="mui-navigate-right" id="fzroffCanvasShow" required/></a>
+					</div> -->
+					 
+				<div class="mui-input-row">
+					<label><span style="color:red">&nbsp;</span>线索描述</label>
+					</div>
+					<div class="mui-input-row"  style="margin: 0px 5px 0px 5px;height:auto">
+					<textarea id="description" name="description" rows="5" placeholder="请输入详细线索描述" ></textarea>
+					</div>
+					<div class="mui-button-row" style="height:57px">
+						<div class="DetailBotBtn1 DetailBotBtn2">       
+							<a  class="back header_button  mui-action-back">取消新增</a>
+							<a href="javascript:void(0);" class="newproject header_button" id="tijiao">确认新增</a>
+						</div>
+						
+					</div>
+				</form>
+				
+				</div>
+
+
+
+				</div>
+			</div>
+			<!-- off-canvas backdrop -->
+			<div class="mui-off-canvas-backdrop"></div>
+		</div>
+	</div>
+	
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/mui.indexedlist.js"></script>
+<script src="js/app.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/initInfo.js"></script>
+<script type="text/javascript" charset="utf-8">
+mui.init();
+//$(function () {});
+			mui.ready(function() {
+			intiBaseByType(serverIp,"sid","currentIntent","/dataDir/listName.do","yxz");
+			intiBaseDic(serverIp,"gid","goalId","/goal/listName.do?chargerName="+localStorage.getItem("id"));//goalId
+	  		var userId =localStorage.getItem("id");
+			$('#chargerNameId').val(userId);
+			getLinkManList();
+		  //侧滑容器父节点
+			var offCanvasWrapper = mui('#offCanvasWrapper');
+			 //主界面容器
+			var offCanvasInner = offCanvasWrapper[0].querySelector('.mui-inner-wrap');
+			 //菜单容器
+			var offCanvasSide = document.getElementById("offCanvasSide");
+			if (!mui.os.android) {
+				var spans = document.querySelectorAll('.android-only');
+				for (var i = 0, len = spans.length; i < len; i++) {
+					spans[i].style.display = "none";
+				}
+			}
+			//主界面‘显示侧滑菜单’按钮的点击事件
+			document.getElementById('offCanvasShow').addEventListener('tap', function() {
+				offCanvasWrapper.offCanvas('show');
+			});
+			 //菜单界面，‘关闭侧滑菜单’按钮的点击事件//
+			document.getElementById('offCanvasHide').addEventListener('tap', function() {
+				offCanvasWrapper.offCanvas('close');
+			});
+				var header = document.querySelector('header.mui-bar');
+				var list = document.getElementById('list');
+				var done = document.getElementById('done');
+				//calc hieght
+				//list.style.height =(document.body.offsetHeight - header.offsetHeight) + 'px';
+				list.style.height = '100%';
+				//create
+				window.indexedList = new mui.IndexedList(list);
+				//done event
+				done.addEventListener('tap', function() {
+					var checkboxArray = [].slice.call(list.querySelectorAll('input[type="checkbox"]'));
+					var checkedValues = [],ryids=[];
+					checkboxArray.forEach(function(box) {
+						if (box.checked) {
+						   //checkedValues.push(box.parentNode.innerText);
+						   checkedValues.push(box.getAttribute("ryname"));
+							ryids.push(box.value);
+						}
+					});
+					if (checkedValues.length > 0) {
+					//mui.alert('你选择了: ' + checkedValues);
+					document.getElementById('xzry').value=checkedValues;
+					document.getElementById('xzryid').value=ryids;
+					offCanvasWrapper.offCanvas('close');
+					 } else {
+						mui.swal('你没选择任何人员');
+					}
+					
+				}, false);
+				mui('.mui-indexed-list-inner').on('change', 'input', function() {
+					var count = list.querySelectorAll('input[type="checkbox"]:checked').length;
+					var value = count ? "完成(" + count + ")" : "完成";
+					done.innerHTML = value;
+					if (count) {
+						if (done.classList.contains("mui-disabled")) {
+							done.classList.remove("mui-disabled");
+						}
+					} else {
+						if (!done.classList.contains("mui-disabled")) {
+							done.classList.add("mui-disabled");
+						}
+					}
+				});
+				
+				var tjButton = document.getElementById('tijiao');
+					 tjButton.addEventListener('tap', function(event) {
+					
+					 $('#createrId').val(userId);
+					 $('#modifyPersonId').val(userId);
+						var tjInfo = $("#addJhForm").serializeJson();
+						//console.log(tjInfo)
+						app.addChance(tjInfo, function(err) {
+							/* if (err) {
+								mui.toast(err);
+								return;
+							} */
+							//validateForm验证
+							var result = true;
+							$("form input[type='text']").each(function(){
+								if($(this).attr("validate")!=null&&!validateForm($(this))){
+									result = false;
+									return result;
+								}
+								
+							});
+							if(result != false){
+							$("select").each(function(){
+								if($(this).attr("validate")!=null&&!validateForm($(this))){
+									result = false;
+									return result;
+								}
+							});}
+							//提交后台新增
+							if(result){
+							$.ajax({
+								type:'post',
+								traditional:true,
+								url: 'http://'+serverIp+'/gtims/chance/insertForPhone.do',
+								data: tjInfo,
+								dataType: 'json',
+								crossDomain: true,	
+								success: function(data) {
+									location.href='workManageChance.html?code=&id=';
+									//mui.back()
+								},
+								error:function(msg){
+									swal("访问出错！");
+								}
+							});
+							}
+						});
+					});
+			
+			 //主界面和侧滑菜单界面均支持区域滚动；
+			mui('#offCanvasSideScroll').scroll();
+			mui('#offCanvasContentScroll').scroll();
+			 //实现ios平台原生侧滑关闭页面；
+			if (mui.os.plus && mui.os.ios) {
+				mui.plusReady(function() { //5+ iOS暂时无法屏蔽popGesture时传递touch事件,直接屏蔽popGesture功能
+					plus.webview.currentWebview().setStyle({
+						'popGesture': 'none'
+					});
+				});
+			}
+			
+			});
+			
+		function getLinkManList() {
+			$.ajax({
+				url: 'http://'+serverIp+'/gtims/linkman/list.do?userId='+localStorage.getItem("id"),
+				async: false,
+				data:{'start':'0','end':'10000'},
+				dataType: 'json',
+				crossDomain: true,
+				success: function(data) {
+				 var html = "",obj=data.data;
+					for (var i = 0; i < obj.length; i++) {
+					    html+='<li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">'+
+						'<input type="checkbox" value="'+obj[i].id+'" ryname="'+obj[i].name+'" /> '+
+									'<img class="mui-media-object mui-pull-left" src="images/linkman.png">'+
+										'<div class="mui-media-body mui-ellipsis">'+obj[i].name+'('+obj[i].address+')'+
+											'<p class="mui-ellipsis">'+obj[i].phoneMobile+'</p>'+
+										'</div></li>';
+					}
+				document.querySelector('#ryList').innerHTML = html;
+			}
+			});
+				}
+				
+				function getFzrList() {
+					$.ajax({
+				url: 'http://'+serverIp+'/gtims/linkman/list.do?userId='+localStorage.getItem("id"),
+				async: false,
+				data:{'start':'0','end':'10000'},
+				dataType: 'json',
+				crossDomain: true,
+				success: function(data) {
+				 var html = "",obj=data.data;
+					for (var i = 0; i < obj.length; i++) {
+					    html+='<li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">'+
+						'<input type="checkbox" value="'+obj[i].id+'" ryname="'+obj[i].name+'" /> '+
+									'<img class="mui-media-object mui-pull-left" src="images/linkman.png">'+
+										'<div class="mui-media-body mui-ellipsis">'+obj[i].name+'('+obj[i].address+')'+
+											'<p class="mui-ellipsis">'+obj[i].phoneMobile+'</p>'+
+										'</div></li>';
+					}
+				document.querySelector('#fzrList').innerHTML = html;
+			}
+			});
+				}
+			
+		</script>
+</body>
+</html>

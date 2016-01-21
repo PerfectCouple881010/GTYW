@@ -1,0 +1,52 @@
+
+/* CSS Document */
+*{ margin:0; padding:0;}
+body{ background:#ebebeb; color:#6d6d6d; font-size:14px; width:100%;font-family:"Microsoft Yahei";}
+ul{ list-style:none;}
+a{ text-decoration:none;}
+a:hover{ text-decoration:none;}
+img{ border:none;}
+.clearfix:after{ content:"."; display:block; clear:both; height:0; overflow:hidden;}
+.clearfix{ zoom:1;}
+em{ font-weight:normal; font-style:normal;}
+h1{ font-weight: normal;}
+select{ background:#fff;}
+
+.warp100{ width:100%; background: #fff;}
+.warp90{ width:90%; margin:0 auto;}
+.warp92{ width:92%; margin:0 auto;}
+.warp96{ width:96%; margin:0 auto;}
+.warp80{ width:80%; margin:0 auto;}
+
+.marginTop10{ margin-top:10px;}
+.borderBot10{border-bottom:10px solid #ebebeb; width:90%; padding:0 5%;}
+.line{border-bottom:1px solid #b5b5b5; margin:5px 0 3px;}
+.marginLeft6{ margin-left:6px;}
+
+.mainContent{ padding: 60px 0;}
+
+.header{ text-align:center; height: 60px; line-height: 66px; background: url(../images/topbg.png) no-repeat; background-size: 100% 100%;font-size: 22px; color:#fff; position:relative; overflow:hidden; position:fixed; left:0; top:0; z-index:10;}
+.header .headerR{ position:absolute; right:10px; top:0;color:#fff; font-size: 14px; line-height: 70px;}
+.header .headerL{ position:absolute; left:10px; top:0;padding-left:10px;}
+.header .headerL img{ width:20px; vertical-align:middle; }
+
+.footer{ width:100%;background: url(../images/botbg.png) no-repeat; background-size: 100% 100%;height:60px; position:fixed; bottom:0; left:0; z-index:10; }
+.footer dl{ float:left; width:33%; text-align:center; padding-top:9px;color:#fff; font-size: 12px;}
+.footer dl dt{ text-indent:-9999px; height: 26px; width: 26px; margin:auto; margin-bottom: 4px;}
+.footer dl.dl1 dt{ background:url(../images/bot1.png) no-repeat center 0; background-size: 26px auto; }
+.footer dl.dl2 dt{ background:url(../images/bot2.png) no-repeat center 0; background-size: 26px auto; }
+.footer dl.dl3 dt{ background:url(../images/bot3.png) no-repeat center 0; background-size: 26px auto;}
+
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { 
+    color:#999;
+}
+input:-moz-placeholder, textarea:-moz-placeholder { 
+    color:#999;
+}
+input::-moz-placeholder, textarea::-moz-placeholder { 
+ 	color:#999;
+}
+input:-ms-input-placeholder, textarea:-ms-input-placeholder { 
+    color:#999;
+}

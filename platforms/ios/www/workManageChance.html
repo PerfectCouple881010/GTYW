@@ -1,0 +1,144 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<title>贯通综合管理系统-工作管理-线索管理</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="css/iscroll-load-data.css" />
+<script src="js/jquery-1.9.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+		<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+
+<style type="text/css" media="all">
+body,ul,li {
+	padding:0;
+	margin:0;
+	border:0;
+}
+
+</style>
+
+</head>
+<body>
+<header class="header warp100 clearfix" id="returnIndex">
+    <!-- <a class="headerL" href="workManage.html"><img src="images/return.png" id="head_back"></a> -->
+    线索管理
+    <a class="headerR" href="workManageChanceAdd.html">新增</a>
+</header>
+
+<div id="wrapper"  class="mainContent">
+	<div class="scroller">
+		<ul id="thelist"  class="planeListBox warp100 marginTop10" >
+		</ul>
+		<div id="scroller-pullUp">
+			<span class="pullUpLabel" style="text-align: center;">上拉显示更多...</span>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/returnByCity.js"></script>
+<script type="text/javascript" src="js/iscroll-probe.js"></script>
+<script type="text/javascript" src="js/iscroll-load-data.js"></script>
+<script type="text/javascript">
+$(function () {
+	var userId =localStorage.getItem("id");
+	var firstresult = 0,pagesize = 3,fistsize=0;
+	id = location.href.split('&')[1].split('=')[1];
+	if(id!=""){
+		userId=id;
+	}
+		$.ajax({
+			url: 'http://'+ serverIp +'/gtims/chance/list.do?userId='+userId+'',
+			async: false,
+			data:{'start':firstresult,'end':pagesize,'code':code},
+			dataType: 'json',
+			crossDomain: true,
+			success: function(data) {
+				var result = '';
+				fistsize=data.data.length;
+				for(var i=0;i<fistsize;i++){
+					result +='<li><a href="workManageChanceDetail.html?id='+data.data[i].id+'&code='+code+'" class="warp90 planeList"><h1>'+data.data[i].name+'</h1><p>线索状态：'+data.data[i].codeName+'</p><p>线索联系人：'+data.data[i].linkmanNames+'</p><p><span class="img"><img src="images/date.png"></span>'+data.data[i].createDate+'<em>意向值：'+data.data[i].currentIntentShow+'</em></p></a></li>';
+				}
+			$('#thelist').prepend(result);
+			//列表返回权限 
+		 	var postId =localStorage.getItem("postId");
+		 	if(postId == '8'||postId == '15'){
+		 		var backResult='<a href="index_ziyuan.html" class="back header_button">返回</a>';
+		 	}else if(postId == '9'){
+		 		var backResult='<a href="index.html" class="back header_button">返回</a>';
+		 	}else if(postId == '10'||postId == '13'){
+		 		var backResult='<a href="index_jianshe.html" class="back header_button">返回</a>';
+		 	}else if(postId == '11'||postId=='14'){
+		 		var backResult='<a href="index-yun.html" class="back header_button">返回</a>';
+		 	}else if(postId == '12'){
+		 		var backResult='<a href="index_city.html" class="back header_button">返回</a>';
+		 	}else if(postId == '2'||postId=='16'||postId=='17'){
+		 		var backResult='<a href="index_leader.html" class="back header_button">返回</a>';
+		 	}else{
+		 		var backResult='<a href="index.html" class="back header_button">返回</a>';
+		 	}
+			
+			$('#head_back').append(backResult);	
+				$('#management_list>li').on('click',function(){
+		
+					if($(this).children('.manage_show').is(':visible') == false){
+						$(this).children('.manage_show').show();
+						}else{
+							$(this).children('.manage_show').hide();
+							};
+					$(this).siblings().children('.manage_show').hide();
+					
+					});
+			},
+			error:function(msg){
+				swal("访问出错！");
+			}
+		});
+
+	    	function dropBottomAction(cb){
+	    		if(fistsize<pagesize){ //
+	    			//cb(null);
+	    			console.log('别刷了，没有了');
+	    			IS.pullUpEl.className = 'nonedb';
+	    			IS.pullUpEl.querySelector('.pullUpLabel').innerHTML = "木有数据了";	
+	    		}else{
+	    			firstresult=firstresult+pagesize;
+	    			console.log(firstresult);
+	    			setTimeout(function(){
+	    	    		var d=document.createDocumentFragment();
+	    	    		$.ajax({
+	    	    				url: 'http://'+ serverIp +'/gtims/chance/list.do?userId='+userId+'',
+	    	    				async: false,
+	    	    				data:{'start':firstresult,'end':pagesize},
+	    	    				dataType: 'json',
+	    	    				crossDomain: true,
+	    	    				success: function(data) {
+	    	    					fistsize=data.data.length;
+	    	    						for(var i=0;i<fistsize;i++){
+				    	    	          var li=document.createElement('li');
+				    	    	          li.innerHTML='<a href="workManageChanceDetail.html?id='+data.data[i].id+'&code='+code+'" class="warp90 planeList"><h1>'+data.data[i].name+'</h1><p>线索状态：'+data.data[i].codeName+'</p><p>线索联系人：'+data.data[i].linkmanNames+'</p><p><span class="img"><img src="images/date.png"></span>'+data.data[i].createDate+'<em>意向值：'+data.data[i].currentIntentShow+'</em></p></a>';
+				    	    	          d.appendChild(li);
+	    	    						}
+	    	    				cb(d);
+	    	    				}
+	    	    				})
+	    	    		},500);
+	    		}
+	    	}
+	    	function loaded(){
+	    		var wrapper=document.querySelector('#wrapper');
+	    		var content=document.querySelector('#thelist');
+	    		var IS=new IScrollLoadData(wrapper,content,{},dropBottomAction,30);
+	    	}
+	    	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+	    	var wrapper=document.querySelector('#wrapper');
+    		var content=document.querySelector('#thelist');
+    		var IS=new IScrollLoadData(wrapper,content,{},dropBottomAction,30);
+	    });
+document.addEventListener("backbutton", backMain, false);
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+		<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+$.extend($.fn.validatebox.defaults.rules, {    
+    equals: {    
+        validator: function(value,param){    
+            return value == $(param[0]).val();    
+        },    
+        message: 'Field do not match.'   
+    }    
+});
+</script>  
+
+<script type="text/javascript" src="diyUpload/js/jquery.easyui.min.js"></script>
+<input id="pwd" name="pwd" type="password" class="easyui-validatebox" data-options="required:true" />   
+<input id="rpwd" name="rpwd" type="password" class="easyui-validatebox"     
+    required="required" validType="equals['#pwd']" />
+</body>
+</html>

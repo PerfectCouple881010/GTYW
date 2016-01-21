@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<title>贯通综合管理系统—申请审核</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+
+<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+<body>
+<header class="header warp100 clearfix">
+    <a class="headerL" href="workManageMyApproval.html"><img src="images/return.png"></a>
+    申请审核
+
+</header>
+<div class="mainContent">
+	<div class="warp100 marginTop10">
+        <div class="detailTop borderBot10">
+            <h1 ><span id="name"></span></h1>
+            <p class="partic">费用金额&nbsp;&nbsp;&nbsp;<span  id="feeSum"></span></p>
+            <p class="partic">审核状态&nbsp;&nbsp;&nbsp;<span  id="check_status"></span></p>
+        </div>
+        <div class="planDetailDate borderBot10">
+            <p class="clearfix">申请类型&nbsp;&nbsp;&nbsp;<span  id="feeType"></span></p>
+            <p class="clearfix">所属项目&nbsp;&nbsp;&nbsp;<span  id="projectId"></span></p>
+        </div>
+        <div class="DetailBot borderBot10">
+        	<h1> 申请内容</h1>
+            <P><span class="orgCri"></span>内容：<span class="participantsname"></P>
+            <p class="DetailBotCont" id="content"></p>
+        </div>
+    </div>
+  		<div class="DetailBot borderBot10">
+        	<h1>审核意见</h1>
+            <textarea id="checkInf" style="width:100%;"></textarea>
+        </div>
+    	<div class="DetailBotBtn1 DetailBotBtn2">
+        <a href="#2" onclick="reject();">驳回</a>
+        <a href="#2" onclick="pass();">同意</a>
+    	</div>
+    
+</div>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/initInfo.js"></script>
+<script type="text/javascript">
+		var userId =localStorage.getItem("id");
+		var applyid = location.href.split('?')[1].split('=')[1].split('&')[0];
+		var taskId=location.href.split('&')[1].split('=')[1];
+		var description = "";
+		var checkModuleName = "";
+		var submit_id = "";
+		$.ajax({
+			type:'post',
+			url: 'http://'+serverIp+'/gtims/apply/editForPhone.do',
+			data: {'id':applyid},
+			dataType: 'json',
+			crossDomain: true,	
+			success: function(data) {
+				$('#name').text(data.name);
+				$('#feeSum').text(data.feeSum);
+				$('#check_status').text(data.check_status);
+                $('#feeType').text(data.feeName);
+				$('#projectId').text(data.project_name);
+				$('#content').text(data.content);
+				var Modify1='<a href="feiyongModify.html?id='+data.id +'">驳回</a><a href="feiyongModify.html?id='+data.id +'">通过</a>';
+				$('#Modify').append(Modify1);
+			},
+			error:function(msg){
+				swal("访问出错！");
+			}
+		});
+		var check="";
+		//审核通过
+		function pass(){
+			if(check==""){
+			check="false";
+			var userId =localStorage.getItem("id");
+			var applyId = location.href.split('?')[1].split('&')[0].split('=')[1];
+			var taskId = location.href.split('?')[1].split('&')[1].split('=')[1];
+			$.ajax({
+				type:'get',
+				url: 'http://'+serverIp+'/gtims/applytask/pass.do?taskId=' + taskId + "&applyId=" + applyId +"&userId=" + userId,
+				data: {'checkInfo':$('#checkInf').val()},
+				dataType: 'json',
+				crossDomain: true,	
+				success: function(data) {
+					location.href="#";
+					swal({
+						  title: data.msg,
+						  confirmButtonText: "ok"
+						}, function(){
+							location.href="workManageMyApproval.html";
+						});
+				},
+				error:function(msg){
+					swal("访问出错！");
+				}
+			});
+			}else{
+				swal("请勿重复操作！");
+			}
+		}
+
+		// 拒绝
+		function reject(){
+			var checkInf=$("#checkInf").val();
+			if(checkInf.length>5){	
+				if(check==""){
+				check="true";
+				var intentId = location.href.split('?')[1].split('&')[0].split('=')[1];
+				var userId =localStorage.getItem("id");
+				var taskId = location.href.split('?')[1].split('&')[1].split('=')[1];
+				$.ajax({
+					type:'get',
+					url: 'http://'+serverIp+'/gtims/applytask/reject.do?taskId=' + taskId + "&intentId=" + intentId + "&userId=" + userId,
+					data: {'checkInfo':$('#checkInf').val(),'userId':userId},
+					dataType: 'json',
+					crossDomain: true,	
+					success: function(data) {
+						location.href="#";
+						swal({
+							  title: data.msg,
+							  confirmButtonText: "ok"
+							}, function(){
+								location.href="workManageMyApproval.html";
+							});
+					},
+					error:function(msg){
+						swal("访问出错！");
+					}
+				});
+				}else{
+					swal("请勿重复操作！");
+				}
+			}else{
+				swal("请输入审批意见,字数必须大于5");
+			}
+		}
+		//手机返回键控制
+		document.addEventListener("backbutton", back, false);
+		function back(){
+			location.href="workManageMyApproval.html";
+		}
+</script>
+
+
+</body>
+</html>

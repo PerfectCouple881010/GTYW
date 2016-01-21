@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link href="css/mui.indexedlist.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+		<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+		<style>
+			
+		.mui-bar {
+				-webkit-box-shadow: none;
+				box-shadow: none;
+			}
+			#done.mui-disabled{
+				color: gray;
+			}
+			.mui-table-view-cell.mui-checkbox input[type=checkbox], .mui-table-view-cell.mui-radio input[type=radio]{
+			top:16px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+			<!--侧滑菜单部分-->
+			<aside id="offCanvasSide" class="mui-off-canvas-right" style="background:none">
+			<header class="mui-bar mui-bar-nav">
+							<a class=" mui-icon mui-icon-left-nav mui-pull-left" id="offCanvasHide"></a>
+							<h1 class="mui-title">选择人员</h1>
+							<a id='done' class="mui-btn mui-btn-link mui-pull-right mui-btn-blue mui-disabled">完成</a>
+						</header>
+				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div class="content">
+							<div class="mui-indexed-list-search mui-input-row mui-search">
+									<input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="请输入搜索内容">
+							</div>
+							<div class="mui-indexed-list-alert"></div>
+						
+						<div class="mui-indexed-list-inner">
+				<div class="mui-indexed-list-empty-alert">没有数据</div>
+							<ul class="mui-table-view">
+						<li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="张三" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							张三
+							<p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+						</div>
+					 </li>
+							<li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="张四" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							张四
+							<p class='mui-ellipsis'>工程</p>
+						</div>
+					 </li>
+					 <li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="张五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							张五
+							<p class='mui-ellipsis'>张五？</p>
+						</div>
+					 </li>
+					 <li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="张6" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							张6
+							<p class='mui-ellipsis'>张6</p>
+						</div>
+					 </li>
+					 <li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="张7" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							张7
+							<p class='mui-ellipsis'>张7</p>
+						</div>
+					 </li>
+					 <li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李四" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李四
+							<p class='mui-ellipsis'>李四</p>
+						</div>
+					 </li>
+						<li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li>
+					 <li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li>
+					 <li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li><li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li>
+					 <li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li><li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li><li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li><li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li><li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li><li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li><li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li><li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li><li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li><li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li><li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+						<input type="checkbox"  value="3"  ryname="李五" />
+						<img class="mui-media-object mui-pull-left" src="images/linkman.png">
+						<div class="mui-media-body">
+							李五
+							<p class='mui-ellipsis'>李五</p>
+						</div>
+					 </li>
+					</ul>
+						</div>
+				
+						</div>
+					</div>
+				</div>
+			</aside>
+			<!--主界面部分-->
+			<div class="mui-inner-wrap">
+				<header class="mui-bar mui-bar-nav">
+					<a href="#offCanvasSide" class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
+					<a class="mui-action-back mui-btn mui-btn-link mui-pull-right">关闭</a>
+					<h1 class="mui-title">div模式右滑菜单</h1>
+				</header>
+				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div class="mui-content-padded">
+							<p>这是可拖动式右滑导航示例，主页面和菜单在一个HTML文件中， 优点是支持拖动手势（跟手），缺点是不支持菜单内容在多页面的复用； 当前页面为主界面，你可以在主界面放置任何内容； 打开侧滑菜单有多种方式： 1、在当前页面向右拖动； 2、点击页面左上角的
+								<span class="mui-icon mui-icon-bars"></span> 图标； 3、通过JS API触发（例如点击如下蓝色按钮体验）；
+								<span class="android-only">4、Android手机按menu键；</span>
+							</p>
+							<p style="padding: 5px 20px;margin-bottom: 5px;">
+								<button id="offCanvasShow" type="button" class="mui-btn mui-btn-primary mui-btn-block" style="padding: 10px;">
+									显示侧滑菜单
+								</button>
+							</p>
+							<p>侧滑菜单的移动动画，支持多种效果，切换如下选项体验不同动画效果：</p>
+
+						</div>
+
+						<form class="mui-input-group" style="margin-bottom: 15px;">
+							<div class="mui-input-row mui-radio">
+								<label>主界面移动、菜单不动</label>
+								<input name="style" type="radio" checked="" value="main-move">
+							</div>
+							<div class="mui-input-row mui-radio">
+								<label>主界面不动、菜单移动</label>
+								<input name="style" type="radio" value="menu-move">
+							</div>
+							<div class="mui-input-row mui-radio mui-hidden" id="move-togger">
+								<label>整体移动</label>
+								<input name="style" type="radio" value="all-move">
+							</div>
+							<div class="mui-input-row mui-radio">
+								<label>缩放式侧滑（类手机QQ）</label>
+								<input name="style" type="radio" value="main-move-scalable">
+							</div>
+						</form>
+
+					</div>
+				</div>
+				<!-- off-canvas backdrop -->
+				<div class="mui-off-canvas-backdrop"></div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/mui.indexedlist.js"></script>
+		<script>
+			mui.init();
+			
+			 //侧滑容器父节点
+			var offCanvasWrapper = mui('#offCanvasWrapper');
+			 //主界面容器
+			var offCanvasInner = offCanvasWrapper[0].querySelector('.mui-inner-wrap');
+			 //菜单容器
+			var offCanvasSide = document.getElementById("offCanvasSide");
+			if (!mui.os.android) {
+				document.getElementById("move-togger").classList.remove('mui-hidden');
+				var spans = document.querySelectorAll('.android-only');
+				for (var i = 0, len = spans.length; i < len; i++) {
+					spans[i].style.display = "none";
+				}
+			}
+			 //移动效果是否为整体移动
+			var moveTogether = false;
+			 //侧滑容器的class列表，增加.mui-slide-in即可实现菜单移动、主界面不动的效果；
+			var classList = offCanvasWrapper[0].classList;
+			 //变换侧滑动画移动效果；
+			mui('.mui-input-group').on('change', 'input', function() {
+				if (this.checked) {
+					offCanvasSide.classList.remove('mui-transitioning');
+					offCanvasSide.setAttribute('style', '');
+					classList.remove('mui-slide-in');
+					classList.remove('mui-scalable');
+					switch (this.value) {
+						case 'main-move':
+							if (moveTogether) {
+								//仅主内容滑动时，侧滑菜单在off-canvas-wrap内，和主界面并列
+								offCanvasWrapper[0].insertBefore(offCanvasSide, offCanvasWrapper[0].firstElementChild);
+							}
+							break;
+						case 'main-move-scalable':
+							if (moveTogether) {
+								//仅主内容滑动时，侧滑菜单在off-canvas-wrap内，和主界面并列
+								offCanvasWrapper[0].insertBefore(offCanvasSide, offCanvasWrapper[0].firstElementChild);
+							}
+							classList.add('mui-scalable');
+							break;
+						case 'menu-move':
+							classList.add('mui-slide-in');
+							break;
+						case 'all-move':
+							moveTogether = true;
+							//整体滑动时，侧滑菜单在inner-wrap内
+							offCanvasInner.insertBefore(offCanvasSide, offCanvasInner.firstElementChild);
+							break;
+					}
+					offCanvasWrapper.offCanvas().refresh();
+				}
+			});
+			 //主界面‘显示侧滑菜单’按钮的点击事件
+			document.getElementById('offCanvasShow').addEventListener('tap', function() {
+				offCanvasWrapper.offCanvas('show');
+			});
+			 //菜单界面，‘关闭侧滑菜单’按钮的点击事件
+			document.getElementById('offCanvasHide').addEventListener('tap', function() {
+				offCanvasWrapper.offCanvas('close');
+			});
+			 //主界面和侧滑菜单界面均支持区域滚动；
+			mui('#offCanvasSideScroll').scroll();
+			mui('#offCanvasContentScroll').scroll();
+			 //实现ios平台原生侧滑关闭页面；
+			if (mui.os.plus && mui.os.ios) {
+				mui.plusReady(function() { //5+ iOS暂时无法屏蔽popGesture时传递touch事件，故该demo直接屏蔽popGesture功能
+					plus.webview.currentWebview().setStyle({
+						'popGesture': 'none'
+					});
+				});
+			}
+		</script>
+		<script type="text/javascript" charset="utf-8">
+			mui.ready(function() {
+				var header = document.querySelector('header.mui-bar');
+				var list = document.getElementById('list');
+				var done = document.getElementById('done');
+				//calc hieght
+				//list.style.height = (document.body.offsetHeight - header.offsetHeight) + 'px';
+				//create
+				window.indexedList = new mui.IndexedList(list);
+				//done event
+				done.addEventListener('tap', function() {
+					var checkboxArray = [].slice.call(list.querySelectorAll('input[type="checkbox"]'));
+					var checkedValues = [];
+					checkboxArray.forEach(function(box) {
+						if (box.checked) {
+							checkedValues.push(box.parentNode.innerText);
+						}
+					});
+					if (checkedValues.length > 0) {
+						mui.swal('你选择了: ' + checkedValues);
+					} else {
+						mui.swal('你没选择任何人员');
+					}
+				}, false);
+				mui('.mui-indexed-list-inner').on('change', 'input', function() {
+					var count = list.querySelectorAll('input[type="checkbox"]:checked').length;
+					var value = count ? "完成(" + count + ")" : "完成";
+					done.innerHTML = value;
+					if (count) {
+						if (done.classList.contains("mui-disabled")) {
+							done.classList.remove("mui-disabled");
+						}
+					} else {
+						if (!done.classList.contains("mui-disabled")) {
+							done.classList.add("mui-disabled");
+						}
+					}
+				});
+			});
+			
+			
+		</script>
+	</body>
+
+</html>

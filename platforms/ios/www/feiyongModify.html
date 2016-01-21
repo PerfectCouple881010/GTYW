@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<title>贯通综合管理系统—申请单编辑</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+<body>
+<header class="header warp100 clearfix">
+    <a class="headerL" href="feiyonglist.html"><img src="images/return.png"></a>
+  申请单编辑
+</header>
+<div class="mainContent">
+	<div class="warp100 marginTop10">
+        <div class="intentDetail borderBot10">
+            <p>
+               <span style="color:red">*</span> 申请名称
+                <input type="text" placeholder="请输入名称" value=""  id="name" validate="*" errorMsg="申请名称必填">
+            </p>
+            <p>
+               <span style="color:red">*</span> 申请类型
+                <select value="" id="feeType"  validate="*" errorMsg="任务类型必填">
+                	<option>请选择类型</option>
+                </select>
+                 <input type="hidden" type="text" placeholder="" name="ftid" id="ftid"/>
+            </p>
+            <p>
+               <span style="color:red">*</span> 费用金额
+                 <input type="text" value=""  id="feeSum" validate="n2" errorMsg="费用金额必须是数字">
+            </p>
+             <p>
+                <span style="color:red">*</span> 所属项目
+                <select  name="projectId" class="select" value="" id="projectId"   >
+                	<option>请选择</option>
+                </select>
+            </p>
+            <p>
+              <span style="color:red">*</span> 申请内容
+                <input type="text" placeholder="请输入内容"  id="content" validate="*" errorMsg="申请内容必填">
+            </p>
+        </div>
+    </div>
+    <div class="DetailBotBtn1 DetailBotBtn2">
+        <a href="feiyonglist.html" class="back header_button">取消修改</a>
+        <a href="javascript:void(0);" class="newproject header_button" id="wancheng">确认修改</a>
+    </div>  
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/initInfo.js"></script>
+<script type="text/javascript">
+intiBaseDic(serverIp,"pid","projectId","/project/listName.do");//projectId
+intiBaseByType(serverIp,"ftid","feeType","/dataDir/listName.do","sqfy");//feeType
+		var id = location.href.split('?')[1].split('=')[1];
+		//alert(id);
+		$.ajax({
+			type:'post',
+			url: 'http://'+serverIp+'/gtims/apply/editForPhone.do',
+			data: {'id':id},
+			dataType: 'json',
+			crossDomain: true,	
+			success: function(data) {
+				$('#name').val(data.name);
+				$('#content').val(data.content);
+				$('#projectId').val(data.projectId);
+				$('#feeSum').val(data.feeSum);
+				$('#feeType').val(data.feeType);
+				$('#note').val(data.note);
+			},
+			error:function(msg){
+				swal("访问出错！");
+			}
+		});
+
+
+		$('#wancheng').on('click',function(){
+			var userId =localStorage.getItem("id");
+				//validateForm验证
+				var result = true;
+				$("form input[type='text']").each(function(){
+					if($(this).attr("validate")!=null&&!validateForm($(this))){
+						result = false;
+						return result;
+					}
+					
+				});
+				if(result != false){
+				$("select").each(function(){
+					if($(this).attr("validate")!=null&&!validateForm($(this))){
+						result = false;
+						return result;
+					}
+				});}
+			if(result){
+			$.ajax({
+				type:'post',
+				url: 'http://'+serverIp+'/gtims/apply/updateForPhone.do',
+				data: {'modifyPersonId':userId,'name':$('#name').val(),
+					'content':$('#content').val(),
+					'apply_date':$('#apply_date').val(),
+					'projectId':$('#projectId').val(),
+					'feeSum':$('#feeSum').val(),
+					'feeType':$('#feeType').val(),
+					'note':$('#note').val(),'id':id},
+				dataType: 'json',
+				crossDomain: true,	
+				success: function(data) {
+					location.href='feiyonglist.html';
+				},
+				error:function(msg){
+					swal("访问出错！");
+				}
+			});
+			}
+			})
+		
+</script>
+</body>
+</html>

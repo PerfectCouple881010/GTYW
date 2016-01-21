@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<title>拓展小组成员</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/teamMember.css">
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+		<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+
+<body>
+<header class="header warp100 clearfix" id="returnIndex">
+    <a class="headerL" href=""><img src="images/return.png"></a> 
+   	拓展小组成员
+</header>
+
+<div class="mainCon">
+	<div class="groupInfoDiv">
+    	<h2>拓展三组</h2>
+        <h4>小组编号：004001002003</h4>
+        <h4 id="time">创建时间：2015-12-04</h4>
+        <h3>小组介绍：北京拓展第三小组，主要负责北京市海淀区</h3>
+        <div class="btn">
+        	<div class="del">删除小组</div>
+        	<div class="edit">修改小组信息</div>
+        </div>
+    </div>
+    
+    <div class="infoList">
+    	<h3>小组成员</h3><hr>
+        <ul class="list-group">
+           <li class="list-group-item">白晓虹<span id="address">（海兴大厦）</span><br><img src="images/member_03.png" alt="tel"><span>18501161441</span><br><img src="images/member_05.png" alt="email"><span>bjhlmytuozhan123142@163.com</span><img src="images/member_03.png" alt="delPic" id="delPic"></li>
+           <li class="list-group-item">白晓虹<span id="address">（海兴大厦）</span><br><img src="images/member_03.png" alt="tel"><span>18501161441</span><br><img src="images/member_05.png" alt="email"><span>bjhlmytuozhan@163.com</span><img src="images/member_03.png" alt="delPic" id="delPic"></li>
+           <li class="list-group-item">白晓虹<span id="address">（海兴大厦）</span><br><img src="images/member_03.png" alt="tel"><span>18501161441</span><br><img src="images/member_05.png" alt="email"><span>bjhlmytuozhan@163.com</span><img src="images/member_03.png" alt="delPic" id="delPic"></li>
+           <li class="list-group-item">白晓虹<span id="address">（海兴大厦）</span><br><img src="images/member_03.png" alt="tel"><span>18501161441</span><br><img src="images/member_05.png" alt="email"><span>bjhlmytuozhan@163.com</span><img src="images/member_03.png" alt="delPic" id="delPic"></li>
+        </ul>
+        <h4>+添加新成员</h4>
+    </div>
+</div>
+</body>
+<script>
+	$(function(){
+		if($(".infoList ul li").length > 0)
+		{
+			$(".del").css("display","none");	
+		}
+		else
+		{
+			$(".del").css("display","block");		
+		}	
+	})
+</script>
+</html>

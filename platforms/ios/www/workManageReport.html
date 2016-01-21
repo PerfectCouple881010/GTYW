@@ -1,0 +1,172 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<title>数据统计</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+<body>
+<header class="header warp100 clearfix">
+    <a class="headerL" href="javascript:history.go(-1);"><img src="images/return.png"></a>
+    数据统计
+</header>
+<form action="" method="" class="main_form mt50">
+<div class="mainContent">
+	<div class="warp100 marginTop10">
+    <!--top begin-->
+    <!-- <select class="sel1">
+        <option>全部状态</option>
+        <option>状态1</option>
+        <option>状态2</option>
+    </select> -->
+    <div class="fil1">
+        <select class="sel2" id="year">
+            
+        </select>
+        <select class="sel2" id="term">
+            <option value="0">全年</option>
+            <option value="1">上半年</option>
+            <option value="2">下半年</option>
+        </select>
+    </div>
+    <a class="qdcx" onclick="submit()">确定查询</a>
+    <!--top end-->
+   
+    <div id="main" class="chart_wrap" style="height:400px;width:100%;align:center;"></div>
+    </div>
+</div>
+
+</form>
+<script type="text/javascript" src="js/index.js"></script>
+<script src="js/echarts-all.js"></script>
+<script type="text/javascript">
+			var date=new Date;
+			var years="";
+			for(var i=0;i<=3;i++){
+				years+='<option>'+(date.getFullYear()-i)+'</option>'
+			}
+			$('#year').prepend(years);
+			function submit(){
+				var year=$('#year').val();
+				var term=$('#term').val();
+				$.ajax({
+       				url: 'http://'+ serverIp +'/gtims/report/findallreport.do?userId='+userId+'',
+       				async: false,
+       				data:{"year":year,"term":term},
+       				dataType: 'json',
+       				crossDomain: true,
+       				success: function(data){
+       						var result = [data.chance,data.intent,data.intenting,data.deal,data.build,data.run];
+       						tu(result);
+       				}
+       			})
+			}
+			
+			var userId =localStorage.getItem("id");
+			var postId =localStorage.getItem("postId");
+			if(postId=="9"){
+       				$.ajax({
+           				url: 'http://'+ serverIp +'/gtims/report/findallreport.do?userId='+userId+'',
+           				async: false,
+           				data:{},
+           				dataType: 'json',
+           				crossDomain: true,
+           				success: function(data){
+           						var result = [data.chance,data.intent,data.intenting,data.deal,data.build,data.run];
+           						tu(result);
+           				}
+           			})
+			}
+                // 基于准备好的dom，初始化echarts图表
+               
+       			function tu(result){
+       			var myChart = echarts.init(document.getElementById('main')); 
+                option = {
+                	    title: {
+                	        x: 'center',
+                	    },
+                	    tooltip: {
+                	        trigger: 'item'
+                	    },
+                	    toolbox: {
+                	        show: true,
+                	        feature: {
+                	            dataView: {show: true, readOnly: false},
+                	            restore: {show: true},
+                	            saveAsImage: {show: true}
+                	        }
+                	    },
+                	    calculable: true,
+                	    grid: {
+                	        borderWidth: 0,
+                	        y: 80,
+                	        y2: 60
+                	    },
+                	    xAxis: [
+                	        {
+                	            type: 'category',
+                	            show: false,
+                	            data: ["线索","机会","四方审核","协议","项目建设","项目运营"]
+                	        }
+                	    ],
+                	    yAxis: [
+                	        {
+                	            type: 'value',
+                	            show: false
+                	        }
+                	    ],
+                	    series: [
+                	        {
+                	            name: '统计',
+                	            type: 'bar',
+                	            itemStyle: {
+                	                normal: {
+                	                    color: function(params) {
+                	                        // build a color map as your need.
+                	                        var colorList = [
+                	                          '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                	                           '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                	                           '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+                	                        ];
+                	                        return colorList[params.dataIndex]
+                	                    },
+                	                    label: {
+                	                        show: true,
+                	                        position: 'top',
+                	                        formatter: '{b}\n{c}'
+                	                    }
+                	                }
+                	            },
+                	            data: result
+                	        }
+                	    ]
+                	};
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+                
+	             myChart.on('click', function (param) {
+	            	 if(param.name=='线索'){
+	                	 location.href='workManageChanceReport.html?code=&id=';
+	                 }else if(param.name=='机会'){
+	                	 location.href='workManageIntentReport.html?code=&id=';
+	                 }else if(param.name=='协议'){
+	                	 location.href='workManageDeal.html?code=&id=';
+	                 }else if(param.name=='四方审核'){
+	                	 location.href='workManageIntentReportPro.html?code=&id=';
+	                 }else if(param.name=='项目建设'){
+	                	 location.href='workManageProjectBuildReport.html?code=&id=';
+	                 }else if(param.name=='项目运营'){
+	                	 location.href='workManageProjectRunReport.html?code=&id=';
+	                 }
+	     		 });
+       			}
+       			
+    </script>
+</body>
+</html>

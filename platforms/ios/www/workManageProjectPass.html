@@ -1,0 +1,153 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<title>贯通综合管理系统-工作管理—项目管理</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="css/iscroll-load-data.css" />
+<script src="js/jquery-1.9.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+<style type="text/css" media="all">
+body,ul,li {
+	padding:0;
+	margin:0;
+	border:0;
+}
+</style>
+</head>
+<body>
+<header class="header warp100 clearfix" id="returnIndex">
+    <!-- <a class="headerL" href="workManage.html"><img src="images/return.png"></a> -->
+   审批项目管理
+    <a class="headerR" href="workManageProjectAdd.html">新增</a>
+</header>
+<div id="wrapper"  class="mainContent">
+	<div class="scroller">
+		<ul id="thelist"  class="planeListBox warp100 marginTop10" >
+		</ul>
+		<div id="scroller-pullUp">
+			<span class="pullUpLabel" style="text-align: center;">上拉显示更多...</span>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/return.js"></script>
+<script type="text/javascript" src="js/iscroll-probe.js"></script>
+<script type="text/javascript" src="js/iscroll-load-data.js"></script>
+<script type="text/javascript">
+
+</script>
+<script type="text/javascript">
+		
+		var firstresult = 0,pagesize = 3,fistsize=0;
+		var userId =localStorage.getItem("id");
+			$.ajax({
+			    url: 'http://'+ serverIp +'/gtims/project/passList.do?userId='+userId+'&projectOrIntent=1',
+				async: false,
+				data:{'start':firstresult,'end':pagesize},
+				dataType: 'json',
+				crossDomain: true,
+				success: function(data) {
+					var result = '';
+					fistsize=data.data.length;
+					for(var i=0;i<data.data.length;i++){
+						result +='<li><a href="workManageProjectDetail.html?id='+data.data[i].id+'" class="warp90 planeList"><h1>'+data.data[i].name+'</h1>'+
+								 '<p>负责人：'+data.data[i].projectManagerShow+'</p><p>项目状态：'+data.data[i].projectStatusShow+'<span class="img marginLeft6"><img src="images/date.png"></span>'+data.data[i].createDate+'</p></a></li>'
+					}
+				$('#thelist').prepend(result);
+				},
+				error:function(msg){
+					swal("访问出错！");
+				}
+			});
+			
+			
+			
+			function dropBottomAction(cb){
+	    		if(fistsize<pagesize){ //
+	    			//cb(null);
+	    			console.log('别刷了，没有了');
+	    			IS.pullUpEl.className = 'nonedb';
+	    			IS.pullUpEl.querySelector('.pullUpLabel').innerHTML = "木有数据了";	
+	    		}else{
+	    			firstresult=firstresult+pagesize;
+	    			console.log(firstresult);
+	    			setTimeout(function(){
+	    	    		var d=document.createDocumentFragment();
+	    	    		$.ajax({
+	    	    				url:  'http://'+ serverIp +'/gtims/project/passList.do?userId='+userId+'&projectOrIntent=1',
+	    	    				async: false,
+	    	    				data:{'start':firstresult,'end':pagesize},
+	    	    				dataType: 'json',
+	    	    				crossDomain: true,
+	    	    				success: function(data) {
+	    	    					fistsize=data.data.length;
+	    	    				for(var i=0;i<fistsize;i++){
+	    	    	          var li=document.createElement('li');
+	    	    	          li.innerHTML='<a href="workManageProjectDetail.html?id='+data.data[i].id+'" class="warp90 planeList"><h1>'+data.data[i].name+'</h1>'+'<p>负责人：'+data.data[i].projectManagerShow+'</p><p>项目状态：'+data.data[i].projectStatusShow+'<span class="img marginLeft6"><img src="images/date.png"></span>'+data.data[i].createDate+'</p></a>';
+	    	    	          d.appendChild(li);
+	    	    			}
+	    	    				cb(d);
+	    	    				}
+	    	    				})
+	    	    		},500);
+	    		}
+	    	}
+	    	function loaded(){
+	    		var wrapper=document.querySelector('#wrapper');
+	    		var content=document.querySelector('#thelist');
+	    		var IS=new IScrollLoadData(wrapper,content,{},dropBottomAction,30);
+	    	}
+	    	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+	    	var wrapper=document.querySelector('#wrapper');
+    		var content=document.querySelector('#thelist');
+    		var IS=new IScrollLoadData(wrapper,content,{},dropBottomAction,30);
+
+		// 提交审核
+	    /*  function subtask(intentId){
+	    	 $.ajax({
+	 			url: 'http://'+ serverIp +'/gtims/intenttask/subtask.do?userId='+userId+'&intentId=' + intentId,
+	 			async: false,
+	 			data: null,
+	 			dataType: 'json',
+	 			crossDomain: true,
+	 			success: function(data) {
+	 				alert(data.msg);
+	 			},
+				error:function(msg){
+					alert("访问出错！");
+				}
+	    	 });
+	     } */
+	
+	/* //搜索功能
+	$('#searchName').blur(function(){
+	var searchName = $('#searchName').val();
+	alert(searchName);
+	$.ajax({
+		url: 'http://'+ serverIp +'/gtims/project/list.do?userId='+userId+'&name='+searchName+'&projectOrIntent=1',
+		async: false,
+		data:{'start':'0','end':'10'},
+		dataType: 'json',
+		crossDomain: true,
+		success: function(data) {
+			//alert(data.data.length);
+			var result = '';
+			for(var i=0;i<data.data.length;i++){
+				result += '<li class="items"><span class="list_manage">'+data.data[i].name+'</span><div class="manage_show bort"><ul class="main_form_list_1"><li><a href="intentDetail.html?id='+data.data[i].id+'"><label>'+'项目名称'+'</label><span  class="w70" >'+data.data[i].name+'</span></a></li>'+'<li><label>'+'项目经理'+'</label><span  class="w70" >'+data.data[i].projectManagerShow+'</span></li>'+'<li><label>'+'项目类型'+'</label><span  class="w70" >'+data.data[i].projectTypeShow+'</span></li>'+'<li><label>'+'客户'+'</label><span  class="w70" >'+data.data[i].otherCompany+'</span></li>'+'<li><label>'+'对方负责人'+'</label><span class="w70" >'+data.data[i].otherManager+'</span></li>'+'<li><label>'+'站点名称'+'</label><span class="w70" >'+data.data[i].siteName+'</span></li>'+'<li><label>'+'项目状态'+'</label><span class="w70" >'+data.data[i].projectStatusShow+'</span></li>'+'</ul>';
+		}
+		 $('.management_list').empty().append(result)
+	}
+	})
+	}) */
+//搜索方法结束
+
+
+document.addEventListener("backbutton", backMain, false);
+</script>
+</body>
+</html>

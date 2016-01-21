@@ -1,0 +1,376 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>贯通综合管理系统——登陆</title>
+<meta content="telephone=no,email=no" name="format-detection">
+<link rel="stylesheet" type="text/css" href="css/base.css"/>
+<link rel="stylesheet" type="text/css" href="css/main.css"/>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+</head>
+<body>
+	<div class="loginBoxW">
+        <div class="loginBox">
+            <div class="loginPhoto">
+                <img src="images/login_new.png" />
+            </div>
+            <div class="login">
+                <label class="user_name">
+                    <input id="username" type="text" placeholder="用户名" class="text inp_tex borb" value=""/>
+                    <img src="images/user.png" />
+                </label>
+                <label class="ueer_key">
+                    <input id="password" type="password" class="pass inp_tex" placeholder="请输入密码"/>
+                    <img src="images/key.png" />
+                </label>
+            </div>
+           <!--  <a class="forget" href="#2" >忘记密码？</a> -->
+            <div class="loginBtn">
+                <a href="javascript:void(0);" class="loginClick" id="login">登 录</a>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>	
+<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+<script>
+$(function(){
+	$(".loginBoxW").css("position","fixed");
+	var username=localStorage.getItem("username");
+	$("#username").val(username);
+    var vHeight = $(window).height();
+	var vWidth = $(window).width();
+	var loginBoxH=$('.loginBox').height()
+    console.log(loginBoxH)
+    console.log(vHeight)
+	$('.loginBoxW').css({
+		height:vHeight,
+			
+	});$('.loginBox').css({
+        paddingTop:(vHeight-loginBoxH)/3
+            
+    });
+	$('.loginPhoto').css({
+		height:	vWidth*0.35
+	})
+	
+	
+})
+
+</script>
+<script type="text/javascript" src="js/login.js"></script>
+<script type="text/javascript"> 
+document.onkeydown = keydown;
+function keydown(e){
+   var currKey=0,e=e||event; 
+   currKey=e.keyCode||e.which||e.charCode;//支持IE、FF 
+   if (currKey == 13){
+        document.getElementById("login").click();
+   }
+}
+	
+
+$('.loginClick').on('click',function(){
+	//点击登录时，把用户名和密码焦点取消 
+	$("#username").blur();
+	$("#password").blur();
+	$.ajax({
+		url: 'http://'+serverIp+'/gtims/user/loginForPhone.do',
+		data:{'username':$('.text').val(),'password':$('.pass').val()},
+		dataType: 'json',
+		type:'POST',
+		crossDomain: true,
+		success: function(data) {
+			if(data.result=='success'){
+				var alias;
+				var dd = [];
+				localStorage.setItem("username",data.username);
+				localStorage.setItem("nickname",data.nickname);
+				localStorage.setItem("id",data.id);
+				localStorage.setItem("orgId",data.orgId);
+				localStorage.setItem("postId",data.postId);
+				localStorage.setItem("city",data.city);
+				localStorage.setItem("orgCode",data.orgCode);
+				var NowTime = new Date().getTime();
+				localStorage.setItem("timer",NowTime);
+				if(data.postId=='11'||data.postId == '14'){
+					if(data.orgId=='14'){
+						if(data.city=='59'){
+							dd.push("bjyy");
+						}else if(data.city=='60'){
+							dd.push("tjyy");
+						}else if(data.city=='61'){
+							dd.push("shyy");
+						}else if(data.city=='62'){
+							dd.push("njyy");
+						}else if(data.city=='63'){
+							dd.push("gzyy");
+						}else if(data.city=='64'){
+							dd.push("szyy");
+						}else{}
+						window.plugins.jPushPlugin.setTagsWithAlias(dd,alias);
+					}
+					location.href="index_YY.html";
+					localStorage.setItem("indexBaseUrl","index_YY.html");
+				}else if(data.postId=='10'|| data.postId == '13'|| data.postId == '19'){
+					if(data.orgId=='13'){
+						if(data.city=='59'){
+							dd.push("bjjs");
+						}else if(data.city=='60'){
+							dd.push("tjjs");
+						}else if(data.city=='61'){
+							dd.push("shjs");
+						}else if(data.city=='62'){
+							dd.push("njjs");
+						}else if(data.city=='63'){
+							dd.push("gzjs");
+						}else if(data.city=='64'){
+							dd.push("szjs");
+						}else{}
+						window.plugins.jPushPlugin.setTagsWithAlias(dd,alias);
+					}
+					location.href="index_JS.html";
+					localStorage.setItem("indexBaseUrl","index_JS.html");
+				}else if(data.postId=='8'||data.postId=='15'){
+					if(data.orgId=='15'){
+						if(data.city=='59'){
+							dd.push("bjzy");
+						}else if(data.city=='60'){
+							dd.push("tjzy");
+						}else if(data.city=='61'){
+							dd.push("shzy");
+						}else if(data.city=='62'){
+							dd.push("njzy");
+						}else if(data.city=='63'){
+							dd.push("gzzy");
+						}else if(data.city=='64'){
+							dd.push("szzy");
+						}else{}
+						window.plugins.jPushPlugin.setTagsWithAlias(dd,alias);
+					}
+					location.href="index_ZY.html";
+					localStorage.setItem("indexBaseUrl","index_ZY.html");
+				}else if(data.postId=='9'){
+					location.href="index_TZ.html";
+					localStorage.setItem("indexBaseUrl","index_TZ.html");
+				}else if(data.postId=='12'){
+					if(data.city=='59'){
+						dd.push("bjjl");
+					}else if(data.city=='60'){
+						dd.push("tjjl");
+					}else if(data.city=='61'){
+						dd.push("shjl");
+					}else if(data.city=='62'){
+						dd.push("njjl");
+					}else if(data.city=='63'){
+						dd.push("gzjl");
+					}else if(data.city=='64'){
+						dd.push("szjl");
+					}else{}
+					window.plugins.jPushPlugin.setTagsWithAlias(dd,alias);
+					location.href="index_CSJL.html";
+					localStorage.setItem("indexBaseUrl","index_CSJL.html");
+				}else if(data.postId=='2'||data.postId=='16'||data.postId=='17'){
+					if(data.postId=='2'){
+						dd.push("ceo");
+					}else if(data.postId=='16'){
+						dd.push("cwfz");
+					}else if(data.postId=='17'){
+						dd.push("bmjl");
+					}else{}
+					window.plugins.jPushPlugin.setTagsWithAlias(dd,alias);
+					location.href="index_CEO.html";
+					localStorage.setItem("indexBaseUrl","index_CEO.html");
+				}else{
+					location.href="index_XZ.html";
+					localStorage.setItem("indexBaseUrl","index_XZ.html");
+				}
+			}else{
+				location.href="#";
+				//setTimeout("swal('用户名或密码错误，请重新检查！ ')", 3000);
+				swal("用户名或密码错误，请重新检查！ ");
+			}
+		},
+		error:function(msg){
+			swal("访问出错！");
+		}
+});
+	
+
+})
+
+</script>
+<script type="text/javascript" charset="utf-8">          
+ 	document.addEventListener("deviceready", onDeviceReady, false);
+ 	document.addEventListener("jpush.setTagsWithAlias", function(){}, false);
+    document.addEventListener("jpush.openNotification", onOpenNotification, false);
+    document.addEventListener("jpush.receiveNotification", onReceiveNotification, false);
+    document.addEventListener("jpush.receiveMessage", onReceiveMessage, false);
+    
+    
+ 	var userId =localStorage.getItem("id");
+    function onDeviceReady() {
+  		localStorage.setItem("model",device.model);
+  		localStorage.setItem("uuid",device.uuid);
+  		localStorage.setItem("version",device.version);
+  		localStorage.setItem("platform",device.platform);
+  		initiateUI();
+  		getInfo();
+  		getVersion();
+  		document.addEventListener("backbutton", exitApp, false);
+    }
+    
+    var onGetRegistradionID = function(data) {
+        try{
+            console.log("JPushPlugin:registrationID is "+data)
+            localStorage.setItem("registrationid",data);
+        }
+        catch(exception){
+            console.log(exception);
+        }
+    }
+    
+    var onReceiveNotification = function(event){
+        try{
+        	var alertContent
+            if(device.platform == "Android"){
+          		 alertContent = window.plugins.jPushPlugin.receiveNotification.alert;
+            }else{
+                 alertContent   = event.aps.alert;
+            }
+        }
+        catch(exeption){
+            console.log(exception)
+        }
+    }
+    
+    var onOpenNotification = function(event){
+        try{
+            var alertContent
+            var opUrlObj
+            if(device.platform == "Android"){
+                alertContent=window.plugins.jPushPlugin.openNotification.extras;
+           		opUrlObj = alertContent['cn.jpush.android.EXTRA'];
+            }else{
+                alertContent = event.aps.extras;
+            }
+           // alert(JSON.stringify(alertContent));
+            var opUrl = opUrlObj['url'];
+            //alert(opUrl);
+            window.location.href=opUrl;
+            
+        }
+        catch(exception){
+            console.log("JPushPlugin:onOpenNotification"+exception);
+        }
+    }
+    
+    var onReceiveMessage = function(event){
+        try{
+        
+            var message
+            if(device.platform == "Android"){
+          		 message = window.plugins.jPushPlugin.receiveMessage.message;
+            }else{
+                 message   = event.content;
+            }                    
+             
+        }
+        catch(exception){
+            console.log("JPushPlugin:onReceiveMessage-->"+exception);
+        }
+    }
+    
+    var setCustomPush = function(event){
+        try{
+        
+        }
+        catch(exception){
+            console.log("JPushPlugin:setCustomPush-->"+exception);
+        }
+    }
+    
+    var initiateUI = function(){
+        
+    	try{
+            window.plugins.jPushPlugin.init();
+            window.plugins.jPushPlugin.getRegistrationID(onGetRegistradionID);
+            window.plugins.jPushPlugin.setCustomPushNotificationBuilder(setCustomPush);
+            if(device.platform != "Android"){
+                window.plugins.jPushPlugin.setDebugModeFromIos();
+                window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
+            }else{
+                window.plugins.jPushPlugin.setDebugMode(true);
+            }
+    	}
+    	catch(exception){
+    		console.log(exception);
+    	}
+    	
+    }
+    
+    function getInfo(){
+    	navigator.appInfo.getAppInfo(function(appInfo) {
+   			localStorage.setItem("version",appInfo.version);
+   			localStorage.setItem("identifier",appInfo.identifier);
+   			localStorage.setItem("build",appInfo.build);
+			console.log(appInfo.identifier);
+			console.log(appInfo.version);
+			console.log(appInfo.build);
+		}, function(err) {
+		    swal(err);
+		});
+    }
+    
+</script>
+<script type="text/javascript" charset="utf-8">
+function getVersion(){
+$.ajax({
+	type:'post',
+	url: 'http://'+serverIp+'/gtims/app/getVersion.do',
+	dataType: 'json',
+	crossDomain: true,	
+	success: function(data){
+		var nowVersion = localStorage.getItem("version");
+		var result = data.result;
+		if(result=="sucessful"){
+			if(data.data.version==nowVersion){
+				//alert("版本一致!");
+			}else{
+				//dowload();
+			}
+		}else{
+			conlose.log("请检查服务器app.properties");
+		}
+	},
+	error:function(){
+		swal("访问");
+	}
+});
+}
+
+function dowload(){
+		swal({
+		    title: "请更新您的应用!",
+		    type: "warning",
+		    showCancelButton: false,
+		    confirmButtonColor: "#DD6B55",
+		    confirmButtonText: "确定",
+		    closeOnConfirm: false
+		},
+		function() {
+			//Android
+			//navigator.app.loadUrl('http://'+serverIp+'/gtims/userfiles/appFile/android/dev.apk', { openExternal:true});
+			
+			//ios
+            window.open('http://fir.im/GTYW');
+		});
+}
+
+</script>
+</body>
+</html>

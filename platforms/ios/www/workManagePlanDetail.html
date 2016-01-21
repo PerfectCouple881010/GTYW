@@ -1,0 +1,108 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+<title>贯通综合管理系统-工作管理—工作计划详情</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+<body>
+	<header class="header warp100 clearfix">
+		<a class="headerL" href="workManagePlan.html"><img src="images/return.png"></a> 工作计划详情 
+	</header>
+	<div class="mainContent">
+		<div class="warp100 marginTop10">
+			<div class="detailTop borderBot10">
+				<h1>
+					<span id="name"></span><em>(计划状态:<span id="planStatus"></span>)
+					</em>
+				</h1>
+				<p class="address">
+					<img src="images/address.png"><span id="planPlace"></span>
+				</p>
+				<p class="partic">
+					参与人：<span class="participantsname"></span>
+				</p>
+				<P>
+					创建时间：<span id="createDate"></span>
+				</P>
+			</div>
+			<div class="planDetailDate borderBot10">
+				<p class="clearfix">
+					计划开始时间<span class="taskNum" id="planDate"></span>
+				</p>
+				<p class="clearfix">
+					计划结束时间<span class="taskNum" id="endDate"></span>
+				</p>
+			</div>
+			<div class="planDetailDate borderBot10">
+				<p class="clearfix">
+					所属项目<span class="taskNum" id="projectId"></span>
+				</p>
+				<p class="clearfix">
+					所属任务<span class="taskNum" id="goalId"></span>
+				</p>
+			</div>
+			<div class="DetailBot borderBot10">
+				<h1>计划描述</h1>
+				<P>
+					<span class="orgCri"></span>参与人：<span class="participantsname">
+				</P>
+				
+				<p class="DetailBotCont" id="description"></p>
+			</div>
+		</div>
+		<div class="DetailBotBtn1">
+			<a href="#2" id="Modify">修改</a>
+		</div>
+
+	</div>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/initInfo.js"></script>
+	<script type="text/javascript">
+
+	
+		var id = location.href.split('?')[1].split('=')[1];
+		$.ajax({
+			type : 'post',
+			url : 'http://' + serverIp + '/gtims/plan/editForPhone.do',
+			data : {
+				'id' : id
+			},
+			dataType : 'json',
+			crossDomain : true,
+			success : function(data) {
+				$('#name').text(data.name);
+				//$('#participants').text(data.participants);
+				$('.participantsname').text(data.participantsname);
+				$('#planPlace').text(data.planPlace);
+				$('#createDate').text(data.createDate);
+				$('#planDate').text(data.planDate);
+				$('#endDate').text(data.endDate);
+				$('#planStatus').text(data.planStatusShow);
+				$('#projectId').text(data.projectIdShow);
+				$('#goalId').text(data.goalIdShow);
+				$('#description').text(data.description);
+				//$('#note').text(data.note);
+			},
+			error : function(msg) {
+				swal("访问出错！");
+			}
+		});
+
+		$("#Modify").attr("href", "workManagePlanModify.html?id=" + id);
+	</script>
+</body>
+</html>	
+		
+
+
+			
+				
+

@@ -1,0 +1,178 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<title>贯通综合管理系统-工作管理—拓展小组</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" href="css/teamMember.css">
+
+<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+<body>
+<header class="header warp100 clearfix" id="returnIndex">
+     <a class="headerL" href="groupList.html"><img src="images/return.png"></a> 
+    拓展小组成员
+    
+</header>
+<div class="mainCon">
+	<div class="groupInfoDiv" id="group">
+    	<div class="btn" id="btn">
+        </div>
+    </div>
+    
+    <div class="infoList">
+    	<h3>小组成员</h3><hr>
+        <ul class="list-group" id="management_list">
+        </ul>
+        <h4 id="addMember"></h4>
+    </div>
+</div>
+</body>
+<script src="js/jquery.js"></script>
+<script>
+	
+	
+    $(function(){
+       $('#myApprovalTab li').click(function(){
+			$(this).addClass('cur').siblings().removeClass('cur');
+			var index=$(this).index();
+			$('#myApprovalTabBox').find('ul').eq(index).show().siblings().hide();   
+		})
+    })
+</script>
+
+<script type="text/javascript" src="js/index.js"></script>
+<script>
+		var groupId = location.href.split('?')[1].split('&')[0].split('=')[1]; 
+		var parentCode = location.href.split('?')[1].split('&')[1].split('=')[1];
+		var parentId = location.href.split('?')[1].split('&')[2].split('=')[1];
+		
+		var headResult = '<a class="headerR" href="selectMemberList.html?parentCode='+parentCode+'&groupId='+groupId+'&parentId='+parentId+'">+添加新成员</a>'
+		$('#addMember').prepend(headResult);
+		var orgId =localStorage.getItem("orgId");
+		
+		var id = location.href.split('?')[1].split('&')[0].split('=')[1]; 
+		$.ajax({
+			url: 'http://'+ serverIp +'/gtims/user/findGroupMember.do',
+			async: false,
+			type:'post',
+			data:{'start':'0','end':'100','orgId':orgId,'id':id},
+			dataType: 'json',
+			crossDomain: true,
+			success: function(data) {
+				var groupResult = '';
+				var btn = '';
+				var groupId = eval(data).groupId;
+				/* groupResult +='<h1 id="name">小组名称：'+eval(data).groupName+'</h1>'+
+		        '<p class="address" id="place">小组编号：'+eval(data).groupCode+'</p>'+
+		        '<p class="partic" id="currentIntent">小组介绍：'+eval(data).groupNote+'</p>'+
+		        '<p class="partic" id="currentIntent">&nbsp;</p>'+
+		        '<input type="button" value="修改" onclick="edit(' + eval(data).groupId + ', this);"style="background: #fff; border:2px solid #CCC; padding:3px; border-radius: 5px; margin-left: 50px;padding: 5px;">';
+		         */
+		         groupResult +='<h2>'+eval(data).groupName+'</h2>'+
+		        '<h4>小组编号：'+eval(data).groupCode+'</h4>'+
+		        '<h4 id="time">创建时间：'+eval(data).groupDate+'</h4>'+
+		        '<h3>小组介绍：'+eval(data).groupNote+'</h3>';
+		        btn += '<div class="edit" onclick="edit(' + eval(data).groupId + ', this);">修改小组信息</div>';
+				console.log(data.countNum);
+			  	var data = eval(data).data;
+				console.log(data);
+				var result = '';
+				
+				if(data.length>0){
+					
+					for(var i=0;i<data.length;i++){
+						/* result += '<li style="padding:10px;" ><h1>'+data[i].nickname+'</h1>'+
+		                		  '<p>移动电话 ：'+data[i].phone+'</p><p>电子邮件：'+data[i].email+'</p>';
+						result+='<input type="button" onclick="remove(' + data[i].id + ','+ parentId + ', this);" value="移除" style="background: #fff; border:2px solid #CCC; padding:3px; border-radius: 7px; float:right; margin-right:20px; margin-top:-40px;"></li>';
+						 */
+						result+='<li class="list-group-item">'+data[i].nickname+'<span id="address">（'+data[i].postIdShow+'）</span><br><img src="images/member_03.png" alt="tel"><span>'+data[i].phone+'</span><br><img src="images/member_05.png" alt="email"><span>'+data[i].email+'</span><img src="images/member_03.png" onclick="remove(' + data[i].id + ','+ parentId + ', this);" alt="delPic" id="delPic"></li>';
+					}
+					
+				}else{
+					btn +='<div class="del" onclick="del(' + groupId + ', this);">删除小组</div>';
+					//groupResult +='<input type="button" value="删除" onclick="del(' + groupId + ', this);"style="background: #fff; border:2px solid #CCC; padding:3px; border-radius: 5px; /* padding-bottom: 5px; */margin: 10px;margin-left: 75px;padding: 5px;">';
+					//result += '<li style="padding:10px;"><h1  style="color:#ccc;font:12px" >暂时还没有成员哦，快快发展吧。。。</h1></li>'
+				}
+				$('#management_list').prepend(result);
+				$('#group').prepend(groupResult);
+				$('#btn').prepend(btn);
+
+			},
+			error:function(msg){
+				swal("访问出错！");
+			}
+		});
+		//移除小组成员
+		function remove(memberId,orgId, obj){
+			$.ajax({
+				url: 'http://'+ serverIp +'/gtims/user/removeMemberForPhone.do',
+				type:'post',
+				async: false,
+				data:{'memberId':memberId,'orgId': orgId},
+				dataType: 'json',
+				crossDomain: true,
+				success: function(data) {
+					swal({
+						  title: data.msg,
+						  confirmButtonText: "ok"
+						}, function(){
+							location.href="groupMemberList.html?id="+groupId+"&parentCode="+parentCode+"&parentId="+parentId;
+						});
+				},
+				error:function(msg){
+					swal('移除失败!');
+					console.log(msg);
+				}
+			});
+		}
+		//删除小组
+		function del(groupId, obj){
+			$.ajax({
+				url: 'http://'+ serverIp +'/gtims/org/delOrgForPhone.do',
+				type:'post',
+				async: false,
+				data:{'groupId':groupId,'orgId': orgId},
+				dataType: 'json',
+				crossDomain: true,
+				success: function(data) {
+					swal({
+						  title: data.msg,
+						  confirmButtonText: "ok"
+						}, function(){
+							location.href="groupList.html";
+						});
+				},
+				error:function(msg){
+					swal('删除失败!');
+					console.log(msg);
+				}
+			});
+		}
+		//修改小组
+		function edit(groupId, obj){
+			location.href="groupEdit.html?groupId="+groupId;
+		}
+		
+</script>
+
+<script>
+	$(function(){
+		if($(".infoList ul li").length > 0)
+		{
+			$(".del").css("display","none");	
+		}
+		else
+		{
+			$(".del").css("display","block");		
+		}	
+	})
+</script>
+
+</html>

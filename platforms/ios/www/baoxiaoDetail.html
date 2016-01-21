@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<title>贯通综合管理系统—报销查看</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+
+<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+<body>
+<header class="header warp100 clearfix">
+    <a class="headerL" href="baoxiaolist.html"><img src="images/return.png"></a>
+    报销查看
+
+</header>
+<div class="mainContent">
+	<div class="warp100 marginTop10">
+        <div class="detailTop borderBot10">
+            <h1 ><span id="name"></span></h1>
+            <p class="partic">报销金额&nbsp;&nbsp;&nbsp;<span  id="feeSum"></span></p>
+            <p class="partic">审核状态&nbsp;&nbsp;&nbsp;<span  id="check_status"></span></p>
+        </div>
+        <div class="planDetailDate borderBot10">
+            <p class="clearfix">报销类型&nbsp;&nbsp;&nbsp;<span  id="feeType"></span></p>
+            <p class="clearfix">所属项目&nbsp;&nbsp;&nbsp;<span  id="projectId"></span></p>
+            <p class="clearfix">关联申请&nbsp;&nbsp;&nbsp;<span  id="applyId"></span></p>
+        </div>
+        <div class="DetailBot borderBot10">
+        	<h1> 报销内容</h1>
+            <P><span class="orgCri"></span>内容：<span class="participantsname"></span></P>
+            <p class="DetailBotCont" id="content"></p>
+        </div>
+        <div class="DetailBot borderBot10">
+        	<h1> 报销图片</h1>
+            <p class="DetailBotCont" id="allot">
+            </p>
+        </div>
+    </div>
+    <div class="DetailBotBtn1 DetailBotBtn2" id="Modify">
+    </div>
+    
+</div>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/initInfo.js"></script>
+<script type="text/javascript">
+		var userId =localStorage.getItem("id");
+		var postId =localStorage.getItem("postId");
+		var orgId =localStorage.getItem("orgId");
+		var id = location.href.split('?')[1].split('=')[1];
+		var description = "";
+		var checkModuleName = "";
+		var submit_id = "";
+		$.ajax({
+			type:'post',
+			url: 'http://'+serverIp+'/gtims/expense/editForPhone.do',
+			data: {'id':id},
+			dataType: 'json',
+			crossDomain: true,	
+			success: function(data) {
+				$('#name').text(data.name);
+				$('#projectId').text(data.projectName);
+				$('#content').text(data.content);
+				$('#applyId').text(data.applyName);
+				$('#feeSum').text(data.feeSum);
+				$('#feeType').text(data.feeName);
+				var result="";
+				if(data.feeFic!=null){
+					for(var i=0;i<data.feeFic.length;i++){
+						result+='<img src="http://'+serverIp+'/gtims'+data.feeFic[i]+'"/>'
+					}
+					$('#allot').append(result);
+				}
+				if(data.check_status==1){
+					$('#check_status').text("审核中");
+				}
+				if(data.check_status==2){
+					$('#check_status').text("审核通过");
+				}
+				if(data.check_status==3){
+					$('#check_status').text("审核不通过");
+					/* var Modify1='<a href="baoxiaoModify.html?id='+data.id +'">修改</a>';
+					$('#Modify').append(Modify1); */
+				}
+			},
+			error:function(msg){
+				swal("访问出错！");
+			}
+		});
+		
+		/* $.ajax({
+			type:'post',
+			url: 'http://'+serverIp+'/gtims/picture/load.do',
+			data: {'id':id},
+			dataType: 'json',
+			crossDomain: true,	
+			success: function(data) {
+				alert("ok");
+			},
+			error:function(msg){
+				alert("访问出错！");
+			}
+		});
+ */
+</script>
+
+
+</body>
+</html>

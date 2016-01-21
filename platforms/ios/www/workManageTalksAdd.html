@@ -1,0 +1,403 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<title>贯通综合管理系统-会谈信息—会谈信息新增</title>
+<link href="css/mui.min.css" rel="stylesheet" />
+<link href="css/mui.indexedlist.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/app.css" />
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<!-- <link href="css/common.css" rel="stylesheet" type="text/css" /> -->
+<link href="css/mobiscroll.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+<style>
+.mui-bar {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+#done.mui-disabled {
+	color: gray;
+}
+
+.mui-table-view-cell.mui-checkbox input[type=checkbox],.mui-table-view-cell.mui-radio input[type=radio] {
+	top: 16px;
+}
+</style>
+</head>
+<body>
+<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+	<!--侧滑菜单部分-->
+	<aside id="offCanvasSide" class="  mui-off-canvas-right" style="background: none">
+			<header class="mui-bar mui-bar-nav">
+				<a class=" mui-icon mui-icon-left-nav mui-pull-left" id="offCanvasHide"></a>
+				<span id="zhHead"></span>
+			</header>	
+			<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+				<div class="mui-scroll">				
+					<div class="mui-content">
+						<div id='list' class="mui-indexed-list">
+							<div class="mui-indexed-list-search mui-input-row mui-search">
+								<input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="请输入搜索内容">
+							</div>
+							<div class="mui-indexed-list-alert"></div>
+							<div class="mui-indexed-list-inner">
+								<div class="mui-indexed-list-empty-alert">没有数据</div>
+								<ul class="mui-table-view" id ="ryList">
+									<li class="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-media mui-left">
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</aside>
+		<div class="mui-inner-wrap">
+<header class="mui-bar mui-bar-nav">
+    <!-- <a class="headerL" href="javascript:history.go(-1);"><img src="images/return.png"></a> -->
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">会谈信息新增</h1>
+    
+</header>
+<script type="text/javascript">
+
+</script>
+<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div class="mui-content-padded">
+		<form class="mui-input-group" id="addJhForm">
+            <div class="mui-input-row">
+                <label><span style="color:red">*</span> 会谈名称</label>
+                <input type="text" placeholder="请输入名称" id="title" validate="*" errorMsg="会谈名称必填">
+            </div>
+            <div class="mui-input-row">
+               <label><span style="color:red">*</span>  会谈时间</label>
+                <input type="text" class="kbtn" id="talkDate"  placeholder="请选择日期" validate="d" errorMsg="输入正确会谈时间">
+            </div>
+
+            <div class="mui-input-row">
+                <label><span style="color:red">*</span> <span>意&nbsp;&nbsp;向&nbsp;&nbsp;值</span></label>
+                <select value="" name="currentIntent" id="currentIntent" validate="*" errorMsg="意向值必填" >
+				</select>
+            </div>
+            <div class="mui-input-row">
+                <label><span style="color:red">*</span> <span>关联客户</span></label>
+                <select value="" name="customerId" id="customerId" validate="*" errorMsg="关联用户必填" >
+				</select>
+            </div>
+            <div class="mui-input-row" id="offCanvasShowKHDB" >
+                <label><span style="color:red">*</span> 客户代表</label>
+				<input type="text" class="mui-input  " id="clientMeetingName" value="" readonly="readonly" placeholder="请选择客户代表" validate="*" errorMsg="客户代表必填">
+               	<input id="clientMeeting" type="hidden"  name="clientMeeting"  value="" /> 
+               	<!-- <a class="mui-navigate-right" id="offCanvasShowKHDB"  /></a> -->
+            </div>
+            <div class="mui-input-row" id="offCanvasShowWFDB" >
+               <label><span style="color:red">*</span> 我方代表</label>
+            	  <!-- <select value="" name="goalId" id="goalId" validate="*" errorMsg="所属任务必选"></select> -->
+            	  <input type="text" class="mui-input  " id="ourTalkPersonName" value="" readonly="readonly" placeholder="请选择我方代表" validate="*" errorMsg="我方代表必填">
+               	  <input id="ourTalkPerson" type="hidden"  name="ourTalkPerson"  value="" /> 
+               	  <!-- <a class="mui-navigate-right" id="offCanvasShowWFDB"  /></a> -->
+            </div>
+            <div class="mui-input-row">
+            <label><span style="color:red"></span>会谈内容</label>
+        </div>
+        <textarea placeholder="请输入详细会谈内容" id="talkContent"></textarea>
+    <!-- <div class="DetailBotBtn1 DetailBotBtn2">
+        <a href="workManageTalks.html">取消新增</a>
+        <a href="javascript:void(0);" id="wancheng">确认新增</a>
+    </div> -->
+    <div class="mui-button-row" style="height:57px">
+		<div class="DetailBotBtn1 DetailBotBtn2">       
+			<a  class="back header_button  mui-action-back">取消新增</a>
+			<a href="javascript:void(0);" class="newproject header_button" id="tijiao">确认新增</a>
+		</div>
+	</div>
+    </form>
+    </div></div></div></div>
+</div>
+<div id="datePlugin"></div>
+<script type="text/javascript" src="js/jquery-1.9.1.js" ></script>
+<!-- <script type="text/javascript" src="js/date.js" ></script> -->
+<script type="text/javascript" src="js/iscroll.js" ></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/initInfo.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('#talkDate').mobiscroll().datetime({theme: 'android-holo-light', lang: 'zh',display: 'bottom'});
+});
+</script>
+<script src="lib/jquery-2.1.4.min.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/mui.indexedlist.js"></script>
+<script src="js/app.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/initInfo.js"></script>
+ <!-- Mobiscroll JS and CSS Includes -->
+<script src="js/mobiscroll.min.js"></script>
+<script type="text/javascript">
+mui.init();
+//$(function () {});
+		mui.ready(function() {
+		intiBaseByType(serverIp,"sid","currentIntent","/dataDir/listName.do","yxz");
+  var userId =localStorage.getItem("id");
+		$('#chargerNameId').val(userId);
+		//getxmList();
+	  //侧滑容器父节点
+		var offCanvasWrapper = mui('#offCanvasWrapper');
+		 //主界面容器
+		var offCanvasInner = offCanvasWrapper[0].querySelector('.mui-inner-wrap');
+		 //菜单容器
+		var offCanvasSide = document.getElementById("offCanvasSide");
+		if (!mui.os.android) {
+			var spans = document.querySelectorAll('.android-only');
+			for (var i = 0, len = spans.length; i < len; i++) {
+				spans[i].style.display = "none";
+			}
+		}
+		
+		//主界面‘显示侧滑菜单’按钮的点击事件 ---我方代表 
+		document.getElementById('offCanvasShowWFDB').addEventListener('tap', function() {
+			var title='<h1 class="mui-title">我方代表</h1>'+
+			'<a id="done" class="mui-btn mui-btn-link mui-pull-right mui-btn-blue mui-disabled">完成</a>';
+			document.querySelector('#zhHead').innerHTML = title;
+			getWFDBList();
+			offCanvasWrapper.offCanvas('show');
+			var header = document.querySelector('header.mui-bar');
+			var list = document.getElementById('list');
+			var done = document.getElementById('done');
+			//calc hieght
+			//list.style.height =(document.body.offsetHeight - header.offsetHeight) + 'px';
+			list.style.height = '100%';
+			//create
+			window.indexedList = new mui.IndexedList(list);
+			//done event
+			done.addEventListener('tap', function() {
+				var ourTalkPerson = $("input[name='radio']:checked").val();
+				var ourTalkPersonName = $("input[name='radio']:checked").attr("ryname");
+				if (ourTalkPerson > 0) {
+				document.getElementById('ourTalkPersonName').value=ourTalkPersonName;
+				document.getElementById('ourTalkPerson').value=ourTalkPerson;
+				offCanvasWrapper.offCanvas('close');
+				 } else {
+					mui.swal('你没选择任何项目');
+				}
+				
+			}, false);
+			mui('.mui-indexed-list-inner').on('change', 'input', function() {
+				var count = list.querySelectorAll('input[type="radio"]:checked').length;
+				var value = count ? "完成(" + count + ")" : "完成";
+				done.innerHTML = value;
+				//mui.alert('你选择了: ' + radiovalue );
+				if (count) {
+					if (done.classList.contains("mui-disabled")) {
+						done.classList.remove("mui-disabled");
+					}
+				} else {
+					if (!done.classList.contains("mui-disabled")) {
+						done.classList.add("mui-disabled");
+					}
+				}
+			});
+		});
+		
+		//主界面‘显示侧滑菜单’按钮的点击事件 ---对方代表  
+		document.getElementById('offCanvasShowKHDB').addEventListener('tap', function() {
+			var title='<h1 class="mui-title">客户代表</h1>'+
+			'<a id="done" class="mui-btn mui-btn-link mui-pull-right mui-btn-blue mui-disabled">完成</a>';
+			document.querySelector('#zhHead').innerHTML = title;
+			getKHDBList();
+			offCanvasWrapper.offCanvas('show');
+			var header = document.querySelector('header.mui-bar');
+			var list = document.getElementById('list');
+			var done = document.getElementById('done');
+			//calc hieght
+			//list.style.height =(document.body.offsetHeight - header.offsetHeight) + 'px';
+			list.style.height = '100%';
+			//create
+			window.indexedList = new mui.IndexedList(list);
+			//done event
+			done.addEventListener('tap', function() {
+				var clientMeeting = $("input[name='radio']:checked").val();
+				var clientMeetingName = $("input[name='radio']:checked").attr("ryname");
+				if (clientMeeting > 0) {
+				document.getElementById('clientMeetingName').value=clientMeetingName;
+				document.getElementById('clientMeeting').value=clientMeeting;
+				offCanvasWrapper.offCanvas('close');
+				 } else {
+					mui.swal('你没选择任何项目');
+				}
+				
+			}, false);
+			mui('.mui-indexed-list-inner').on('change', 'input', function() {
+				var count = list.querySelectorAll('input[type="radio"]:checked').length;
+				var value = count ? "完成(" + count + ")" : "完成";
+				done.innerHTML = value;
+				//mui.alert('你选择了: ' + radiovalue );
+				if (count) {
+					if (done.classList.contains("mui-disabled")) {
+						done.classList.remove("mui-disabled");
+					}
+				} else {
+					if (!done.classList.contains("mui-disabled")) {
+						done.classList.add("mui-disabled");
+					}
+				}
+			});
+		});
+		
+		 //菜单界面，‘关闭侧滑菜单’按钮的点击事件//
+		document.getElementById('offCanvasHide').addEventListener('tap', function() {
+			offCanvasWrapper.offCanvas('close');
+		});
+		
+var userId =localStorage.getItem("id");
+var chanceId = location.href.split('?')[1].split('=')[1].split('&')[0];
+var projectId = location.href.split('&')[1].split('=')[1];
+intiBaseDic(serverIp,"cid","customerId","/customer/listName.do?id="+userId);//customerId
+intiBaseByType(serverIp,"sid","currentIntent","/dataDir/listName.do","yxz");
+var tjButton = document.getElementById('tijiao');
+tjButton.addEventListener('tap', function(event) {
+		//validateForm验证
+		var result = true;
+		$("form input[type='text']").each(function(){
+			if($(this).attr("validate")!=null&&!validateForm($(this))){
+				result = false;
+				return result;
+			}
+			
+		});
+		if(result != false){
+		$("select").each(function(){
+			if($(this).attr("validate")!=null&&!validateForm($(this))){
+				result = false;
+				return result;
+			}
+		});}
+			if(result){
+			$.ajax({
+			type:'post',
+			url: 'http://'+serverIp+'/gtims/planTalk/insertForPhone.do',
+			data: {'createrId':userId,'modifyPersonId':userId,'receiveFee':$('#receiveFee').val(),
+				'sendOutFee':$('#sendOutFee').val(),
+				'customerId':$('#customerId').val(),
+				'clientMeeting':$('#clientMeeting').val(),
+				'ourTalkPerson':$('#ourTalkPerson').val(),
+				'talkContent':$('#talkContent').val(),
+				'currentIntent':$('#currentIntent').val(),
+				'title':$('#title').val(),
+				'talkDate':$("#talkDate").val(),
+				'chanceId':chanceId,
+				'projectId':projectId
+			},
+			dataType:"jsonp",
+			jsonp:"jsonpCallback",
+			scriptCharset:"utf-8",
+			async:false,
+			contentType: "application/jsonp;charset=utf-8",
+			success: function(data) {
+				if(chanceId==0&&projectId==0){
+					location.href='workManageTalks.html';
+				}else if(chanceId!=0){
+					location.href='workManageChanceDetail.html?id='+chanceId+'&code=';
+				}else if(projectId!=0){
+					location.href='workManageIntentDetail.html?id='+projectId+'&code=';
+				}
+				
+				
+			},
+			error:function(msg){
+				swal("访问出错！");
+			}
+		});
+			}
+			})
+			
+			
+			//participants.value = userName ;
+			 //主界面和侧滑菜单界面均支持区域滚动；
+					mui('#offCanvasSideScroll').scroll();
+					mui('#offCanvasContentScroll').scroll();
+					 //实现ios平台原生侧滑关闭页面；
+					if (mui.os.plus && mui.os.ios) {
+						mui.plusReady(function() { //5+ iOS暂时无法屏蔽popGesture时传递touch事件,直接屏蔽popGesture功能
+							plus.webview.currentWebview().setStyle({
+								'popGesture': 'none'
+							});
+						});
+					}
+					
+					});
+			//查询我方代表
+			function getWFDBList() {
+				$.ajax({
+					url: 'http://'+serverIp+'/gtims/user/findSelectMember.do?userId='+localStorage.getItem("id"),
+					async: false,
+					data:{'start':'0','end':'10000'},
+					dataType: 'json',
+					crossDomain: true,
+					success: function(data) {
+					 var html = "",obj=data.data;
+						for (var i = 0; i < obj.length; i++) {
+						    html+='<li class="mui-table-view-cell mui-indexed-list-item mui-radio mui-media mui-left">'+
+							'<input type="radio"  name="radio"  value="'+obj[i].id+'" ryname="'+obj[i].nickname+'" /> '+
+											'<div class="mui-media-body mui-ellipsis">'+obj[i].nickname+'('+obj[i].orgIdShow+')'+
+												'<p class="mui-ellipsis">'+obj[i].phone+'</p>'+
+											'</div></li>';
+						}
+					document.querySelector('#ryList').innerHTML = html;
+				}
+				});
+						}
+			
+			
+			//查询我方代表
+			function getKHDBList() {
+				$.ajax({
+					url: 'http://'+serverIp+'/gtims/linkman/list.do?userId='+localStorage.getItem("id"),
+					async: false,
+					data:{'start':'0','end':'10000'},
+					dataType: 'json',
+					crossDomain: true,
+					success: function(data) {
+					 var html = "",obj=data.data;
+						for (var i = 0; i < obj.length; i++) {
+						    html+='<li class="mui-table-view-cell mui-indexed-list-item mui-radio mui-media mui-left">'+
+							'<input type="radio"  name="radio"  value="'+obj[i].id+'" ryname="'+obj[i].name+'" /> '+
+											'<div class="mui-media-body mui-ellipsis">'+obj[i].name+'('+obj[i].address+')'+
+												'<p class="mui-ellipsis">'+obj[i].phoneMobile+'</p>'+
+											'</div></li>';
+						}
+					document.querySelector('#ryList').innerHTML = html;
+				}
+				});
+						}
+		//列表返回权限 
+	 	var postId =localStorage.getItem("postId");
+	 	if(postId == '8'||postId == '15'){
+	 		var backResult='<a href="index_ziyuan.html" class="back header_button">返回</a>';
+	 	}else if(postId == '9'){
+	 		var backResult='<a href="index.html" class="back header_button">返回</a>';
+	 	}else if(postId == '10'||postId == '13'){
+	 		var backResult='<a href="index_jianshe.html" class="back header_button">返回</a>';
+	 	}else if(postId == '11'||postId=='14'){
+	 		var backResult='<a href="index-yun.html" class="back header_button">返回</a>';
+	 	}else if(postId == '12'){
+	 		var backResult='<a href="index_city.html" class="back header_button">返回</a>';
+	 	}else if(postId == '2'||postId=='16'||postId=='17'){
+	 		var backResult='<a href="index_leader.html" class="back header_button">返回</a>';
+	 	}else{
+	 		var backResult='<a href="index.html" class="back header_button">返回</a>';
+	 	}
+	 	$('#head_back').append(backResult);
+	 
+</script>
+</body>
+</html>

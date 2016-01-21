@@ -1,0 +1,86 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"AppInfo\"><param name=\"ios-package\" value=\"AppInfo\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"JPushPlugin\"><param name=\"ios-package\" value=\"JPushPlugin\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "*PushConfig.plist": {
+                "parents": {
+                    "APP_KEY": [
+                        {
+                            "xml": "<string>cdd3c6c2339c602ecebe595f</string>",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "installed_plugins": {
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.gt.crmtest"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.gt.crmtest"
+        },
+        "cordova-plugin-appinfo": {
+            "PACKAGE_NAME": "com.gt.crmtest"
+        },
+        "cn.jpush.phonegap.JPushPlugin": {
+            "API_KEY": "cdd3c6c2339c602ecebe595f",
+            "PACKAGE_NAME": "com.gt.crmtest"
+        }
+    },
+    "dependent_plugins": {},
+    "modules": [
+        {
+            "file": "plugins/cordova-plugin-device/www/device.js",
+            "id": "cordova-plugin-device.device",
+            "pluginId": "cordova-plugin-device",
+            "clobbers": [
+                "device"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-appinfo/www/appinfo.js",
+            "id": "cordova-plugin-appinfo.AppInfo",
+            "pluginId": "cordova-plugin-appinfo",
+            "merges": [
+                "navigator.appInfo"
+            ]
+        },
+        {
+            "file": "plugins/cn.jpush.phonegap.JPushPlugin/www/JPushPlugin.js",
+            "id": "cn.jpush.phonegap.JPushPlugin.JPushPlugin",
+            "pluginId": "cn.jpush.phonegap.JPushPlugin",
+            "clobbers": [
+                "jPushPlugin"
+            ]
+        }
+    ],
+    "plugin_metadata": {
+        "cordova-plugin-whitelist": "1.2.1",
+        "cordova-plugin-device": "1.1.1",
+        "cordova-plugin-appinfo": "2.0.2",
+        "cn.jpush.phonegap.JPushPlugin": "2.0.2"
+    }
+}

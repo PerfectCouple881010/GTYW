@@ -1,0 +1,188 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<title>贯通综合管理系统-工作管理—机会详情</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+<body>
+<header class="header warp100 clearfix" id="back">
+    
+   机会详情
+</header>
+<div class="mainContent">
+	<div class="warp100 marginTop10">
+       <div class="detailTop borderBot10">
+            <h1 style="line-height:45px;"><span id="name" class="taskNum"></span></h1>
+            <p class="address"><img src="images/address.png"><span id="address" class="taskNum"></span></p>
+            <P style="line-height:25px;">项目类型：<span id="projectType" class="taskNum"></span></P>
+            <p class="partic" style="line-height:25px;">意向值：<span id="currentIntent" class="taskNum"></span></p>
+            
+        </div>
+       <div class="planDetailDate borderBot10">
+            <p class="clearfix">客户<span id="otherCompany" class="taskNum"></span></p>
+            <p class="clearfix">所属省份<span id="addressProvince" class="taskNum"></span></p>
+            <p class="clearfix">所属城市<span id="addressCity"  class="taskNum"></span></p>
+            <p class="clearfix">所属区县<span id="addressState" class="taskNum"></span></p>
+            <p class="clearfix">详细地址<span id="addressDetailed" class="taskNum"></span></p>
+        </div>
+        
+         <div class="planDetailDate borderBot10">
+            <p class="clearfix">派件量<span id="sendOut" class="taskNum"></span></p>
+            <p class="clearfix">派件价格<span id="sendOutFee" class="taskNum"></span></p>
+            <p class="clearfix">拦件量<span id="receive" class="taskNum"></span></p>
+            <p class="clearfix">拦件价格<span  id="receiveFee" class="taskNum"></span></p>  
+        </div>
+        <div class="DetailBot borderBot10 clearfix" id="talks">
+        	<h1>会谈记录</h1>
+			<!--<P style=" line-height:30px; "><span class="orgCri"></span>第一次会谈</P>
+            <div class="line" style=" margin-left:15px;"></div>' -->
+            <div id="talkslist"></div>
+        </div>
+        <div class="DetailBot borderBot10">
+        	<h1>机会描述</h1>
+            <P class="DetailBotIntentDe"><span class="orgCri"></span>我方负责人：<span id="projectManager"  class="taskNum"></span></P>
+            <P class="DetailBotIntentDe"><span class="orgCri"></span>对方负责人：<span id="otherManager" class="taskNum"></span></P>
+            <P class="DetailBotIntentDe" onclick="toChance()"><span class="orgCri"></span>关联线索：<span id="chanceName" class="taskNum"><input type="hidden" id="chanceId"></span></P>
+            <div class="line"></div>
+            <p id="note" class="DetailBotCont taskDetail" style=" line-height:20px; padding-bottom:20px;"></p>
+        </div>
+        <div class="DetailBot borderBot10 clearfix" >
+        	<h1>审核意见</h1>
+        	<div id="opinion"></div>
+        </div>
+    </div>
+    <div class="DetailBotBtn1 DetailBotBtn2" id="tjan">
+    </div>
+    
+</div>
+
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/initInfo.js"></script>
+<script type="text/javascript">
+		var userId =localStorage.getItem("id");
+		
+		var id = location.href.split('?')[1].split('=')[1].split('&')[0];
+		var cityId = location.href.split('&')[1].split('=')[1];
+		var back='<a class="headerL" href="workManageMyApproval.html"><img src="images/return.png"></a>';
+		$('#back').prepend(back);
+		var chanceId="";
+	//	var business_status = "";
+	//	var project_or_intent ="";
+		$.ajax({
+			type:'post',
+			url: 'http://'+serverIp+'/gtims/project/editForPhone.do',
+			data: {'id':id},
+			dataType: 'json',
+			crossDomain: true,	
+			success: function(data) {
+				$('#name').text(data.name);
+				$('#projectManager').text(data.projectManager);
+				$('#projectType').text(data.projectTypeShow);
+				$('#otherCompany').text(data.otherCompanyShow);
+				$('#otherManager').text(data.otherManagerShow);
+				$('#siteName').text(data.siteName);
+				/* $('#addressProvince').text(data.addressProvince);
+				$('#addressCity').text(data.addressCity);
+				$('#addressState').text(data.addressState);
+				$('#addressStreet').text(data.addressStreet); */
+				
+				$('#addressProvince').text(data.addressProvinceShow);
+				$('#addressCity').text(data.addressCityShow);
+				$('#addressState').text(data.addressStateShow);
+				$('#addressStreet').text(data.addressStreetShow);
+				$('#addressDetailed').text(data.addressDetailed);
+				$('#address').text(data.addressCityShow+"  "+data.addressStateShow+"  "+data.addressStreetShow);
+				$('#goalId').text(data.goalId);
+				$('#sendOut').text(data.sendOut);
+				$('#sendOutFee').text(data.sendOutFee);
+				$('#receive').text(data.receive);
+				$('#receiveFee').text(data.receiveFee);
+				$('#currentIntent').text(data.currentIntentShow);
+				$('#projectStatus').text(data.projectStatus);
+				$('#createrId').text(data.createrId);
+				$('#createDate').text(data.createDate);
+				$('#modifyPersonId').text(data.modifyPersonId);
+				$('#modifyDate').text(data.modifyDate);
+				$('#note').text(data.note);
+				chanceId=data.chanceId;
+				$('#projectId').text(data.ProId);
+				$('#chanceName').text(data.chanceName);
+				   
+				if(data.talklist!=null){
+				 var result='';
+				  for(var i=0;i<data.talklist.length;i++){
+					result += '<a href="workManageTalksDetail.html?id='+data.talklist[i].id+'"><P style=" line-height:30px; color:#6d6d6d;"><span class="orgCri"></span>会谈名称：'+data.talklist[i].title+'</P><a/>';
+				  }
+					$('#talkslist').prepend(result);
+				}
+				
+				$.ajax({
+					type:'post',
+					url: 'http://'+ serverIp +'/gtims/check/findCheck.do?IntentId='+id+'&userId='+userId+'',
+					async: true,
+					data:{'start':'0','end':'10'},
+					dataType: 'json',
+					crossDomain: true,
+					success: function(data) {
+							var result='';
+							for(var i=0;i<data.length;i++){
+								result+='<a href="#2"><P style=" line-height:30px; color:#6d6d6d;"><span class="orgCri"></span>审核人： '+data[i].operatorIdShow+'</P><P style=" line-height:30px; color:#6d6d6d;">审核意见： '+data[i].checkInf+'</P><a/>';
+							}
+							
+							$('#opinion').prepend(result);
+						},
+						error:function(msg){
+							swal("访问出错！");
+						}
+				});
+				
+                
+	        //	business_status = data.business_status;
+			//	project_or_intent =data.project_or_intent;
+			},
+			error:function(msg){
+				swal("访问出错！");
+			}
+		});
+		//$("#addtalks").attr("href",'workManageTalksAdd.html?chanceId='+0+'&intent='+id) ;
+		//$("#Modfiy").attr("href",'workManageIntentPerfect.html?id='+id) ;
+		//$("#subAudit").attr("href",'selectionSwitch.html?id='+id) ;
+		//$("#subAudit").attr("onclick",'subtask('+ id + ')');
+		// 提交审核
+		 function subtask(intentId){
+			 $.ajax({
+					url: 'http://'+ serverIp +'/gtims/intenttask/subtask.do?userId='+userId+'&intentId=' + intentId,
+					async: false,
+					data: null,
+					dataType: 'json',
+					crossDomain: true,
+					success: function(data) {
+						swal(data.msg);
+					},
+				error:function(msg){
+					swal("访问出错！");
+				}
+			 });
+		 }
+		
+		//目前是弹出框,以后考虑友好性
+		function showMsg(){
+			swal("请添加会谈信息");
+		}
+		
+		function toChance(){
+			window.location.href='workManageChanceDetail.html?id='+chanceId+'&code=';
+		}
+</script>
+</body>
+</html>			
+				
+		

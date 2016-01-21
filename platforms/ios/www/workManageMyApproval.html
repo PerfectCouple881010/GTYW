@@ -1,0 +1,432 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+<title>贯通综合管理系统-工作管理—全部任务</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" href="css/mui.min.css">
+<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 44px;
+				height: auto;
+			}
+			.mui-pull-top-tips {
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				margin-left: -25px;
+				width: 40px;
+				height: 40px;
+				border-radius: 100%;
+			}
+			.mui-bar~.mui-pull-top-tips {
+				top: 24px;
+			}
+			.mui-pull-top-wrapper {
+				width: 42px;
+				height: 42px;
+				display: block;
+				text-align: center;
+				background-color: #efeff4;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+				box-shadow: 0 4px 10px #bbb;
+				overflow: hidden;
+			}
+			.mui-pull-top-tips.mui-transitioning {
+				-webkit-transition-duration: 200ms;
+				transition-duration: 200ms;
+			}
+			.mui-pull-top-tips .mui-pull-loading {
+				/*-webkit-backface-visibility: hidden;
+				-webkit-transition-duration: 400ms;
+				transition-duration: 400ms;*/
+				
+				margin: 0;
+			}
+			.mui-pull-top-wrapper .mui-icon,
+			.mui-pull-top-wrapper .mui-spinner {
+				margin-top: 7px;
+			}
+			.mui-pull-top-wrapper .mui-icon.mui-reverse {
+				/*-webkit-transform: rotate(180deg) translateZ(0);*/
+			}
+			.mui-pull-bottom-tips {
+				text-align: center;
+				background-color: #efeff4;
+				font-size: 15px;
+				line-height: 40px;
+				color: #777;
+			}
+			.mui-pull-top-canvas {
+				overflow: hidden;
+				background-color: #fafafa;
+				border-radius: 40px;
+				box-shadow: 0 4px 10px #bbb;
+				width: 40px;
+				height: 40px;
+				margin: 0 auto;
+			}
+			.mui-pull-top-canvas canvas {
+				width: 40px;
+			}
+			.mui-slider-indicator.mui-segmented-control {
+				background-color: #efeff4;
+			}
+		</style>
+<body>
+	<header class="header warp100 clearfix" id="returnIndex" style="margin-buttom:60px;">
+		我的审批 
+	</header>
+		<div class="mui-content" style="margin-top:20px;">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div id="sliderSegmentedControl" style="margin-top:78px;background:#fff;color:#999; height:50px;" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll" id="chack">
+						<a class="mui-control-item mui-active" href="#item1mobile">
+							待审批
+						</a>
+						<a class="mui-control-item" href="#item2mobile">
+							已审批
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-group" style="margin-top:100px;" id="content">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view planeListBox warp100 marginTop10" id="management_list">
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view planeListBox warp100 marginTop10" style="align:center;" id="management">
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</body>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/return.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/mui.pullToRefresh.js"></script>
+<script src="js/mui.pullToRefresh.material.js"></script>
+<script>
+var postId =localStorage.getItem("postId");
+var orgId =localStorage.getItem("orgId");
+var firstresult = 0,pagesize = 3,fistsize=0;
+var one=0,two=0,three=0;
+var startone=0,starttwo=0,startthree=0;;
+
+if(postId=="13"||postId=="14"||postId=="15"){
+	var res='<a class="mui-control-item" href="#item3mobile">已分配</a>';
+	var con='<div id="item3mobile" class="mui-slider-item mui-control-content"><div class="mui-scroll-wrapper"><div class="mui-scroll"><ul class="mui-table-view planeListBox warp100 marginTop10" style="align:center;" id="management_listAllot"></ul></div></div></div>'
+	$('#chack').append(res);
+	$('#content').append(con);
+}
+//查询待审核
+$.ajax({
+	url: 'http://'+ serverIp +'/gtims/task/list.do?userId='+userId,
+	async: false,
+	data:{'start':firstresult,'end':pagesize},
+	dataType: 'json',
+	crossDomain: true,
+	success: function(data) {
+		var result = '';
+		one=data.data.length;
+		for(var i=0;i<one;i++){
+			//result += '<li class="items"><span class="list_manage"><font style="font-weight:bold;">任务类型：</font>'+data.data[i].task_name+'&nbsp;&nbsp;&nbsp;&nbsp;<font style="font-weight:bold;">提交人：</font>'+data.data[i].submit_name+'&nbsp;&nbsp;&nbsp;&nbsp;<font style="font-weight:bold;">申请名称：</font>'+data.data[i].apply_name+'</span><div class="manage_show bort"><ul class="main_form_list_1"><li><a href="#"><label>'+'任务名称'+'</label><span  class="w70" >'+data.data[i].task_name+'</span></a></li>'+'<li><label>'+'申请的名称'+'</label><span  class="w70" >'+data.data[i].apply_name+'</span></li>'+'<li><label>'+'申请人姓名'+'</label><span  class="w70" >'+data.data[i].submit_name+'</span></li>'+'<li><label>'+'当前审批人 '+'</label><span  class="w70" >'+data.data[i].aud_name+'</span></li></ul>';
+			if(data.data[i].task_type==1){
+				result+='<li><a href="workManageMyApChanceToInt.html?applyid='+data.data[i].apply_id+'&id='+data.data[i].id+'" class="warp90 planeList"><h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>'+data.data[i].date+'<span class="author">提交人：'+data.data[i].submit_name+'</span></p></a></li>';
+			}
+			if(data.data[i].task_type==2){
+				result+='<li><a href="workManageMyApIntToProject.html?applyid='+data.data[i].apply_id+'&id='+data.data[i].id+'&status='+data.data[i].status+'" class="warp90 planeList"><h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>'+data.data[i].date+'<span class="author">提交人：'+data.data[i].submit_name+'</span></p></a></li>';
+			}
+			if(data.data[i].task_type==3){
+				result+='<li><a href="workManageDealaudit.html?applyid='+data.data[i].apply_id+'&id='+data.data[i].id+'" class="warp90 planeList"><h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>'+data.data[i].date+'<span class="author">提交人：'+data.data[i].submit_name+'</span></p></a></li>';
+			}
+			if(data.data[i].task_type==4){
+				result+='<li><a href="feiyongAudit.html?applyid='+data.data[i].apply_id+'&id='+data.data[i].id+'" class="warp90 planeList"><h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>'+data.data[i].date+'<span class="author">提交人：'+data.data[i].submit_name+'</span></p></a></li>';
+			}
+			if(data.data[i].task_type==5){
+				result+='<li><a href="baoxiaoAudit.html?applyid='+data.data[i].apply_id+'&id='+data.data[i].id+'&status='+data.data[i].status+'" class="warp90 planeList"><h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>'+data.data[i].date+'<span class="author">提交人：'+data.data[i].submit_name+'</span></p></a></li>';
+			}
+		}
+		$('#management_list').prepend(result);
+
+	},
+	error:function(msg){
+		swal("访问出错！");
+	}
+});
+
+
+//查询已审核
+$.ajax({
+	url: 'http://'+ serverIp +'/gtims/task/listRecord.do?userId='+userId,
+	async: false,
+	data:{'start':firstresult,'end':pagesize,'over':"1"},
+	dataType: 'json',
+	crossDomain: true,
+	success: function(data) {
+		var result = '';
+		var code ='';
+		two=data.data.length;
+		for(var i=0;i<two;i++){
+			//result += '<li class="items"><span class="list_manage"><font style="font-weight:bold;">任务类型：</font>'+data.data[i].task_name+'&nbsp;&nbsp;&nbsp;&nbsp;<font style="font-weight:bold;">提交人：</font>'+data.data[i].submit_name+'&nbsp;&nbsp;&nbsp;&nbsp;<font style="font-weight:bold;">申请名称：</font>'+data.data[i].apply_name+'</span><div class="manage_show bort"><ul class="main_form_list_1"><li><a href="#"><label>'+'任务名称'+'</label><span  class="w70" >'+data.data[i].task_name+'</span></a></li>'+'<li><label>'+'申请的名称'+'</label><span  class="w70" >'+data.data[i].apply_name+'</span></li>'+'<li><label>'+'申请人姓名'+'</label><span  class="w70" >'+data.data[i].submit_name+'</span></li>'+'<li><label>'+'当前审批人 '+'</label><span  class="w70" >'+data.data[i].aud_name+'</span></li></ul>';
+			if(data.data[i].task_type==1){
+				result+='<li><a href="workManageChancePassDetail.html?id='+data.data[i].apply_id+'&code='+code+'" class="warp90 "><h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>'+data.data[i].checkDate+'<span class="author">提交人：'+data.data[i].submit_name+'</span></p></a></li>';
+			}
+			if(data.data[i].task_type==2){
+				result+='<li><a href="workManageIntentPassDetail.html?id='+data.data[i].apply_id+'&code='+code+'" class="warp90 "><h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>'+data.data[i].checkDate+'<span class="author">提交人：'+data.data[i].submit_name+'</span></p></a></li>';
+			}
+			if(data.data[i].task_type==3){
+				result+='<li><a href="workManageDealPassDetail.html?id='+data.data[i].apply_id+'&code=" class="warp90 "><h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>'+data.data[i].checkDate+'<span class="author">提交人：'+data.data[i].submit_name+'</span></p></a></li>';
+			}
+			if(data.data[i].task_type==4){
+				result+='<li><a href="feiyongPassDetail.html?id='+data.data[i].apply_id+'" class="warp90 "><h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>'+data.data[i].checkDate+'<span class="author">提交人：'+data.data[i].submit_name+'</span></p></a></li>';
+			}
+			if(data.data[i].task_type==5){
+				result+='<li><a href="baoxiaoPassDetail.html?id='+data.data[i].apply_id+'" class="warp90 "><h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>'+data.data[i].checkDate+'<span class="author">提交人：'+data.data[i].submit_name+'</span></p></a></li>';
+			}
+		}
+		$('#management').prepend(result);
+
+	},
+	error:function(msg){
+		swal("访问出错！");
+	}
+});
+
+
+//查询已分配
+$.ajax({
+	url: 'http://'+ serverIp +'/gtims/task/listAllot.do?userId='+userId,
+	async: false,
+	data:{'start':firstresult,'end':pagesize},
+	dataType: 'json',
+	crossDomain: true,
+	success: function(data) {
+		var result = '';
+		three=data.data.length;
+		for(var i=0;i<three;i++){
+			//result += '<li class="items"><span class="list_manage"><font style="font-weight:bold;">任务类型：</font>'+data.data[i].task_name+'&nbsp;&nbsp;&nbsp;&nbsp;<font style="font-weight:bold;">提交人：</font>'+data.data[i].submit_name+'&nbsp;&nbsp;&nbsp;&nbsp;<font style="font-weight:bold;">申请名称：</font>'+data.data[i].apply_name+'</span><div class="manage_show bort"><ul class="main_form_list_1"><li><a href="#"><label>'+'任务名称'+'</label><span  class="w70" >'+data.data[i].task_name+'</span></a></li>'+'<li><label>'+'申请的名称'+'</label><span  class="w70" >'+data.data[i].apply_name+'</span></li>'+'<li><label>'+'申请人姓名'+'</label><span  class="w70" >'+data.data[i].submit_name+'</span></li>'+'<li><label>'+'当前审批人 '+'</label><span  class="w70" >'+data.data[i].aud_name+'</span></li></ul>';
+			if(data.data[i].task_type==1){
+				result+='<li><a href="workManageMyApChanceToInt.html?applyid='+data.data[i].apply_id+'&id='+data.data[i].id+'" class="warp90 planeList">';
+			}
+			if(data.data[i].task_type==2){
+				result+='<li><a href="workManageMyApIntToProject.html?applyid='+data.data[i].apply_id+'&id='+data.data[i].id+'&status='+data.data[i].status+'" class="warp90 planeList">';
+			}
+			if(data.data[i].task_type==3){
+				result+='<li><a href="workManageDealaudit.html?applyid='+data.data[i].apply_id+'&id='+data.data[i].id+'" class="warp90 planeList">';
+			}
+			if(data.data[i].task_type==4){
+				result+='<li><a href="feiyongaudit.html" class="warp90 planeList">';
+			}
+			if(data.data[i].task_type==5){
+				result+='<li><a href="baoxiaoAudit.html?applyid='+data.data[i].apply_id+'&id='+data.data[i].id+'&status='+data.data[i].status+'" class="warp90 planeList">';
+			}
+			result += '<h1>'+data.data[i].apply_name+'</h1>'+
+            		  '<p>任务类型：'+data.data[i].task_name+'</p><p>创建时间：'+data.data[i].date+'<p/><p><span class="author">提交人：'+data.data[i].submit_name+'</span><span class="author">审核人：'+data.data[i].aud_name+'</span></p></a></li>';
+			result+='</li>';
+		}
+		$('#management_listAllot').prepend(result);
+
+	},
+	error:function(msg){
+		swal("访问出错！");
+	}
+});
+	 
+	 
+	mui.init();
+		//阻尼系数
+		var deceleration = mui.os.ios?0.003:0.0009;
+		mui('.mui-scroll-wrapper').scroll({
+			bounce: false,
+			indicators: true, //是否显示滚动条
+			deceleration:deceleration
+		});
+		mui.ready(function() {
+			//循环初始化所有下拉刷新，上拉加载。
+			mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+				mui(pullRefreshEl).pullToRefresh({
+					up: {
+						callback: function() {
+							var self = this;
+							setTimeout(function() {
+								var ul = self.element.querySelector('.mui-table-view');
+								ul.appendChild(createFragment(ul, index, 3));
+								self.endPullUpToRefresh();
+							}, 1000);
+						}
+					}
+				});
+			});
+			var createFragment = function(ul, index, count, reverse) {
+				var length = ul.querySelectorAll('li').length;
+				var fragment = document.createDocumentFragment();
+				var li;
+				var ind=index;
+				if(ind=="0"){//待审批加载
+					fistsize=one;
+					firstresult=startone;
+					//查询待审核
+					if(fistsize<pagesize){
+						 //没有数据了
+					}else{
+					firstresult=firstresult+pagesize;
+					$.ajax({
+						url: 'http://'+ serverIp +'/gtims/task/list.do?userId='+userId,
+						async: false,
+						data:{'start':firstresult,'end':count},
+						dataType: 'json',
+						crossDomain: true,
+						success: function(data) {
+							if(ind=="0"){
+								startone=firstresult;
+							}else if(ind=="1"){
+								starttwo=firstresult;
+							}else if(ind=="2"){
+								startthree=firstresult;
+							}
+							fistsize=data.data.length;
+							for(var i=0;i<fistsize;i++){
+								li = document.createElement('li');
+								if(data.data[i].task_type==1){
+									li.innerHTML='<a href="workManageMyApChanceToInt.html?applyid='+data.data[i].apply_id+'&id='+data.data[i].id+'" class="warp90 planeList"><h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>'+data.data[i].date+'<span class="author">提交人：'+data.data[i].submit_name+'</span></p></a>';
+								}
+								if(data.data[i].task_type==2){
+									li.innerHTML='<a href="workManageMyApIntToProject.html?applyid='+data.data[i].apply_id+'&id='+data.data[i].id+'&status='+data.data[i].status+'" class="warp90 planeList"><h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>'+data.data[i].date+'<span class="author">提交人：'+data.data[i].submit_name+'</span></p></a>';
+								}
+								if(data.data[i].task_type==3){
+									li.innerHTML='<a href="workManageDealaudit.html?applyid='+data.data[i].apply_id+'&id='+data.data[i].id+'" class="warp90 planeList"><h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>'+data.data[i].date+'<span class="author">提交人：'+data.data[i].submit_name+'</span></p></a>';
+								}
+								if(data.data[i].task_type==4){
+									li.innerHTML='<a href="feiyongAudit.html?applyid='+data.data[i].apply_id+'&id='+data.data[i].id+'" class="warp90 planeList"><h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>'+data.data[i].date+'<span class="author">提交人：'+data.data[i].submit_name+'</span></p></a>';
+								}
+								fragment.appendChild(li);
+							}
+						},
+						error:function(msg){
+							swal("访问出错！");
+						}
+					});
+					}
+					return fragment;
+				}else if(ind=="1"){//已审批加载
+					fistsize=two;
+					firstresult=starttwo;
+					if(fistsize<pagesize){
+						 //没有数据了
+					}else{
+						firstresult=firstresult+pagesize;
+						var code ='';
+						$.ajax({
+							url: 'http://'+ serverIp +'/gtims/task/listRecord.do?userId='+userId,
+							async: false,
+							data:{'start':firstresult,'end':count,"over":"1"},
+							dataType: 'json',
+							crossDomain: true,
+							success: function(data) {
+								if(ind=="0"){
+									startone=firstresult;
+								}else if(ind=="1"){
+									starttwo=firstresult;
+								}else if(ind=="2"){
+									startthree=firstresult;
+								}
+								fistsize=data.data.length;
+								for(var i=0;i<fistsize;i++){
+									li = document.createElement('li');
+									if(data.data[i].task_type==1){
+										li.innerHTML='<a href="workManageChancePassDetail.html?id='+data.data[i].apply_id+'&code='+code+'"" class="warp90 "><h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>'+data.data[i].checkDate+'<span class="author">提交人：'+data.data[i].submit_name+'</span></p></a>';
+									}
+									if(data.data[i].task_type==2){
+										li.innerHTML='<a href="workManageIntentPassDetail.html?id='+data.data[i].apply_id+'&code='+code+'" class="warp90 "><h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>'+data.data[i].checkDate+'<span class="author">提交人：'+data.data[i].submit_name+'</span></p></a>';
+									}
+									if(data.data[i].task_type==3){
+										li.innerHTML='<a href="workManageDealPassDetail.html?id='+data.data[i].apply_id+'&code='+code+'" class="warp90 "><h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>'+data.data[i].checkDate+'<span class="author">提交人：'+data.data[i].submit_name+'</span></p></a>';
+									}
+									if(data.data[i].task_type==4){
+										li.innerHTML='<a href="feiyongPassDetail.html?id='+data.data[i].apply_id+'" class="warp90 "><h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>'+data.data[i].checkDate+'<span class="author">提交人：'+data.data[i].submit_name+'</span></p></a>';
+									}
+									fragment.appendChild(li);
+								}
+							},
+							error:function(msg){
+								swal("访问出错！");
+							}
+						});
+					}
+					return fragment;
+				}else if(ind=="2"){//已分配加载
+					fistsize=three;
+					firstresult=startthree;
+					if(fistsize<pagesize){
+						 //没有数据了
+					}else{
+						firstresult=firstresult+pagesize;
+					$.ajax({
+						url: 'http://'+ serverIp +'/gtims/task/listAllot.do?userId='+userId,
+						async: false,
+						data:{'start':firstresult,'end':pagesize},
+						dataType: 'json',
+						crossDomain: true,
+						success: function(data) {
+							if(ind=="0"){
+								startone=firstresult;
+							}else if(ind=="1"){
+								starttwo=firstresult;
+							}else if(ind=="2"){
+								startthree=firstresult;
+							}
+							fistsize=data.data.length;
+							li = document.createElement('li');
+							for(var i=0;i<fistsize;i++){
+								if(data.data[i].task_type==1){
+									li.innerHTML='<a href="workManageChanceDetail.html?applyid='+data.data[i].apply_id+'&id='+data.data[i].id+'" class="warp90 planeList"><h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>创建时间：'+data.data[i].date+'<p/><p><span class="author">提交人：'+data.data[i].submit_name+'</span><span class="author">审核人：'+data.data[i].aud_name+'</span></p></a>';
+								}
+								if(data.data[i].task_type==2){
+									li.innerHTML='<a href="workManageIntentDetail.html?applyid='+data.data[i].apply_id+'&id='+data.data[i].id+'&status='+data.data[i].status+'" class="warp90 planeList"><h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>创建时间：'+data.data[i].date+'<p/><p><span class="author">提交人：'+data.data[i].submit_name+'</span><span class="author">审核人：'+data.data[i].aud_name+'</span></p></a>';
+								}
+								if(data.data[i].task_type==3){
+									li.innerHTML='<a href="workManageDealDetail.html?applyid='+data.data[i].apply_id+'&id='+data.data[i].id+'" class="warp90 planeList"><h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>创建时间：'+data.data[i].date+'<p/><p><span class="author">提交人：'+data.data[i].submit_name+'</span><span class="author">审核人：'+data.data[i].aud_name+'</span></p></a>';
+								}
+								if(data.data[i].task_type==4){
+									li.innerHTML='<a href="feiyongDetail.html" class="warp90 planeList"><h1>'+data.data[i].apply_name+'</h1><p>任务类型：'+data.data[i].task_name+'</p><p>创建时间：'+data.data[i].date+'<p/><p><span class="author">提交人：'+data.data[i].submit_name+'</span><span class="author">审核人：'+data.data[i].aud_name+'</span></p></a>';
+								}
+								fragment.appendChild(li);
+							}
+						},
+						error:function(msg){
+							swal("访问出错！");
+						}
+					});
+					
+					}
+				}
+				return fragment;
+			};
+		});
+</script>
+</html>

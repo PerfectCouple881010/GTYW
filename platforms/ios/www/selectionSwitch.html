@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<title>贯通综合管理系统—通知选择</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="css/frozen.css">
+<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+		<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+<body>
+<header class="header warp100 clearfix">
+    <a class="headerL" href="javascript:history.go(-1);"><img src="images/return.png"></a>
+    提交申请选择角色
+</header>
+<div class="mainContent">
+    <div class="ui-form-item ui-form-item-switch ui-border-b">
+    	<p>城市经理</p>
+        <label class="ui-switch">
+        	<input id="city" type="checkbox" >
+        </label>
+	</div>
+	<div class="ui-form-item ui-form-item-switch ui-border-b">
+    	<p>资源经理</p>
+        <label class="ui-switch">
+        	<input id="ziyuan" type="checkbox">
+        </label>
+	</div>
+	<div class="ui-form-item ui-form-item-switch ui-border-b">
+    	<p>建设经理</p>
+        <label class="ui-switch">
+        	<input id="build" type="checkbox">
+        </label>
+	</div>
+	<div class="ui-form-item ui-form-item-switch ui-border-b">
+    	<p>运营经理</p>
+        <label class="ui-switch">
+        	<input id="run" type="checkbox" >
+        </label>
+	</div>
+	<br><br>
+	
+    <div class="DetailBotBtn1 DetailBotBtn2">       
+        <a href="javascript:history.go(-1);" class="back header_button">取消提交</a>
+        <a href="javascript:void(0);" onclick="submitCheck(34);" class="newproject header_button" id="wancheng">确认提交</a>
+    </div>
+    
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/initInfo.js"></script>
+
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript">
+
+var userId =localStorage.getItem("id");
+var intentId = location.href.split('=')[1];
+
+$(document).ready(function(){
+	//判断是否可以为角色提交审核
+	$.ajax({
+			url: 'http://'+ serverIp +'/gtims/intenttask/findCheckStatus.do?userId='+userId+'&intentId=' + intentId,
+			async: false,
+			data: null,
+			dataType: 'json',
+			crossDomain: true,
+			success: function(data) {
+				if(data.zyStatus=='1'){
+					$('#ziyuan').attr('disabled','true');
+				}
+				if(data.jsStatus=='1'){
+					$('#build').attr('disabled','true');
+				}
+				if(data.yyStatus=='1'){
+					$('#run').attr('disabled','true');
+				}
+				if(data.cityStatus=='1'){
+					$('#city').attr('disabled','true');
+				}
+				
+			},
+		error:function(msg){
+			swal("访问出错！");
+		}
+	});
+	
+	
+});
+
+
+function submitCheck(){
+	var intentId = location.href.split('=')[1];
+	var ziyuan = $('#ziyuan').is(':checked');
+	var build = $('#build').is(':checked');
+	var run = $('#run').is(':checked');
+	var city = $('#city').is(':checked');
+	var click="";
+	if(click==""){
+	click="false";
+	if(ziyuan==false&&build==false&&run==false&&city==false){
+		swal('请选择要提交审核的角色 ！');
+	}else{ 
+	// 提交审核
+		 $.ajax({
+				url: 'http://'+ serverIp +'/gtims/intenttask/subtask.do?userId='+userId+'&intentId=' + intentId+'&ziyuan=' + ziyuan+'&build=' + build+'&run=' + run+'&city=' + city,
+				async: false,
+				data: null,
+				dataType: 'json',
+				crossDomain: true,
+				success: function(data) {
+					swal({
+						  title: data.msg,
+						  confirmButtonText: "ok"
+						}, function(){
+							location.href='workManageIntentDetail.html?id='+intentId+'&code=';
+						});
+				},
+			error:function(msg){
+				swal("访问出错！");
+			}
+		 });
+	}
+	}else{
+		swal("请勿重复提交！");
+	}
+}
+
+
+
+</script>
+</body>
+</html>

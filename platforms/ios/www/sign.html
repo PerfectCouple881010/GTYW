@@ -1,0 +1,304 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<title>签到</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/sign.css">
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+ <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=rZbDqcx92rblrNPE93h0S0gm"></script>
+ <script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
+ <script type="text/javascript" src="js/initInfo.js"></script>
+ <script type="text/javascript" src="js/index.js"></script>
+ <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+ <link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+		<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+ <style type="text/css">
+ .gray { 
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    
+    filter: grayscale(100%);
+	
+    filter: gray;
+}
+ </style>
+</head>
+
+<body>
+<header class="header warp100 clearfix" id="returnIndex">
+    <a class="headerL" href="workManage.html"><img src="images/return.png"></a> 
+   	签到
+    <a class="headerR" href="signHistory.html">签到记录</a>
+</header>
+
+<div class="mainCon">
+	<div class="bannerDiv">
+    	<img src="images/sign_02.jpg" alt="签到" id="bannerBg"/>
+        <div class="signInfo">
+        	<img src="images/sign1_03.png" alt="head" id="head" class="img-circle"/>
+            <div class="signDetail">
+            	<h3 id="signSL">今日已签到<span id="sigNum"></span>次</h3>
+                <h3 id="name"></h3>
+                <h3 id="time"></h3>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mapDiv">
+    	<div class="mapDivAll" id="allmap">
+    		<img src="images/loading.gif" style="height:auto; width:30%; margin-left:35%; margin-top:5px;">
+        </div>
+        <div class="addressNow">
+        	<h3 id="nowAddressTit">当前位置</h3>
+            <h3 id="nowAddress">正在定位...</h3>
+            <h4><span id="detailAddress"></span></h4>
+			<!--真是上报的精度和维度-->
+			<input id="signlng" type="hidden" value=""/>
+            <input id="signlat" type="hidden" value=""/>
+            <h3 id="choose">选择定位</h3>
+            <img src="images/sign_07.png" alt="downJT" id="downJT" onClick="openLocation(this)"/>
+        </div>
+    </div>
+    
+    <div class="beizhuDiv">
+    	<textarea type="text" id="note" class="form-control beizhuInput" placeholder="请输入备注（非必填）"></textarea>
+    </div>
+    
+    <img src="images/sign_11.png" alt="signBtn"  id="signBtn"  class="gray" />
+    
+    <div class="locationDiv">
+    	<ul class="list-group" id="arroundAddress">
+           <li class="list-group-item" style="background:url(images/dui_03.png) no-repeat right; background-size:20px auto;" id="defaultAddress">
+           </li>
+        </ul>
+    </div>
+</div>
+</body>
+<script>
+
+$.ajax({
+		type:'post',
+		url: 'http://'+serverIp+'/gtims/attendancePhone/listForPhone.do',
+		data: {'userId':localStorage.getItem("id")},
+		dataType: 'json',
+		crossDomain: true,	
+		success: function(data) {
+			if(data!=null){
+				$('#name').html(localStorage.getItem("nickname"));
+				$('#sigNum').html(data.sigNum);
+				$('#time').html('<span>当前时间:</span>&nbsp;'+data.serverTime+'<br>'+data.serverDate+'&nbsp;'+data.week);
+			}
+		},
+		error:function(msg){
+			swal("访问出错！");
+		}
+});
+
+	function openLocation(obj)
+	{
+		$(obj).css("display","none");
+		$(".locationDiv").css("display","block");
+	}
+	
+	function sign(){
+		var nowAddress = $('#nowAddress').html();
+		var detailAddress = $('#detailAddress').html();
+		var signlng = $("#signlng").val();
+		var signlat = $("#signlat").val();
+		var note = $("#note").val();
+		var platform = localStorage.getItem("platform");
+		var model = localStorage.getItem("model");
+		var uuid = localStorage.getItem("uuid");
+		var version = localStorage.getItem("version");
+		
+		$.ajax({
+			type:'post',
+			url: 'http://'+serverIp+'/gtims/attendancePhone/insert.do',
+			data: {'userId':localStorage.getItem("id"),'address':detailAddress,'longitude':signlng,'latitude':signlat,'standby1':nowAddress,'standby2':note,'cardType':platform},
+			dataType: 'json',
+			crossDomain: true,	
+			success: function(data) {
+				if(data.result==1){
+					var sigNum = $('#sigNum').html();
+					sigNum = parseInt(sigNum)+1;
+					$('#sigNum').html(sigNum);
+					swal("签到成功");
+				}
+			},
+			error:function(msg){
+				swal("访问出错！");
+			}
+		});
+	}
+	
+</script>
+
+<script type="text/javascript">
+ $(function(){
+ //判断浏览器是否支持geolocation
+if(navigator.geolocation){
+     // getCurrentPosition支持三个参数
+     // getSuccess是执行成功的回调函数
+     // getError是失败的回调函数
+     // getOptions是一个对象，用于设置getCurrentPosition的参数
+     // 后两个不是必要参数
+     var getOptions = {
+          //是否使用高精度设备，如GPS。默认是true
+          enableHighAccuracy:true,
+          //超时时间，单位毫秒，默认为0
+          timeout:10000,
+          //使用设置时间内的缓存数据，单位毫秒
+          //默认为0，即始终请求新数据
+          //如设为Infinity，则始终使用缓存数据
+          maximumAge:0
+     };
+ 
+     //成功回调
+     function getSuccess(position){
+          // getCurrentPosition执行成功后，会把getSuccess传一个position对象
+          // position有两个属性，coords和timeStamp
+          // timeStamp表示地理数据创建的时间？？？？？？
+          // coords是一个对象，包含了地理位置数据
+          /*console.log(position.timeStamp);   
+ 			// 估算的纬度
+          console.log(position.coords.latitude);    
+          // 估算的经度
+          console.log(position.coords.longitude);    
+          // 估算的高度 (以米为单位的海拔值)
+          console.log(position.coords.altitude);    
+          // 所得经度和纬度的估算精度，以米为单位
+          console.log(position.coords.accuracy);    
+          // 所得高度的估算精度，以米为单位
+          console.log(position.coords.altitudeAccuracy);    
+          // 宿主设备的当前移动方向，以度为单位，相对于正北方向顺时针方向计算
+          console.log(position.coords.heading);
+          // 设备的当前对地速度，以米/秒为单位    
+          console.log(position.coords.speed);    
+          // 除上述结果外，Firefox还提供了另外一个属性address
+          if(position.address){
+               //通过address，可以获得国家、省份、城市
+               console.log(position.address.country);
+               console.log(position.address.province);
+               console.log(position.address.city);
+          }*/
+		   var lon = position.coords.longitude;
+           var lat = position.coords.latitude;
+		   var accuracy = position.coords.accuracy;   
+           // alert("您位置的经度是："+lon+" 纬度是："+lat);
+                $("#nowAddress").html("正在获取地址...");
+                var map = new BMap.Map("allmap");
+                var point = new BMap.Point(""+lon+"",""+lat+"");
+                map.centerAndZoom(point,18);
+                var gc = new BMap.Geocoder();
+                      translateCallback = function (point){
+                          var marker = new BMap.Marker(point);
+                          marker.disableDragging();
+                          map.addOverlay(marker);
+                          map.setCenter(point);
+                          //map.disableDragging();//设置不可拖动
+                          gc.getLocation(point, function(rs){
+							  //alert(JSON.stringify(rs));
+                              var addComp = rs.addressComponents;
+							  var surroundingPois = rs.surroundingPois;//获取周围的json数据
+							  //alert("point:"+rs.point.lat+","+rs.point.lng);
+							 // alert("address:"+rs.address);
+							  var vpoint = rs.point.lat+','+rs.point.lng;
+							 // alert(vpoint);
+							//这是添加默认的地址
+								if(addComp.province!==addComp.city){
+                                   $("#nowAddress").html(addComp.street);
+                                   $("#detailAddress").html(rs.address);
+								   $("#signlng").val(rs.point.lng);
+								   $("#signlat").val(rs.point.lat);
+                                  }
+                                else{
+                                 	$("#nowAddress").html(addComp.street);
+                                 	$("#detailAddress").html(rs.address);
+									$("#signlng").val(rs.point.lng);
+								    $("#signlat").val(rs.point.lat);
+                                }
+							
+							$("#signBtn").attr("onClick",'sign();');
+							$("#signBtn").removeClass("gray");
+							$("#defaultAddress").html('<h3>'+rs.address+'</h3><span>'+rs.address+'</span><input type="hidden" id="lng" value="'+rs.point.lng+'"/><input type="hidden" id="lat" value="'+rs.point.lat+'"/>');
+							//获取周围建筑的信息
+							 if(surroundingPois.length>0){
+							 	var result='';
+								for(var i=0;i<surroundingPois.length;i++){
+								  	//alert(surroundingPois[i].title);
+								  	result+='<li class="list-group-item"><h3>'+surroundingPois[i].title+'</h3><span>'+surroundingPois[i].address+'</span>'+
+									'<input type="hidden" id="lng" value="'+surroundingPois[i].point.lng+'"/><input type="hidden" id="lat" value="'+surroundingPois[i].point.lat+'"/></li>';
+								}
+							  	$('#arroundAddress').append(result);
+							 }
+							 
+							 	$(".locationDiv ul li").click(function(e)
+								{
+							        $(".locationDiv ul li").css("background","none");
+									$("#downJT").css("display","block");
+									$(this).css({"background":"url(images/dui_03.png) no-repeat right","background-size":"20px auto"});
+									$(".locationDiv").css("display","none");
+									var nowAddress = $(this).children("h3").html() ;
+									var detailAddress = $(this).children("span").html();
+									var lngVal = $(this).children("input[id='lng']").val();
+									var latVal = $(this).children("input[id='lat']").val();
+									$("#nowAddress").html(nowAddress);
+                                 	$("#detailAddress").html(detailAddress);
+									$("#signlng").val(lngVal);
+								   	$("#signlat").val(latVal);
+								   	map.removeOverlay(marker);
+								   	var point = new BMap.Point(lngVal,latVal);
+								    marker = new BMap.Marker(point);
+			                        map.addOverlay(marker);
+			                        map.setCenter(point);
+							    });
+							 
+                              //  var infoWindow = new BMap.InfoWindow(sContent);
+                              //  map.openInfoWindow(infoWindow,point);
+                          }); 
+                      }                    
+                  BMap.Convertor.translate(point,0,translateCallback);
+     }
+     //失败回调
+     function getError(error){
+          // 执行失败的回调函数，会接受一个error对象作为参数
+          // error拥有一个code属性和三个常量属性TIMEOUT、PERMISSION_DENIED、POSITION_UNAVAILABLE
+          // 执行失败时，code属性会指向三个常量中的一个，从而指明错误原因
+          switch(error.code){
+               case error.TIMEOUT:
+            	   swal('超时,请检测你的GPS和网络是否已经打开');
+                    break;
+               case error.PERMISSION_DENIED:
+            	   swal('用户拒绝提供地理位置');
+                    break;
+               case error.POSITION_UNAVAILABLE:
+            	   swal('地理位置不可用');
+                    break;
+               default:
+                    break;
+          }
+     }
+
+     navigator.geolocation.getCurrentPosition(getSuccess, getError, getOptions);
+     // watchPosition方法一样可以设置三个参数
+     // 使用方法和getCurrentPosition方法一致，只是执行效果不同。
+     // getCurrentPosition只执行一次
+     // watchPosition只要设备位置发生变化，就会执行
+     var watcher_id = navigator.geolocation.watchPosition(getSuccess, getError, getOptions);
+     //clearwatch用于终止watchPosition方法
+     navigator.geolocation.clearWatch(watcher_id);         
+}else{
+	swal("不支持 GeoLocation.")
+ }
+	
+	   });
+		
+</script>
+
+
+</html>

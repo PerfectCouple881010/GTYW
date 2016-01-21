@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/project/ui-tab.css">
+    <link rel="stylesheet" href="../css/project/style.css">
+    <link rel="stylesheet" href="../css/ui-input.css">
+    <link rel="stylesheet" href="../css/work.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/new-work.css">
+    <link rel="stylesheet" href="css/sign.css">
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=213cdb13042fa9aed1013c442a187838">  
+    </script>
+    <script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js">
+    </script>
+    <script src="../lang/wk-lang.js">
+    </script>
+    <script src="../js/zy_control.js">
+    </script>
+    <script src="../js/zy_click.js">
+    </script>
+    <script src="../js/main.js">
+    </script>
+    <script src='../js/jquery.min.js'>
+    </script>
+    <script src="../js/alert.js">
+    </script>
+    <script src="../js/uuid.js">
+        </script>
+        <link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+		<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+<body class="um-vp">
+    <div id="page_0" class="up ub ub-ver" tabindex="0">
+    <!--header开始-->
+    <div id="header" class="uh t-wh ub top-bg">
+        <div class="uh t-wh ub ub-ac ">
+            <div class="umw4 ub ub-ac  ub-pc">
+                <div class="t-btn-return  t-bt  ub-img" id="closeSignDiv">
+                </div>
+            </div>
+            <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0" id="daySign">签到</h1>
+ 
+            <div class="umw4 ub ub-ac ub-pc">
+                <div class="t-btn-refresh">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--header结束--><!--content开始-->
+    <div id="content" class="ub-f1 ub ub-ver w-bg">
+      <div class="sign-word-div">
+       <textarea id="sign-word" class="sign-word" name="query" rows="6"  ></textarea> 
+       <span class="sign-word-b">说点什么吧</span>
+      </div>
+      <div class="sign-info">
+          <div class="sign-info-top">
+              <span>我的位置</span>
+              <img src="../icon/baidu.png" class="sign-baidu">
+          </div>
+          <div class="sign-content">
+              <div class="sign-con-item">
+                  <img class="sign-item-img1" src="../icon/loca.png">
+                  <div class="sign-item-label">定位</div>
+                  <div class="sign-item-word" id="currentDiv"></div>
+              </div>
+               <div class="sign-con-item">
+                  <img class="sign-item-img2" src="../icon/place.png">
+                  <div class="sign-item-label">最近</div>
+                  <div class="sign-item-word" id="minDistanceDiv"></div>
+              </div>
+               <div class="sign-con-item">
+                  <img class="sign-item-img2" src="../icon/ruler.png">
+                  <div class="sign-item-label">相距</div>
+                  <div class="sign-item-word" id="distanceDiv"></div>
+              </div>
+          </div>
+          <a href="javascript:void(0);" id="signBtn" class="sign-btn">签到</a>
+      </div>
+       <!-- <div class="sign-other"> -->
+      <!-- </div> -->
+    </div>
+    <!--content结束-->
+    <div class="file-pull" id="file-pull">
+        <span class="file-word" id="fileword">上传图片</span>
+        <img class="file-p-img" src="../icon/annex.png">
+    </div>
+    <div id="file-mask" class="file-mask">
+        <div id="file-m-div" class="file-m-div">
+            <div id="file-pullDown" class="file-pullDown">
+                <img class="file-pd-img" src="../icon/annex.png">
+            </div>
+            <div class="file-m-list">
+                <div id="file-ma-div" class="file-ma-div">
+                    <img src="../icon/file-add.png" class="file-m-add" id="uploadImg">
+                </div>
+            </div>
+        </div>
+    </div>
+     <div id="l-map" style="display:none;"></div>
+</div>
+</body>
+ <script>
+ var sign  = null;
+        zy_init();
+        //缓存中获取用户信息
+        var user = getStorJson("user");
+         
+        function submitData()
+        {
+            sign.complete();
+        }
+</script>
+<script src="../js/otherFile.js"></script>
+<script>
+ //显示
+    $("#file-pull").click(function(){
+        $(this).hide();
+        $("#file-mask").show();
+        $("#file-m-div").slideDown(300);
+    })
+    //隐藏
+    $("#file-pullDown").click(function(){
+        setTimeout(function(){
+        $("#file-mask").hide();
+        $("#file-pull").show();    
+        },300)
+        $("#file-m-div").slideUp(300);
+    })
+     
+    $("#sign-word").keyup(function(){
+        if($(this).val()){
+            $(this).next().hide();
+        }else{
+           $(this).next().show(); 
+        }
+    })
+  
+    zy_init();
+     sign = {
+        ajaxStatus:true,
+        map:"",
+        signBtn:$("#signBtn"),
+        minDistanceDiv:$("#minDistanceDiv"),
+        distanceDiv:$("#distanceDiv"),
+        closeWin:$("#closeSignDiv"),
+        currentDiv:$("#currentDiv"),
+        token:getstorage("token") ,
+        os:"",
+        user:getStorJson("user"),
+        markPoint:null,
+        currentPoint:"",
+        distances:[],
+        min:"",
+        operationType:1,
+        maxDist:0,
+        insertOpeationType:1,
+        imei:getstorage("imei"),
+        signSucessMsg:getLang("signSucess"),
+        signOutSuccessMsg:getLang("signOutSuccess"),
+        signWork:function (){
+             
+             var url = ApIp + "/ManagerDemo/user/insertWork.do"
+                uexWindow.toast(1, 5, getLang("submitSing"), 0);
+                $.ajax({
+                    data: 
+                        {
+                            "checkReason":"",
+                            "addPic":"",
+                            "number":sign.imei,
+                            "x": sign.currentPoint.lat,
+                            "y":sign.currentPoint.lng ,
+                            "type":sign.insertOpeationType,
+                            "empSno":sign.user.empSno,
+                            "companySno":sign.user.companySno,
+                            "empSno":sign.user.empSno,
+                            "token":sign.token
+                        },
+                    url: url,
+                    timeout: 20000,
+                    success: function(data){
+                        sign.signSucess();
+                    },
+                    error: errorAjax,
+                    type: 'POST',
+                    dataType: "json"
+                });
+        },
+        signSucess:function(){
+            var signMsg = "";
+            switch(sign.insertOpeationType){
+                case 1:
+                    sign.signBtn.html("签出");
+                    sign.operationType = 1;
+                    signMsg = sign.signSucessMsg;//签到成功
+                    break;
+                default:
+                    sign.signBtn.html("签到");
+                    signMsg = sign.signOutSuccessMsg//签出成功
+                    sign.operationType = 2;
+            }
+            swal(photoUrl.join(","))
+            uexWindow.toast(1, 5,signMsg, 2000);
+            //延迟两秒
+            setTimeout(function(){
+                winClose();
+            }, 3000)
+        },
+        lastSignOperation:function(){
+            var url=ApIp + "ManagerDemo/getEmpLastCheckInfo.do";
+            $.ajax({
+                data: {
+                        //传入员工编号
+                        "empSno": sign.user.empSno,
+                        //token
+                        "token":sign.token
+                        },
+                url: url,
+                timeout: 20000,
+                success: function(data){
+                         
+                        sign.operationType = data.data;
+                        //判断是否已签到
+                        sign.setOperationType(data.data);
+                },
+                error: errorAjax,
+                type: 'POST',
+                dataType: "json"
+            });
+        },
+        setOperationType:function(type){
+            switch(parseInt(type)){
+                case 1:
+                    sign.signBtn.html("签出");
+                    break;
+                default:
+                    sign.signBtn.html("签到");
+            }
+             
+        },
+        getCurrentOs:function(){
+            uexWidgetOne.getPlatform();//获取平台版本 （step:1）    
+            uexWidgetOne.cbGetPlatform = function(opId, dataType, data){
+                switch(data){
+                    case 1:
+                        sign.os  = 1;
+                        break;
+                    case 2:
+                        sign.os = 2;
+                        break;
+                }
+                 
+            }
+        },
+        getSignMark:function(){
+            var url = ApIp + "/ManagerDemo/company/CompanyLoadAdress.do";
+            $.ajax({
+                data: 
+                        {
+                            "token":sign.token,
+                            //用户名
+                            "userName": sign.user.userName,
+                            //员工编号
+                            "empSno":sign.user.empSno
+                        },
+                url: url,
+                timeout: 20000,
+                success: function(data){
+                    sign.ajaxStatus = true;
+                    uexWindow.closeToast();
+                    if (data.msg == 1) {
+                        sign.markPoint = eval('(' + data.data + ')');
+                    }
+                    else  if (data.msg == 205) 
+                    {
+                            uexWindow.toast(1, 5, getLang("loginFail"), 0);
+                            setInterval(function(){
+                                setstorage("sessionId", null);
+                                uexWindow.closeToast();
+                                openNewWin('login', '../login/login.html', '5');
+                                winClose()
+                            }, 2000)
+                             
+                   }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown){
+                    uexWindow.closeToast();
+                    errorAjax(XMLHttpRequest, textStatus, errorThrown);
+                },
+                type: 'POST',
+                dataType: "json"
+            });
+        },
+        getPointGeocoder:function(lat, log){
+            //http://api.map.baidu.com/geocoder/v2/?ak=213cdb13042fa9aed1013c442a187838&location=39.983424,116.322987&output=json&pois=0
+            var url = "http://api.map.baidu.com/geocoder/v2/?ak=213cdb13042fa9aed1013c442a187838&output=json&pois=0&location="+lat+","+log;
+            $.ajax({
+                url:url,
+                success:function(data){
+                    data = data.substring(data.indexOf("\"formatted_address\"")+21);
+                    data = data.substring(0,data.indexOf("\""));
+                    sign.currentPoint = new BMap.Point(log, lat);
+                    sign.currentDiv.html(data);
+                    sign.getMinDistance();
+                },
+                dataType: "text"
+            })
+        },
+        CurrentLocal:function ( data){
+        },
+        getLocation:function(){
+             uexLocation.onChange = sign.onChange;
+             uexLocation.cbOpenLocation = sign.CurrentLocal;
+             uexLocation.openLocation();
+        },
+        onChange:function (lat, log){
+            switch(sign.os){
+                case 1:
+                    sign.getPointGeocoder(lat, log);
+                    break;
+                default:
+                    BMap.Convertor.translate(new BMap.Point(log,lat),2,sign.translateCallback);
+            }
+                     
+        }, 
+        translateCallback:function (point){
+            sign.getPointGeocoder(point.lat,point.lng)
+        },
+        closeSign:function(){
+            sign.closeWin.click(function(){
+                winClose();
+            })
+             
+        },
+        getMinDistance:function(){
+            var length = sign.markPoint.length;
+            var point = null;
+            sign.distances = [];
+            var dist = null;
+            var minDistAddress = null;
+            switch(length){
+                case 0:
+                    minDistAddress = "无固定签到地点";
+                    min = 0;
+                    maxDist = 1;
+                    break;
+                case 1:
+                    sign.currentDiv.html(sign.markPoint[0].checkPointAddress);
+                    point = new BMap.Point(sign.markPoint[0].longitude, sign.markPoint[0].latitude);
+                    dist = Math.round(sign.map.getDistance(point, sign.currentPoint));
+                    min = dist;
+                    maxDist =  sign.markPoint[0].maxDiviationDistance;
+                    minDistAddress = sign.markPoint[0].checkPointAddress;
+                    break
+                default:
+                 
+                    for(var i = 0;i<sign.markPoint.length;i++)
+                    {
+                        point = new BMap.Point(sign.markPoint[i].longitude, sign.markPoint[i].latitude);
+                        dist = Math.round(sign.map.getDistance(point, sign.currentPoint));
+                        sign.distances.push(dist);
+                    }
+                    min = sign.distances[0]
+                    maxDist = sign.markPoint[0].maxDiviationDistance;
+                    var minIndex = 0;
+                    for(var i = 0;i<sign.distances.length;i++)
+                    {
+                        if(sign.distances[i]<min){
+                             
+                            minIndex = i;
+                            min = sign.distances[i];
+                        }
+                    }
+                    minDistAddress = sign.markPoint[minIndex].checkPointAddress;
+                    maxDist =  sign.markPoint[minIndex].maxDiviationDistance;
+            }
+             
+            sign.minDistanceDiv.html(minDistAddress);
+            sign.distanceDiv.html(min);
+        },
+        signWorkClick:function(){
+            sign.signBtn.click(function(){
+                 
+                    submit();
+                 
+                 
+            })
+        },
+        complete:function(){
+            if (sign.ajaxStatus) {
+                    sign.ajaxStatus = false;
+                    if(min > maxDist){
+                        //不在签到范围无法签到
+                        scscms_alert(getLang("signoutaddress"), getLang("sure"));
+                    }else{
+                        switch(parseInt(sign.operationType)){
+                            case 2:
+                                sign.insertOpeationType = 1;
+                                sign.signWork();
+                                break;
+                            default:
+                                sign.insertOpeationType = 2;
+                                sign.isConfirmByDutyTime();
+                        }
+                    }
+            }
+        },
+        isConfirmByDutyTime:function(){
+            var url = ApIp + "ManagerDemo/user/getWorkTimeAndSystemTime.do";
+            $.ajax({
+                    data: 
+                        {
+                            "token":sign.token,
+                            "companySno":sign.user.companySno,
+                            "empSno":sign.user.empSno
+                        },
+                    url: url,
+                    timeout: 20000,
+                    success: function(data){
+                        switch(data.msg){
+                            case 1:
+                                var end = eval('('+data.data+')').downDutyTime+":00";
+                                end = new Date(data.time.substring(0,10)+" "+end);
+                                var start = new Date(data.time);
+                                if(start<end){
+                                    sign.confirmSignOut();
+                                }else{
+                                    sign.signWork();
+                                }
+                                break;
+                            default:
+                                sign.signWork();
+                                 
+                        }
+                    },
+                    error: errorAjax,
+                    type: 'POST',
+                    dataType: "json"
+            });
+        },
+        confirmSignOut:function(){
+            uexWindow.cbConfirm = function ConfirmSuccess(opId, dataType, data){
+                if (data == 0) {
+                    sign.insertOpeationType = 2;
+                    sign.signWork()
+                }else {
+                    sign.ajaxStatus = true;
+                    uexWindow.closeToast();
+                }
+            };
+            uexWindow.confirm(getLang("sureMsg"), getLang("signOutWarn"), [getLang("sure"), getLang("nosure")]);
+        }
+    }
+     
+    window.uexOnload = function (type) {
+        window.onorientationchange = window.onresize = function () {
+            zy_resize("content", 0, $$("header").offsetHeight);
+        };
+        sign.map = new BMap.Map("l-map",{enableMapClick: false});
+        sign.getCurrentOs();//判断平台
+        sign.getSignMark();//签到坐标算出最小值
+        sign.getLocation();//当前定位
+        sign.closeSign();//关闭页面
+        sign.lastSignOperation();//最后一次操作
+        sign.signWorkClick();//绑定签到事件
+    }
+</script>
+</html>

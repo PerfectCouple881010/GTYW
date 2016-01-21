@@ -1,0 +1,292 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+<title>贯通综合管理系统-工作管理—意向详情</title>
+<link rel="stylesheet" type="text/css" href="css/base.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
+<script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+</head>
+<body>
+	<header class="header warp100 clearfix">
+		<a class="headerL" href="javascript:history.go(-1);"><img src="images/return.png"></a>
+		 项目详情
+	</header>
+	<div class="mainContent">
+		<div class="warp100 marginTop10">
+			<div class="detailTop borderBot10">
+				<h1 id="name"></h1>
+				<p class="address"><img src="images/address.png"><span  id="siteName"></span></p>
+            	<P style="line-height:25px;">项目类型：<span id="projectType"></span></P>
+            	<p class="partic" style="line-height:25px;" >意向值：<span id="currentIntent"></span></p>
+			</div>
+			<div class="planDetailDate borderBot10">
+				<p class="clearfix">
+					客户<span class="taskNum" id="otherCompany"></span>
+				</p>
+				<p class="clearfix">
+					所属省份<span class="taskNum" id="addressProvince"></span>
+				</p>
+				<p class="clearfix">
+					所属城市<span class="taskNum" id="addressCity"></span>
+				</p>
+				<p class="clearfix">
+					所属区县<span class="taskNum" id="addressState"></span>
+				</p>
+				<p class="clearfix" style="height: 46px;">
+					<span class="taskNum" id="addressDetailed"></span>
+				</p>
+			</div>
+
+			<div class="planDetailDate borderBot10">
+				<p class="clearfix">
+					派件量<span class="taskNum" id="sendOut"></span>
+				</p>
+				<p class="clearfix">
+					派件价格<span class="taskNum" id="sendOutFee"></span>
+				</p>
+				<p class="clearfix">
+					拦件量<span class="taskNum" id="receive"></span>
+				</p>
+				<p class="clearfix" style="height: 46px;">
+					拦件价格<span class="taskNum" id="receiveFee"></span>
+				</p>
+			</div>
+
+			<div class="planDetailDate borderBot10">
+				<p class="clearfix">建设信息</p>
+				<p class="clearfix">
+					建设负责人<span class="taskNum" id="build_charge"></span>
+				</p>
+				<p class="clearfix">
+					建设阶段<span class="taskNum" id="build_stage"></span>
+				</p>
+				<p class="clearfix" style="height: 46px;">
+					开始时间<span class="taskNum" id="start_date"></span>
+				</p>
+			</div>
+
+			<div class="planDetailDate borderBot10">
+				<p class="clearfix">运营信息</p>
+				<p class="clearfix">
+					运营店长<span class="taskNum" id="run_manager_name"></span>
+				</p>
+				<p class="clearfix">
+					店长电话<span class="taskNum" id="contact_information"></span>
+				</p>
+				<p class="clearfix" style="height: 46px;">
+					固定电话<span class="taskNum" id="telephone"></span>
+				</p>
+			</div>
+			
+			<div class="DetailBot borderBot10 clearfix" id="deal">
+			</div>
+
+			<div class="DetailBot borderBot10 clearfix" >
+				<h1 style="line-height: 48px; height: 48px;">会谈记录</h1>
+				<div id="talkslist"></div>
+			</div>
+			<div class="DetailBot borderBot10">
+        	<h1 style=" line-height:48px; height:48px;">意向描述</h1>
+            <P class="DetailBotIntentDe"><span class="orgCri"></span>我方负责人：<span id="projectManager"  class="taskNum"></span></P>
+            <P class="DetailBotIntentDe"><span class="orgCri"></span>对方负责人：<span id="otherManager" class="taskNum"></span></P>
+            <div class="line"></div>
+            <p class="DetailBotCont taskDetail" style=" line-height:20px; padding-bottom:20px;" id="note"></p>
+        </div>
+        
+        <div class="DetailBotBtn1 DetailBotBtn2" id="tjan">
+   		 </div>
+
+	</div>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript">
+		var id = location.href.split('?')[1].split('=')[1];
+		var business_status = "";
+		var project_or_intent = "";
+		
+		$.ajax({
+			type : 'post',
+			url : 'http://' + serverIp + '/gtims/project/editForPhone.do',
+			data : {'id' : id},
+			dataType : 'json',
+			crossDomain : true,
+			success : function(data) {
+				$('#name').text(data.name);
+				$('#projectManager').text(data.projectManager);
+				$('#projectType').text(data.projectTypeShow);
+				$('#otherCompany').text(data.otherCompanyShow);
+				$('#otherManager').text(data.otherManagerShow);
+				$('#siteName').text(data.siteName);
+				$('#addressProvince').text(data.addressProvinceShow);
+				$('#addressCity').text(data.addressCityShow);
+				$('#addressState').text(data.addressStateShow);
+				$('#addressStreet').text(data.addressStreetShow);
+				$('#addressDetailed').text(data.addressDetailed);
+				$('#goalId').text(data.goalId);
+				$('#sendOut').text(data.sendOut);
+				$('#sendOutFee').text(data.sendOutFee);
+				$('#receive').text(data.receive);
+				$('#receiveFee').text(data.receiveFee);
+				$('#currentIntent').text(data.currentIntentShow);
+				$('#projectStatus').text(data.projectStatus);
+				$('#createrId').text(data.createrId);
+				$('#createDate').text(data.createDate);
+				$('#modifyPersonId').text(data.modifyPersonId);
+				$('#modifyDate').text(data.modifyDate);
+				$('#note').text(data.note);
+				$('#chanceId').text(data.chanceId);
+				$('#projectId').text(data.ProId);
+				business_status = data.business_status;
+				project_or_intent = data.project_or_intent;
+			},
+			error : function(msg) {
+				swal("访问出错！");
+			}
+		});
+		$.ajax({
+			type : 'post',
+			url : 'http://' + serverIp + '/gtims/build/byprojectid.do',
+			data : {'id' : id},
+			dataType : 'json',
+			crossDomain : true,
+			success : function(data) {
+				$('#id').val(data.id);
+				$('#description').text(data.description);
+				$('#build_stage').text(data.build_stage_show);
+				$('#build_content').text(data.build_content);
+				$('#project_id').text(data.project_id_show);
+				$('#start_date').text(data.start_date);
+				$('#delivery_date').text(data.delivery_date);
+				$('#build_charge').text(data.build_charge_show);
+				$('#build_charge_show').text(data.build_charge_show);
+				$('#note').text(data.note);
+			},
+			error : function(msg) {
+				swal("访问出错！");
+			}
+		});
+
+		$.ajax({
+			type : 'post',
+			url : 'http://' + serverIp + '/gtims/run/byprojectid.do',
+			data : {'id' : id},
+			dataType : 'json',
+			crossDomain : true,
+			success : function(data) {
+				$('#description').text(data.description);
+				$('#run_manager').text(data.run_manager);
+				$('#run_manager_name').text(data.run_manager_name);
+				$('#contact_information').text(data.contact_information);
+				$('#telephone').text(data.telephone);
+				$('#project_id').text(data.project_id_show);
+			},
+			error : function(msg) {
+				swal("访问出错！");
+			}
+		});
+
+		
+
+					$.ajax({
+					type : 'post',
+					url : 'http://' + serverIp+ '/gtims/planTalk/byprojectid.do',
+					async : false,
+					data : {"id" : id},
+					dataType : 'json',
+					crossDomain : true,
+					success : function(data) {
+						var result = '';
+						for (var i = 0; i < data.data.length; i++) {
+							result += '<a href="workManageTalksDetail.html?id='+ data.data[i].id+ '"><P style=" line-height:30px; color:#6d6d6d;"><span class="orgCri"></span>会谈名称：'+ data.data[i].title + '</P><a/>';
+						}
+						$('#talkslist').prepend(result);
+					},
+					error : function(msg) {
+						swal("访问出错！");
+					}
+				});
+					
+					$.ajax({
+						type:'post',
+						url: 'http://'+serverIp+'/gtims/project/editForPhone.do',
+						data: {'id':id},
+						dataType: 'json',
+						crossDomain: true,	
+						success: function(data) {
+							$('#name').text(data.name);
+							$('#projectManager').text(data.projectManager);
+							$('#projectType').text(data.projectTypeShow);
+							$('#otherCompany').text(data.otherCompanyShow);
+							$('#otherManager').text(data.otherManagerShow);
+							$('#siteName').text(data.siteName);
+							/* $('#addressProvince').text(data.addressProvince);
+							$('#addressCity').text(data.addressCity);
+							$('#addressState').text(data.addressState);
+							$('#addressStreet').text(data.addressStreet); */							
+							$('#addressProvince').text(data.addressProvinceShow);
+							$('#addressCity').text(data.addressCityShow);
+							$('#addressState').text(data.addressStateShow);
+							$('#addressStreet').text(data.addressStreetShow);
+							$('#addressDetailed').text(data.addressDetailed);
+							$('#address').text(data.addressCityShow+"  "+data.addressStateShow+"  "+data.addressStreetShow);
+							$('#goalId').text(data.goalId);
+							$('#sendOut').text(data.sendOut);
+							$('#sendOutFee').text(data.sendOutFee);
+							$('#receive').text(data.receive);
+							$('#receiveFee').text(data.receiveFee);
+							$('#currentIntent').text(data.currentIntentShow);
+							$('#projectStatus').text(data.projectStatus);
+							$('#createrId').text(data.createrId);
+							$('#createDate').text(data.createDate);
+							$('#modifyPersonId').text(data.modifyPersonId);
+							$('#modifyDate').text(data.modifyDate);
+							$('#note').text(data.note);
+							$('#chanceId').text(data.chanceId);
+							$('#projectId').text(data.ProId);
+							if(data.chanceId==null){
+								resultTJAN='<a href="workManageProjectPerfect.html?id='+id+'" id="Modfiy">完善项目信息</a>';
+								$('#tjan').prepend(resultTJAN);
+							}
+							if(data.talklist!=null){
+							 var result='';
+							  for(var i=0;i<data.talklist.length;i++){
+								result += '<a href="workManageTalksDetail.html?id='+data.talklist[i].id+'"><P style=" line-height:30px; color:#6d6d6d;"><span class="orgCri"></span>会谈名称：'+data.talklist[i].title+'</P><a/>';
+							  }								
+							}
+    //	business_status = data.business_status;
+						//	project_or_intent =data.project_or_intent;
+						},
+						error:function(msg){
+							swal("访问出错！");
+						}
+					});
+					$("#addtalks").attr("href",'workManageTalksAdd.html?chanceId='+0+'&intent='+id) ;
+					$("#Modfiy").attr("href",'workManageIntentPerfect.html?id='+id) ;
+					$("#subAudit").attr("href",'selectionSwitch.html?id='+id) ;
+
+					$.ajax({
+						type : 'post',
+						url : 'http://' + serverIp+ '/gtims/project/listDealName.do',
+						async : false,
+						data : {"id" : id},
+						dataType : 'json',
+						crossDomain : true,
+						success : function(data) {
+							var result = '<h1 style="line-height: 48px; height: 48px;">协议记录</h1>';
+							for(var i=0;i<data.length;i++){
+								result += '<a href="workManageDealDetail.html?id='+data[i].id+'&code="><P style=" line-height:30px; color:#6d6d6d;"><span class="orgCri"></span>协议名称：'+ data[i].name + '</P><a/>';
+							}
+							$('#deal').prepend(result);
+						},
+						error : function(msg) {
+							swal("访问出错！");
+						}
+					});
+					
+	</script>
+</body>
+</html>
