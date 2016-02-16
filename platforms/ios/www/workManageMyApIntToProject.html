@@ -36,12 +36,12 @@
             <p class="clearfix">详细地址<span class="taskNum" id="addressDetailed"></span></p>
         </div>
         
-         <div class="planDetailDate borderBot10">
+         <!-- <div class="planDetailDate borderBot10">
             <p class="clearfix">派件量<span class="taskNum" id="sendOut"></span></p>
             <p class="clearfix">派件价格<span class="taskNum" id="sendOutFee"></span></p>
             <p class="clearfix">拦件量<span class="taskNum" id="receive"></span></p>
             <p class="clearfix">拦件价格<span class="taskNum" id="receiveFee"></span></p>
-        </div>
+        </div> -->
          <div class="DetailBot borderBot10">
         	<h1>意向描述</h1>
             <P class="DetailBotIntentDe"><span class="orgCri"></span>我方负责人：<span class="taskNum" id="projectManager"></span></P>
@@ -98,10 +98,10 @@ $.ajax({
 		$('#addressDetailed').text(data.addressDetailed);
 		$('#address').text(data.addressCityShow+"  "+data.addressStateShow+"  "+data.addressStreetShow);
 		$('#goalId').text(data.goalId);
-		$('#sendOut').text(data.sendOut);
+		/* $('#sendOut').text(data.sendOut);
 		$('#sendOutFee').text(data.sendOutFee);
 		$('#receive').text(data.receive);
-		$('#receiveFee').text(data.receiveFee);
+		$('#receiveFee').text(data.receiveFee); */
 		$('#currentIntent').text(data.currentIntent);
 		$('#projectStatus').text(data.projectStatus);
 		$('#createrId').text(data.createrId);

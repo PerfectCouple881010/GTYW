@@ -32,5 +32,13 @@
         "variables": {
             "API_KEY": "cdd3c6c2339c602ecebe595f"
         }
+    },
+    "cordova-plugin-geolocation": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-geolocation"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

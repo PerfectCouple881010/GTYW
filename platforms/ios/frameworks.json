@@ -6,5 +6,6 @@
     "Foundation.framework": 1,
     "UIKit.framework": 1,
     "Security.framework": 1,
-    "libz.dylib": 1
+    "libz.dylib": 1,
+    "CoreLocation.framework": 1
 }

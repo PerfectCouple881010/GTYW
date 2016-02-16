@@ -341,7 +341,7 @@ $.ajax({
 			if(data.data.version==nowVersion){
 				//alert("版本一致!");
 			}else{
-				//dowload();
+				dowload();
 			}
 		}else{
 			conlose.log("请检查服务器app.properties");
@@ -367,7 +367,8 @@ function dowload(){
 			//navigator.app.loadUrl('http://'+serverIp+'/gtims/userfiles/appFile/android/dev.apk', { openExternal:true});
 			
 			//ios
-            window.open('http://fir.im/GTYW');
+			//navigator.app.loadUrl("http://fir.im/GTYW", { openExternal:true});
+			window.open("http://fir.im/GTYW");
 		});
 }
 
