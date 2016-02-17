@@ -136,7 +136,8 @@
 						$("#subAudit").attr("onClick",'showMsg()') ;
 						$("#subAudit").css({'background':'#ccc'})
 					}else{
-						$("#subAudit").attr("href",'selectionSwitch.html?id='+id) ;
+						//$("#subAudit").attr("href",'selectionSwitch.html?id='+id) ;
+						$("#subAudit").attr("onclick",'subtask('+ id + ')');
 					}
 					$("#addtalks").attr("href",'workManageTalksAdd.html?chanceId='+0+'&intent='+id) ;
 				}
@@ -161,7 +162,12 @@
 					dataType: 'json',
 					crossDomain: true,
 					success: function(data) {
-						swal(data.msg);
+						swal({
+							  title: data.msg,
+							  confirmButtonText: "ok"
+							}, function(){
+								location.href='workManageIntentDetail.html?id='+intentId+'&code=';
+							});
 					},
 				error:function(msg){
 					swal("访问出错！");
