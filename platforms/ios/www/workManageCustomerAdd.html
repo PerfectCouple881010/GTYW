@@ -75,11 +75,11 @@
               <label><span style="color:red">*</span><span> 客户名称</span></label>
                 <input type="text" placeholder="请输入名称" id="name" validate="*" errorMsg="客户名称必填">
             </div>
-            <div class="mui-input-row">
+           <!--  <div class="mui-input-row">
             	<label><span style="color:red">*</span> 类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型</label>
                 <select value="" name="customerType" id="customerType" validate="*" errorMsg="类型必填" >
        			</select> 
-            </div>
+            </div> -->
             <div class="mui-input-row">
                 <label><span style="color:red">*</span> 行&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业</label>
                 <input type="text" placeholder="请输入行业" id="industry" validate="*" errorMsg="行业必填">
@@ -106,14 +106,14 @@
                 </select>
             </div>
             <div class="mui-input-row">
-                <label><span style="color:red">*</span> 所属街道</label>
-                <select name="" id="addressStreet" validate="*" errorMsg="街道必填">
+                <label><span style="color:red"></span> 所属街道</label>
+                <select name="" id="addressStreet">
                     <option value="0">请选择街道</option>
                 </select>
             </div>
             <div class="mui-input-row">
-               <label><span >&nbsp;</span> 详细地址</label>
-                <input type="text" placeholder="请输入详细地址" id="addressDetailed">
+               <label><span style="color:red"></span> 详细地址</label>
+                <input type="text" placeholder="请输入详细地址" id="addressDetailed" validate="*" errorMsg="详细地址必填">
             </div>   
             <div class="mui-input-row">
                <label><span style="color:red">*</span>邮政编码</label>
@@ -123,21 +123,22 @@
               <label><span >&nbsp;</span> 网&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址</label>
                 <input type="text" placeholder="请输入网址" id="website">
             </div>
-            <div class="mui-input-row">
-               <label><span style="color:red">*</span> 办公电话</label>
-                <input type="text" placeholder="请输入办公电话" id="phoneOffice" validate="p" errorMsg="请填写正确的电话格式">
-            </div>  
-            <div class="mui-input-row">
-              <label><span style="color:red">*</span> 手&nbsp;机&nbsp;</label>
-                <input type="text" placeholder="请输入其他电话" id="phoneAlternate" validate="mp" errorMsg="请填写正确的手机号码格式">
-            </div>
             <div class="mui-input-row" id="offCanvasShowFZR" >
                <label><span style="color:red">*&nbsp;</span>负&nbsp;责&nbsp;人</label>
                <input type="text" class="mui-input  " id="chargePersonName" value="" readonly="readonly" placeholder="请选择客户负责人" validate="*" errorMsg="客户负责人必填">
                <input id="chargePerson" type="hidden"  name="chargePerson"  value="" />
                <!-- <a class="mui-navigate-right" id="offCanvasShowFZR"  /></a> -->
                 <!-- <input type="text" placeholder="请输入客户负责人" id="chargePerson" validate="*" errorMsg="客户负责人必填"> -->
+            </div> 
+            <div class="mui-input-row">
+               <label><span >&nbsp;</span> 办公电话</label>
+                <input type="text" placeholder="请输入办公电话" id="phoneOffice" >
             </div>  
+            <div class="mui-input-row">
+              <label><span >&nbsp;</span> 手&nbsp;机&nbsp;</label>
+                <input type="text" placeholder="请输入其他电话" id="phoneAlternate" >
+            </div>
+             
             <div class="mui-input-row">
                <label><span>&nbsp;&nbsp;</span>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注</label>
                 <input type="text" placeholder="请输入备注" id="note">
@@ -199,9 +200,13 @@ var userId =localStorage.getItem("id");
 			done.addEventListener('tap', function() {
 				var chargePerson = $("input[name='radio']:checked").val();
 				var chargePersonName = $("input[name='radio']:checked").attr("ryname");
+				var phoneOffice=$("input[name='radio']:checked").attr("ryphoneOffice");
+				var	phoneAlternate=$("input[name='radio']:checked").attr("ryphoneAlternate");
 				if (chargePerson > 0) {
 				document.getElementById('chargePersonName').value=chargePersonName;
 				document.getElementById('chargePerson').value=chargePerson;
+				document.getElementById('phoneOffice').value=phoneOffice;
+				document.getElementById('phoneAlternate').value=phoneAlternate;
 				offCanvasWrapper.offCanvas('close');
 				 } else {
 					mui.swal('你没选择任何负责人');
@@ -308,8 +313,8 @@ intiBaseByType(serverIp,"khlbid","customerType","/dataDir/listName.do","khlx");/
 				 var html = "",obj=data.data;
 					for (var i = 0; i < obj.length; i++) {
 					    html+='<li class="mui-table-view-cell mui-indexed-list-item mui-radio mui-media mui-left">'+
-						'<input type="radio"  name="radio"  value="'+obj[i].id+'" ryname="'+obj[i].name+'" /> '+
-										'<div class="mui-media-body mui-ellipsis">'+obj[i].name+'('+obj[i].address+')'+
+						'<input type="radio"  name="radio"  value="'+obj[i].id+'" ryname="'+obj[i].name+'" ryphoneOffice="'+obj[i].phoneOffice+'" ryphoneAlternate="'+obj[i].phoneMobile+'"/> '+
+						'<div class="mui-media-body mui-ellipsis">'+obj[i].name+'('+obj[i].address+')'+
 											'<p class="mui-ellipsis">'+obj[i].phoneMobile+'</p>'+
 										'</div></li>';
 					}

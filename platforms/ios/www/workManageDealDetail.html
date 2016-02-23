@@ -48,7 +48,7 @@
 			</div>
 
 			<div class="planDetailDate borderBot10">
-				<p class="clearfix">
+				<p class="clearfix fujian">
 					附件<span class="taskNum" id="dealFile"></span>
 				</p>
 				<p class="clearfix">
@@ -99,7 +99,14 @@
 				$('#customerSigner').text(data.customerSignerShow);
 				$('#signDate').text(data.signDate);
 				$('#sealDate').text(data.sealDate);
-			  //$('#dealFile').text(data.dealFile);暂定
+			  	//$('#dealFile').text("");pathList
+			  	var result="";
+				if(data.dealFile!=null){
+					for(var i=0;i<data.dealFile.length;i++){
+						result+='<a href="http://'+serverIp+'/gtims'+data.dealFile[i]+'">&nbsp;'+"文件名:&nbsp;"+data.dealFile[i].substring(data.dealFile[i].lastIndexOf("/")+1)+'</a><br>'
+					}
+					$('#dealFile').append(result);
+				}
 			  //$('#note').text(data.note);
 				$('#effectiveTime').text(data.effectiveTime);
 				$('#period').text(data.period);
@@ -148,6 +155,8 @@
 			function toproject(){
 				window.location.href='workManageIntentDetail.html?id='+projectId+'&code=';
 			}
+			
+
 </script>
 </body>
 </html>

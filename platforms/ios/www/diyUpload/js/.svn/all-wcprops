@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
-V 61
-/svn/cxsolution/!svn/ver/333/code/gtcrm/gtwapNew/diyUpload/js
+V 62
+/svn/cxsolution/!svn/ver/1467/code/gtcrm/gtwapNew/diyUpload/js
 END
 webuploader.html5only.min.js
 K 25
@@ -9,9 +9,15 @@ svn:wc:ra_dav:version-url
 V 90
 /svn/cxsolution/!svn/ver/333/code/gtcrm/gtwapNew/diyUpload/js/webuploader.html5only.min.js
 END
+MuidiyUpload.js
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/cxsolution/!svn/ver/1495/code/gtcrm/gtwapNew/diyUpload/js/MuidiyUpload.js
+END
 diyUpload.js
 K 25
 svn:wc:ra_dav:version-url
-V 74
-/svn/cxsolution/!svn/ver/333/code/gtcrm/gtwapNew/diyUpload/js/diyUpload.js
+V 75
+/svn/cxsolution/!svn/ver/1436/code/gtcrm/gtwapNew/diyUpload/js/diyUpload.js
 END

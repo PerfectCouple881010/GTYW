@@ -112,7 +112,7 @@ $('.loginClick').on('click',function(){
 						}else if(data.city=='64'){
 							dd.push("szyy");
 						}else{}
-						window.plugins.jPushPlugin.setTagsWithAlias(dd,alias);
+						//window.plugins.jPushPlugin.setTagsWithAlias(dd,alias);
 					}
 					location.href="index_YY.html";
 					localStorage.setItem("indexBaseUrl","index_YY.html");
@@ -131,7 +131,7 @@ $('.loginClick').on('click',function(){
 						}else if(data.city=='64'){
 							dd.push("szjs");
 						}else{}
-						window.plugins.jPushPlugin.setTagsWithAlias(dd,alias);
+						//window.plugins.jPushPlugin.setTagsWithAlias(dd,alias);
 					}
 					location.href="index_JS.html";
 					localStorage.setItem("indexBaseUrl","index_JS.html");
@@ -150,7 +150,7 @@ $('.loginClick').on('click',function(){
 						}else if(data.city=='64'){
 							dd.push("szzy");
 						}else{}
-						window.plugins.jPushPlugin.setTagsWithAlias(dd,alias);
+					//window.plugins.jPushPlugin.setTagsWithAlias(dd,alias);
 					}
 					location.href="index_ZY.html";
 					localStorage.setItem("indexBaseUrl","index_ZY.html");
@@ -171,7 +171,7 @@ $('.loginClick').on('click',function(){
 					}else if(data.city=='64'){
 						dd.push("szjl");
 					}else{}
-					window.plugins.jPushPlugin.setTagsWithAlias(dd,alias);
+					//window.plugins.jPushPlugin.setTagsWithAlias(dd,alias);
 					location.href="index_CSJL.html";
 					localStorage.setItem("indexBaseUrl","index_CSJL.html");
 				}else if(data.postId=='2'||data.postId=='16'||data.postId=='17'){
@@ -182,7 +182,7 @@ $('.loginClick').on('click',function(){
 					}else if(data.postId=='17'){
 						dd.push("bmjl");
 					}else{}
-					window.plugins.jPushPlugin.setTagsWithAlias(dd,alias);
+				//	window.plugins.jPushPlugin.setTagsWithAlias(dd,alias);
 					location.href="index_CEO.html";
 					localStorage.setItem("indexBaseUrl","index_CEO.html");
 				}else{
@@ -315,7 +315,7 @@ $('.loginClick').on('click',function(){
     
     function getInfo(){
     	navigator.appInfo.getAppInfo(function(appInfo) {
-   			localStorage.setItem("version",appInfo.version);
+   			localStorage.setItem("aversion",appInfo.version);
    			localStorage.setItem("identifier",appInfo.identifier);
    			localStorage.setItem("build",appInfo.build);
 			console.log(appInfo.identifier);
@@ -329,13 +329,16 @@ $('.loginClick').on('click',function(){
 </script>
 <script type="text/javascript" charset="utf-8">
 function getVersion(){
+var devType = localStorage.getItem("platform");
 $.ajax({
 	type:'post',
-	url: 'http://'+serverIp+'/gtims/app/getVersion.do',
+	url: 'http://'+serverIp+'/gtims/app/getVersionUpdate.do',
 	dataType: 'json',
+	data:{'devType':devType},
 	crossDomain: true,	
 	success: function(data){
-		var nowVersion = localStorage.getItem("version");
+		var nowVersion = localStorage.getItem("aversion");
+		//alert(nowVersion);
 		var result = data.result;
 		if(result=="sucessful"){
 			if(data.data.version==nowVersion){
@@ -363,12 +366,7 @@ function dowload(){
 		    closeOnConfirm: false
 		},
 		function() {
-			//Android
-			//navigator.app.loadUrl('http://'+serverIp+'/gtims/userfiles/appFile/android/dev.apk', { openExternal:true});
-			
-			//ios
-			//navigator.app.loadUrl("http://fir.im/GTYW", { openExternal:true});
-			window.open("http://fir.im/GTYW");
+			navigator.app.loadUrl('http://'+serverIp+'/gtims/userfiles/appFile/android/gtDev.apk', { openExternal:true});
 		});
 }
 

@@ -40,8 +40,10 @@
 					<span class="taskNum" id="addressDetailed"></span>
 				</p>
 			</div>
-
-			<div class="planDetailDate borderBot10">
+			 <div id="ziyuan">
+            
+            </div>
+			<!-- <div class="planDetailDate borderBot10">
 				<p class="clearfix">
 					派件量<span class="taskNum" id="sendOut"></span>
 				</p>
@@ -54,7 +56,7 @@
 				<p class="clearfix" style="height: 46px;">
 					拦件价格<span class="taskNum" id="receiveFee"></span>
 				</p>
-			</div>
+			</div> -->
 
 			<div class="planDetailDate borderBot10">
 				<p class="clearfix">建设信息</p>
@@ -286,7 +288,44 @@
 							swal("访问出错！");
 						}
 					});
-					
-	</script>
+					//设置权限
+					intiBaseDic(serverIp,"gid","goalId","/goal/listName.do?chargerName="+localStorage.getItem("id"));	
+					var postId =localStorage.getItem("postId");
+					var projectType = '9';
+					if(postId=='8'||postId =='15'){
+						projectType = '10';
+						var ziyuan ='<div class="mui-input-row">'+
+				               '<label><span style="color:red">*</span>  派&nbsp; 件 &nbsp;量</label>'+
+				                '<input type="number" placeholder="请输入派件量" id="sendOut" validate="n" errorMsg="派件量必须是整数">'+
+				            '</div>'+
+				            '<div class="mui-input-row">'+
+				            	'<label><span style="color:red">*</span> 派件价格</label>'+
+				                '<input type="number" placeholder="请输入派件价格"  id="sendOutFee" validate="n2" errorMsg="派件价格必须是数字">'+
+				            '</div>'+
+				            '<div class="mui-input-row">'+
+				            	'<label><span style="color:red">*</span> 揽&nbsp; 件 &nbsp;量</label>'+
+				                '<input type="number" placeholder="请输入揽件量"  id="receive" validate="n" errorMsg="揽件量必须是整数">'+
+				            '</div>'+
+				            '<div class="mui-input-row">'+
+				            	'<label><span style="color:red">*</span> 揽件价格</label>'+
+				                '<input type="number" placeholder="请输入揽件价格"  id="receiveFee" validate="n2" errorMsg="揽件价格必须是数字">'+
+				            '</div>';
+				         var ziyuan='<div class="planDetailDate borderBot10">'+
+							'<p class="clearfix">'+
+							'派件量<span class="taskNum" id="sendOut"></span>'+
+						'</p>'+
+						'<p class="clearfix">'+
+							'派件价格<span class="taskNum" id="sendOutFee"></span>'+
+						'</p>'+
+						'<p class="clearfix">'+
+							'拦件量<span class="taskNum" id="receive"></span>'+
+						'</p>'+
+						'<p class="clearfix" style="height: 46px;">'+
+							'拦件价格<span class="taskNum" id="receiveFee"></span>'+
+						'</p>'+
+					'</div> ';   
+						$('#ziyuan').prepend(ziyuan);
+					}
+					</script>
 </body>
 </html>

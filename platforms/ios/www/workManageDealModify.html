@@ -101,17 +101,17 @@
                <!-- <a class="mui-navigate-right" id="offCanvasShowQSR"  /></a>  -->
                <!-- <input type="text" id="customerSigner" placeholder="请输入签署人"  validate="*" errorMsg="签署人必填"/> -->
             </div>
-		    <!-- <p style="height: 86px;">
-                盖章图片
-			   <input type="file" id="dealFile" multiple="multiple"/>
-			   <input id="do-upload" type="submit" value="上传" />
-			   <input id="do-upload" type="button" value="上传" />
-             </p>  -->
-
-			  <!-- <div class="mui-input-row">
-                <label><span style="color:red">*</span> 盖章图片</label>
-			   <input type="file" id="dealFile" multiple="multiple" />
-             </div>  -->
+             <div class="mui-input-row">
+                 <label><span style="color:red"></span>附件</label>
+                 <input type="hidden" class="kbtn" id="dealFile1" placeholder="请选择附件上传" readonly="readonly"/> 
+            </div>
+           <div class="mui-input-row hh" id="show"></div>
+            <div id="box" class="DetailBot borderBot2" >
+            	<div class="add" style=" min-height:100px; margin-top:20px;">
+            		<div id="upload" class="adds"></div> 
+					<input type="hidden" id="dealFile" name="dealFile" value="">
+				</div>
+   			 </div>
             <div class="mui-input-row">
 			   <label><span style="color:red">*</span> 盖章时间</label>
                <input type="text" class="kbtn" placeholder="请输入盖章时间" id="sealDate" validate="*" errorMsg="盖章时间必填"/>
@@ -160,6 +160,8 @@ $(function(){
 <script src="js/app.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript" src="js/initInfo.js"></script>
+<script type="text/javascript" src="diyUpload/js/webuploader.html5only.min.js"></script>
+<script type="text/javascript" src="diyUpload/js/MuidiyUpload.js"></script>
  <!-- Mobiscroll JS and CSS Includes -->
 <script src="js/mobiscroll.min.js"></script>
 <script type="text/javascript">
@@ -256,7 +258,13 @@ intiBaseByType(serverIp,"dtid","dealType","/dataDir/listName.do","xylx");
 				$('#customerSignerName').val(data.customerSignerShow);
 				$('#signDate').val(data.signDate);
 				$('#sealDate').val(data.sealDate);
-			  //$('#dealFile').val(data.dealFile);暂定
+				var result="";
+				if(data.dealFile!=null){
+					for(var i=0;i<data.dealFile.length;i++){
+						result+='&nbsp;&nbsp;&nbsp;<a href="http://'+serverIp+'/gtims'+data.dealFile[i]+'">'+"文件名:&nbsp;"+data.dealFile[i].substring(data.dealFile[i].lastIndexOf("/")+1)+'<br>'
+					}
+					$('#show').append(result);
+				}
 				$('#note').val(data.note);
 				$('#effectiveTime').val(data.effectiveTime);
 				$('#period').val(data.period);
@@ -301,6 +309,7 @@ intiBaseByType(serverIp,"dtid","dealType","/dataDir/listName.do","xylx");
 					'signDate':$('#signDate').val(),
 					'sealDate':$('#sealDate').val(),
 					//'dealFile':$('#dealFile').val(),
+					'dealFile':$('#dealFile1').val(),
 					'effectiveTime':$('#effectiveTime').val(),
 					'period':$('#period').val(),
 					'description':$('#description').val()
@@ -357,6 +366,21 @@ intiBaseByType(serverIp,"dtid","dealType","/dataDir/listName.do","xylx");
 	   	}
 	   	});
 	   		}
+
+			var file ="";
+			$('#upload').diyUpload({
+				url:'http://'+serverIp+'/gtims/fileUpload/upload.do?ctype=fybx',
+				success:function( data ) {
+					for(var i=0;i<data.length;i++){
+						file+=","+data[i].url;
+					console.info(data[i].url);
+					}
+					document.getElementById("dealFile").value=file;
+				},
+				error:function( err ) {
+					console.info( err );	
+				}
+			});		
 </script>
 </body>
 </html>             

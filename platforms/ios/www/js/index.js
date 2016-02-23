@@ -6,7 +6,7 @@
 var serverIp = '123.56.44.104:8080';
 
 //定时器方法和每隔多久执行一次 这也是最大的时间误差，不计算调用百度地图的时间
-//setInterval(GetRTime,1*1000);
+setInterval(GetRTime,1*1000);
 
 function validateForm(obj){
 	var itemsO = $(obj).attr("validate");
@@ -166,7 +166,7 @@ function validateForm(obj){
 	
 /**足迹定位相关的方法**/
 	
-/**	var	timer =localStorage.getItem("timer");
+	var	timer =localStorage.getItem("timer");
 	var NowTime = new Date().getTime();
 	//时间间隔
 	var stepTimer = 10*1000;
@@ -274,5 +274,3 @@ function validateForm(obj){
 			}
 		});
 	}
-
-**/

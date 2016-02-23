@@ -235,9 +235,9 @@
 		//创建按钮
 		if ( $parentFileBox.find('.diyButton').length <= 0 ) {
 			
-			var div = '<div class="diyButton"> \
-						<a class="diyStart" href="javascript:void(0)">开始上传</a> \
-						<a class="diyCancelAll" href="javascript:void(0)">全部取消</a> \
+			var div = '<div class="diyButton" > \
+						<a class="diyStart" href="javascript:void(0)" style="color:#FF9D2F">开始上传</a> \
+						<a class="diyCancelAll" href="javascript:void(0)" style="color:#FF9D2F">全部取消</a> \
 					</div>';
 			$parentFileBox.append( div );
 			var $startButton = $parentFileBox.find('.diyStart');
@@ -246,19 +246,19 @@
 			//开始上传,暂停上传,重新上传事件;
 			var uploadStart = function (){
 				webUploader.upload();
-				$startButton.text('暂停上传').one('click',function(){
+				$startButton.text('暂停上传').one('tap',function(){
 						webUploader.stop();
-						$(this).text('继续上传').one('click',function(){
+						$(this).text('继续上传').one('tap',function(){
 								uploadStart();
 						});
 				});
 			}
 				
 			//绑定开始上传按钮;
-			$startButton.one('click',uploadStart);
+			$startButton.one('tap',uploadStart);
 			
 			//绑定取消全部按钮;
-			$cancelButton.bind('click',function(){
+			$cancelButton.bind('tap',function(){
 				var fileArr = webUploader.getFiles( 'queued' );
 				$.each( fileArr ,function( i, v ){
 					removeLi( $('#fileBox_'+v.id), v.id, webUploader );
@@ -290,7 +290,7 @@
 		var $fileBox = $parentFileBox.find('#fileBox_'+file_id);
 
 		//绑定取消事件;
-		var $diyCancel = $fileBox.children('.diyCancel').one('click',function(){
+		var $diyCancel = $fileBox.children('.diyCancel').one('tap',function(){
 			removeLi( $(this).parent('li'), file_id, webUploader );	
 		});
 		

@@ -276,3 +276,5 @@ p.intentInput input{ width:100%; margin-left:0;}
 .ygdetail_list li{margin-top: 10px; text-indent: 10px; background: #fff; line-height: 60px;}
 .ygdetail_list li a{font-size: 18px; color: #333; display: block; background: url(../images/icon_jt.png) 98% center no-repeat; text-decoration: none;}
 .ygdetail_list li a span{ width: 25px; padding:0 5px;text-align:center; font-size: 14px; display:inline-block; text-indent: 0px; background: url(../images/icon_qp.png) center no-repeat; color: #fff;}
+
+.borderBot10 p.fujian{height:auto;} 

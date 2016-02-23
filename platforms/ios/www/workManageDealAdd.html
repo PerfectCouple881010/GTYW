@@ -109,7 +109,16 @@
                 <label><span style="color:red">*</span> 盖章图片</label>
 			   <input type="file" id="dealFile" multiple="multiple" /> validate="*" errorMsg="盖章图片必填"
              </div> 
- -->          <div class="mui-input-row">
+ -->         
+ 			 <div id="box" class="DetailBot borderBot2">
+	        	<h1>上传附件</h1>
+	            <div class="add" style=" min-height:100px; margin-top:20px;">
+	            <!-- <img src="images/addChance.png" style=" margin-left:15px;"> -->
+	           		 <div id="upload" class="adds"></div> 
+					 <input type="hidden" id="dealFile" name="dealFile" value="">
+				</div>
+   			 </div>
+ 			 <div class="mui-input-row">
 			   <label><span style="color:red">*</span> 盖章时间</label>
                <input type="text" class="taskAddInput kbtn begin" id="sealDate" placeholder="盖章时间" validate="*" errorMsg="盖章时间必填" readonly="readonly" >
             </div>
@@ -127,6 +136,7 @@
             <label><span style="color:red"></span>协议描述</label>
        		 </div>
             <textarea placeholder="请输入详细协议描述" id="description"></textarea>
+            
     <div class="mui-button-row" style="height:57px">
 		<div class="DetailBotBtn1 DetailBotBtn2">       
 			<a  class="back header_button  mui-action-back">取消新增</a>
@@ -169,7 +179,8 @@ $(function(){
 <script type="text/javascript" src="js/initInfo.js"></script>
  <!-- Mobiscroll JS and CSS Includes -->
 <script src="js/mobiscroll.min.js"></script>
-
+<script type="text/javascript" src="diyUpload/js/webuploader.html5only.min.js"></script>
+<script type="text/javascript" src="diyUpload/js/MuidiyUpload.js"></script>
 <script type="text/javascript">
 mui.init();
 //$(function () {});
@@ -281,7 +292,7 @@ intiBaseByType(serverIp,"jhid","dealType","/dataDir/listName.do","xylx");//dealT
 					'customerSigner':$('#customerSigner').val(),
 					'signDate':$('#signDate').val(),
 					'sealDate':$('#sealDate').val(),
-					//'dealFile':$('#dealFile').val(),暂定
+					'dealFile':$('#dealFile').val(),
 					//'note':$('#note').val(),
 					'effectiveTime':$('#effectiveTime').val(),
 					'period':$('#period').val(),
@@ -334,6 +345,24 @@ intiBaseByType(serverIp,"jhid","dealType","/dataDir/listName.do","xylx");//dealT
 	}
 	});
 		}
+		var file ="";
+		$('#upload').diyUpload({
+			url:'http://'+serverIp+'/gtims/fileUpload/upload.do?ctype=fybx', 
+			success:function( data ) {
+				for(var i=0;i<data.length;i++){
+					file+=data[i].url+",";
+				console.info(data[i].url);
+				}
+				var subImgs = file.substring('0',file.length-1);
+				document.getElementById("dealFile").value=subImgs;
+				//document.getElementById("dealFile1").value=subImgs;
+				
+			},
+			error:function( err ) {
+				console.info( err );	
+			}
+			
+		});
 </script>
 </body>
 </html>                     

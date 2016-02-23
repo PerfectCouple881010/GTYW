@@ -141,14 +141,14 @@
 			//按钮容器;
 			pick:{
 				id:objId,
-				label:"点击选择图片"
+				label:"选择文件"
 			},
-			//类型限制;
+			/*//类型限制;
 			accept:{
 				title:"Images",
 				extensions:"gif,jpg,jpeg,bmp,png",
 				mimeTypes:"image/*"
-			},
+			},*/
 			//配置生成缩略图的选项
 			thumb:{
 				width:85,
