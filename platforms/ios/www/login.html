@@ -182,7 +182,7 @@ $('.loginClick').on('click',function(){
 					}else if(data.postId=='17'){
 						dd.push("bmjl");
 					}else{}
-				//	window.plugins.jPushPlugin.setTagsWithAlias(dd,alias);
+					//window.plugins.jPushPlugin.setTagsWithAlias(dd,alias);
 					location.href="index_CEO.html";
 					localStorage.setItem("indexBaseUrl","index_CEO.html");
 				}else{
@@ -366,7 +366,7 @@ function dowload(){
 		    closeOnConfirm: false
 		},
 		function() {
-			navigator.app.loadUrl('http://'+serverIp+'/gtims/userfiles/appFile/android/gtDev.apk', { openExternal:true});
+			window.open('http://fir.im/GTYW', '_system');
 		});
 }
 
