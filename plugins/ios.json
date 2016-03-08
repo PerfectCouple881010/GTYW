@@ -13,14 +13,14 @@
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.gt.crmtest"
         },
-        "cordova-plugin-appinfo": {
-            "PACKAGE_NAME": "com.gt.crmtest"
-        },
         "cn.jpush.phonegap.JPushPlugin": {
             "API_KEY": "cdd3c6c2339c602ecebe595f",
             "PACKAGE_NAME": "com.gt.crmtest"
         },
         "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.gt.crmtest"
+        },
+        "cordova-plugin-appinfo": {
             "PACKAGE_NAME": "com.gt.crmtest"
         }
     },

@@ -17,14 +17,14 @@
     <feature name="Device">
         <param name="ios-package" value="CDVDevice" />
     </feature>
-    <feature name="AppInfo">
-        <param name="ios-package" value="AppInfo" />
-    </feature>
     <feature name="JPushPlugin">
         <param name="ios-package" value="JPushPlugin" />
     </feature>
     <feature name="Geolocation">
         <param name="ios-package" value="CDVLocation" />
+    </feature>
+    <feature name="AppInfo">
+        <param name="ios-package" value="AppInfo" />
     </feature>
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />

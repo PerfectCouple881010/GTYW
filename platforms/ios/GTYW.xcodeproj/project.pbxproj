@@ -36,8 +36,8 @@
 		5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */; };
 		7388CB2B24464B4ABE35F509 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC7F2F9B956F4C11A39F0EA7 /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		8C7F0ADE38DE425AB898D5E7 /* AppDelegate+JPush.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE2C48B57474FED9E44A980 /* AppDelegate+JPush.m */; };
-		99FE9352FEF843E2ACBBA20D /* AppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F1A929B47F14568849FA11B /* AppInfo.m */; };
 		B0568B8348554F889D5D0C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F26532F73BE74B13912864EC /* Security.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		C3E7D400A08745CBAD89F7C3 /* AppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 523B34D4C1E74014B3447EFF /* AppInfo.m */; };
 		C8CCAC6E1C72E789008C0AB0 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C8CCAC6D1C72E789008C0AB0 /* icon.png */; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 		E3B1E1DB701344D5A991B7E0 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CFCA532122472A9EDCCFBC /* libz.dylib */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -67,6 +67,7 @@
 		1D3623240D0F684500981E51 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* GTYW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GTYW.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E3E45896B344AC08200B1E7 /* AppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppInfo.h; path = "cordova-plugin-appinfo/AppInfo.h"; sourceTree = "<group>"; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		301BF52D109A57CC0062928A /* CordovaLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CordovaLib.xcodeproj; path = CordovaLib/CordovaLib.xcodeproj; sourceTree = "<group>"; };
@@ -88,15 +89,14 @@
 		3A9285F176FC4E608E6B663F /* JPushPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPushPlugin.m; path = cn.jpush.phonegap.JPushPlugin/JPushPlugin.m; sourceTree = "<group>"; };
 		3CA8EB91A129432EBC3CF716 /* PushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = unknown; path = PushConfig.plist; sourceTree = "<group>"; };
 		3F6FA96CE4E347A2A58D8C16 /* libPushSDK-1.8.8.a */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = archive.ar; name = "libPushSDK-1.8.8.a"; path = "GTYW/Plugins/cn.jpush.phonegap.JPushPlugin/libPushSDK-1.8.8.a"; sourceTree = "<group>"; };
-		4237AB69330742D8AE48C041 /* AppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppInfo.h; path = "cordova-plugin-appinfo/AppInfo.h"; sourceTree = "<group>"; };
 		509ACC37EC244F37AAF6CDAE /* CDVLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVLocation.m; path = "cordova-plugin-geolocation/CDVLocation.m"; sourceTree = "<group>"; };
 		50D6448552AE4EBA8A649D72 /* CDVDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVDevice.h; path = "cordova-plugin-device/CDVDevice.h"; sourceTree = "<group>"; };
+		523B34D4C1E74014B3447EFF /* AppInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppInfo.m; path = "cordova-plugin-appinfo/AppInfo.m"; sourceTree = "<group>"; };
 		53D86844563A47D8AD558BAE /* SystemConfiguration.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5A19340925EE424B91793D3B /* JPushPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPushPlugin.h; path = cn.jpush.phonegap.JPushPlugin/JPushPlugin.h; sourceTree = "<group>"; };
 		5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		7B7C796A493A4357BD86C921 /* CoreLocation.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* GTYW-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GTYW-Info.plist"; path = "../GTYW-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		8F1A929B47F14568849FA11B /* AppInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppInfo.m; path = "cordova-plugin-appinfo/AppInfo.m"; sourceTree = "<group>"; };
 		97F2D1A29A374C57AFEC46CB /* CDVLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVLocation.h; path = "cordova-plugin-geolocation/CDVLocation.h"; sourceTree = "<group>"; };
 		A8C7BA305E33410DAD2396C5 /* APService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APService.h; path = cn.jpush.phonegap.JPushPlugin/APService.h; sourceTree = "<group>"; };
 		B49A09525F5441F6BACA293B /* CoreFoundation.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -234,8 +234,6 @@
 			children = (
 				E08572244FC54D85A8AB5C54 /* CDVDevice.m */,
 				50D6448552AE4EBA8A649D72 /* CDVDevice.h */,
-				8F1A929B47F14568849FA11B /* AppInfo.m */,
-				4237AB69330742D8AE48C041 /* AppInfo.h */,
 				3A9285F176FC4E608E6B663F /* JPushPlugin.m */,
 				0FE2C48B57474FED9E44A980 /* AppDelegate+JPush.m */,
 				5A19340925EE424B91793D3B /* JPushPlugin.h */,
@@ -243,6 +241,8 @@
 				108C8ADD7C4F414091495209 /* AppDelegate+JPush.h */,
 				509ACC37EC244F37AAF6CDAE /* CDVLocation.m */,
 				97F2D1A29A374C57AFEC46CB /* CDVLocation.h */,
+				523B34D4C1E74014B3447EFF /* AppInfo.m */,
+				1E3E45896B344AC08200B1E7 /* AppInfo.h */,
 			);
 			name = Plugins;
 			path = GTYW/Plugins;
@@ -410,10 +410,10 @@
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
 				0C4744B3D7EE4B27BBF7041A /* CDVDevice.m in Sources */,
-				99FE9352FEF843E2ACBBA20D /* AppInfo.m in Sources */,
 				FB87440D140341CA9E592C4E /* JPushPlugin.m in Sources */,
 				8C7F0ADE38DE425AB898D5E7 /* AppDelegate+JPush.m in Sources */,
 				037189B48BE540A88CA4454B /* CDVLocation.m in Sources */,
+				C3E7D400A08745CBAD89F7C3 /* AppInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,7 +460,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = GTYW;
-				PROVISIONING_PROFILE = "953932b6-27db-4a43-a518-5095a874e255";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -470,7 +470,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: GTexpress(Beijing)Information Technology Co., Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTYW/GTYW-Prefix.pch";
@@ -495,7 +495,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = GTYW;
-				PROVISIONING_PROFILE = "953932b6-27db-4a43-a518-5095a874e255";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

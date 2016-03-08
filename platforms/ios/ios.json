@@ -13,15 +13,15 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"AppInfo\"><param name=\"ios-package\" value=\"AppInfo\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"JPushPlugin\"><param name=\"ios-package\" value=\"JPushPlugin\" /></feature>",
                             "count": 1
                         },
                         {
                             "xml": "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"AppInfo\"><param name=\"ios-package\" value=\"AppInfo\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -56,14 +56,14 @@
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.gt.crmtest"
         },
-        "cordova-plugin-appinfo": {
-            "PACKAGE_NAME": "com.gt.crmtest"
-        },
         "cn.jpush.phonegap.JPushPlugin": {
             "API_KEY": "cdd3c6c2339c602ecebe595f",
             "PACKAGE_NAME": "com.gt.crmtest"
         },
         "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.gt.crmtest"
+        },
+        "cordova-plugin-appinfo": {
             "PACKAGE_NAME": "com.gt.crmtest"
         }
     },
@@ -75,14 +75,6 @@
             "pluginId": "cordova-plugin-device",
             "clobbers": [
                 "device"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-appinfo/www/appinfo.js",
-            "id": "cordova-plugin-appinfo.AppInfo",
-            "pluginId": "cordova-plugin-appinfo",
-            "merges": [
-                "navigator.appInfo"
             ]
         },
         {
@@ -124,13 +116,21 @@
             "clobbers": [
                 "navigator.geolocation"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-appinfo/www/appinfo.js",
+            "id": "cordova-plugin-appinfo.AppInfo",
+            "pluginId": "cordova-plugin-appinfo",
+            "merges": [
+                "navigator.appInfo"
+            ]
         }
     ],
     "plugin_metadata": {
         "cordova-plugin-whitelist": "1.2.1",
         "cordova-plugin-device": "1.1.1",
-        "cordova-plugin-appinfo": "2.0.2",
         "cn.jpush.phonegap.JPushPlugin": "2.0.2",
-        "cordova-plugin-geolocation": "2.1.0"
+        "cordova-plugin-geolocation": "2.1.0",
+        "cordova-plugin-appinfo": "2.0.3"
     }
 }
