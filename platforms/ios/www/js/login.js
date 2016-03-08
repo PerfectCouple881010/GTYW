@@ -45,6 +45,16 @@ function validateForm(obj){
 				break out;
 			}
 			break;
+		case "en"://邮箱验证
+			reg=/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			if(!reg.test($(obj).val()) && $(obj).val()!=null && $(obj).val()!=""){
+				result = false;
+				swal($(obj).attr("errorMsg"));
+				break out;
+			}else if($(obj).val()==null ||　$(obj).val()==""){ 
+				return true; 
+			}
+			break;
 		case "p"://电话验证
 			reg=/^(\(\d{3,4}\)|\d{3,4}-)?\d{7,8}$/;
 			if(!reg.test($(obj).val())){
@@ -59,6 +69,16 @@ function validateForm(obj){
 				result = false;
 				swal($(obj).attr("errorMsg"));
 				break out;
+			}
+			break;
+		case "mpn"://手机号验证
+			reg=/^[1]([3][0-9]{1}|59|58|88|89)[0-9]{8}$/;
+			if(!reg.test($(obj).val()) && $(obj).val()!=null && $(obj).val()!=""){
+				result = false;
+				swal($(obj).attr("errorMsg"));
+				break out;
+			}else if($(obj).val()==null||$(obj).val()==""){ 
+				return true;
 			}
 			break;
 		case "d"://开始和结束时间验证

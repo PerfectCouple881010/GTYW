@@ -20,6 +20,7 @@ select{ background:#fff;}
 
 .marginTop10{ margin-top:10px;}
 .borderBot10{border-bottom:10px solid #ebebeb; width:90%; padding:0 5%;}
+.borderBot2{border-bottom:10px solid #ebebeb; width:90%; padding:0 5%;}
 .line{border-bottom:1px solid #b5b5b5; margin:5px 0 3px;}
 .marginLeft6{ margin-left:6px;}
 

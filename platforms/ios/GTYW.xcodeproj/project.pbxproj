@@ -460,7 +460,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = GTYW;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "953932b6-27db-4a43-a518-5095a874e255";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -470,7 +470,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: GTexpress(Beijing)Information Technology Co., Ltd.";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GTYW/GTYW-Prefix.pch";
@@ -495,7 +495,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = GTYW;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "953932b6-27db-4a43-a518-5095a874e255";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

@@ -101,7 +101,7 @@
 				$('#sealDate').text(data.sealDate);
 			  	//$('#dealFile').text("");pathList
 			  	var result="";
-				if(data.dealFile!=null){
+				if(data.dealFile!=null && data.dealFile!=""){
 					for(var i=0;i<data.dealFile.length;i++){
 						result+='<a href="http://'+serverIp+'/gtims'+data.dealFile[i]+'">&nbsp;'+"文件名:&nbsp;"+data.dealFile[i].substring(data.dealFile[i].lastIndexOf("/")+1)+'</a><br>'
 					}

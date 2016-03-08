@@ -105,13 +105,14 @@
                  <label><span style="color:red"></span>附件</label>
                  <input type="hidden" class="kbtn" id="dealFile1" placeholder="请选择附件上传" readonly="readonly"/> 
             </div>
-           <div class="mui-input-row hh" id="show"></div>
+           <div  id="show1"></div>
             <div id="box" class="DetailBot borderBot2" >
             	<div class="add" style=" min-height:100px; margin-top:20px;">
             		<div id="upload" class="adds"></div> 
 					<input type="hidden" id="dealFile" name="dealFile" value="">
 				</div>
    			 </div>
+   			
             <div class="mui-input-row">
 			   <label><span style="color:red">*</span> 盖章时间</label>
                <input type="text" class="kbtn" placeholder="请输入盖章时间" id="sealDate" validate="*" errorMsg="盖章时间必填"/>
@@ -259,11 +260,11 @@ intiBaseByType(serverIp,"dtid","dealType","/dataDir/listName.do","xylx");
 				$('#signDate').val(data.signDate);
 				$('#sealDate').val(data.sealDate);
 				var result="";
-				if(data.dealFile!=null){
+				if(data.dealFile!=null && data.dealFile!=""){
 					for(var i=0;i<data.dealFile.length;i++){
-						result+='&nbsp;&nbsp;&nbsp;<a href="http://'+serverIp+'/gtims'+data.dealFile[i]+'">'+"文件名:&nbsp;"+data.dealFile[i].substring(data.dealFile[i].lastIndexOf("/")+1)+'<br>'
+						result+='&nbsp;&nbsp;&nbsp;<a style="color:#FF9D2F" href="http://'+serverIp+'/gtims'+data.dealFile[i]+'">'+"文件名:&nbsp;"+data.dealFile[i].substring(data.dealFile[i].lastIndexOf("/")+1)+'<br>'
 					}
-					$('#show').append(result);
+					$('#show1').append(result);
 				}
 				$('#note').val(data.note);
 				$('#effectiveTime').val(data.effectiveTime);
@@ -309,7 +310,7 @@ intiBaseByType(serverIp,"dtid","dealType","/dataDir/listName.do","xylx");
 					'signDate':$('#signDate').val(),
 					'sealDate':$('#sealDate').val(),
 					//'dealFile':$('#dealFile').val(),
-					'dealFile':$('#dealFile1').val(),
+					'dealFile':$('#dealFile').val(),
 					'effectiveTime':$('#effectiveTime').val(),
 					'period':$('#period').val(),
 					'description':$('#description').val()
@@ -367,13 +368,19 @@ intiBaseByType(serverIp,"dtid","dealType","/dataDir/listName.do","xylx");
 	   	});
 	   		}
 
-			var file ="";
+	   		var file=document.getElementById("dealFile").value;
 			$('#upload').diyUpload({
 				url:'http://'+serverIp+'/gtims/fileUpload/upload.do?ctype=fybx',
 				success:function( data ) {
 					for(var i=0;i<data.length;i++){
-						file+=","+data[i].url;
-					console.info(data[i].url);
+						if(file.length==0){
+							file+=data[i].url;
+							}
+							else{
+							file=file+",";
+							file+=data[i].url;
+							}
+						console.info(data[i].url);
 					}
 					document.getElementById("dealFile").value=file;
 				},

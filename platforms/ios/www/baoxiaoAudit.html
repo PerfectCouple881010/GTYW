@@ -64,7 +64,7 @@
 		var orgId =localStorage.getItem("orgId");
 		var taskId = location.href.split('?')[1].split('&')[1].split('=')[1];
 		var status = location.href.split('?')[1].split('&')[2].split('=')[1];
-		if(postId == '20'&& orgId=='4'&& status=='1' ){
+		if(postId == '20'&& status=='1' ){
 			$('#allot').prepend('<a href="allotAudit.html?taskId='+taskId+'&status='+status+'">分配审核任务</a> ');
 		}
 		if(status=='5'){

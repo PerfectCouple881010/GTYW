@@ -112,7 +112,7 @@ $('.loginClick').on('click',function(){
 						}else if(data.city=='64'){
 							dd.push("szyy");
 						}else{}
-						//window.plugins.jPushPlugin.setTagsWithAlias(dd,alias);
+					//	window.plugins.jPushPlugin.setTagsWithAlias(dd,alias);
 					}
 					location.href="index_YY.html";
 					localStorage.setItem("indexBaseUrl","index_YY.html");
@@ -366,7 +366,15 @@ function dowload(){
 		    closeOnConfirm: false
 		},
 		function() {
-			window.open('http://fir.im/GTYW', '_system');
+			//Android dev
+			//navigator.app.loadUrl('http://'+serverIp+'/gtims/userfiles/appFile/android/dev/gtDev.apk', { openExternal:true});
+			
+			//Android pro
+			//navigator.app.loadUrl('http://'+serverIp+'/gtims/userfiles/appFile/android/pro/gtPro.apk', { openExternal:true});
+			
+			//ios
+			//navigator.app.loadUrl('http://fir.im/GTYW', { openExternal:true});
+			window.open('http://fir.im/GTYW', { openExternal:true});
 		});
 }
 

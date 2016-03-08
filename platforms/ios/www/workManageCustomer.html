@@ -67,7 +67,7 @@ body,ul,li {
 					fistsize=data.data.length;
 					for(var i=0;i<data.data.length;i++){
 						//result += '<li class="items"><span class="list_manage">'+data.data[i].name+'&nbsp;&nbsp;&nbsp;&nbsp;'+data.data[i].customerTypeShow+'</span><div class="manage_show bort"><ul class="main_form_list_1"><li><a href="customerDetail.html?id='+data.data[i].id+'"><label>'+'客户名称'+'</label><span  class="w70" >'+data.data[i].name+'</span></a></li>'+'<li><label>'+'客户类型'+'</label><span  class="w70" >'+data.data[i].customerTypeShow+'</span></li>'+'<li><label>'+'客户等级'+'</label><span  class="w70" >'+data.data[i].rating+'</span></li>'+'<li><label>'+'客户负责人'+'</label><span  class="w70" >'+data.data[i].chargePersonShow+'</span></li>'+'<li><label>'+'详细地址'+'</label><span  class="w70" >'+data.data[i].addressDetailed+'</span></li>'+'<li><label>'+'办公电话'+'</label><span class="w70" >'+data.data[i].phoneOffice+'</span></li>'+'</ul>'+'<a href="customeredit.html?id='+data.data[i].id+'" class="amend">'+'修改'+'</a>'+'</li>'
-						result +='<li><a href="workManageCustomerDetail.html?id='+data.data[i].id+'" class="warp90 planeList"><h1>'+data.data[i].name+'</h1><p>客户类型：'+data.data[i].customerTypeShow+'</p><p><em>客户负责人：'+data.data[i].chargePersonShow+'</em></p></a></li>';
+						result +='<li><a href="workManageCustomerDetail.html?id='+data.data[i].id+'" class="warp90 planeList"><h1>'+data.data[i].name+'</h1><p><em>客户负责人：'+data.data[i].chargePersonShow+'</em></p></a></li>';
 						}
 				$('#thelist').prepend(result);
 				},

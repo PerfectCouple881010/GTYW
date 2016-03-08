@@ -6,7 +6,7 @@
 var serverIp = '123.56.44.104:8080';
 
 //定时器方法和每隔多久执行一次 这也是最大的时间误差，不计算调用百度地图的时间
-setInterval(GetRTime,1*1000);
+//setInterval(GetRTime,1*1000);
 
 function validateForm(obj){
 	var itemsO = $(obj).attr("validate");
@@ -76,6 +76,16 @@ function validateForm(obj){
 				break out;
 			}
 			break;
+		case "en"://邮箱验证
+			reg=/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			if(!reg.test($(obj).val()) && $(obj).val()!=null && $(obj).val()!=""){
+				result = false;
+				swal($(obj).attr("errorMsg"));
+				break out;
+			}else if($(obj).val()==null||$(obj).val()==""){ 
+				return true;
+			}
+			break;
 		case "p"://电话验证
 			reg=/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{8}/;
 			
@@ -92,7 +102,17 @@ function validateForm(obj){
 				result = false;
 				swal($(obj).attr("errorMsg"));
 				break out;
-			}
+			}else{}
+			break;
+		case "mpn"://手机号验证
+			reg=/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;
+			if(!reg.test($(obj).val()) && $(obj).val()!=null && $(obj).val()!=""){
+				result = false;
+				swal($(obj).attr("errorMsg"));
+				break out;
+			}else if($(obj).val()==null||$(obj).val()==""){ 
+				return true;
+			}else{}
 			break;
 		case "d"://开始和结束时间验证
 			var start = $(".begin").val();  
@@ -273,4 +293,18 @@ function validateForm(obj){
 				alert("访问出错！");
 			}
 		});
+	}
+	
+	function getLocation(){
+		baidu_location.getCurrentPosition(successCallback, failedCallback);
+		
+	}
+	function successCallback(position){
+		localStorage.setItem("latitude",position.coords.latitude);
+		localStorage.setItem("longitude",position.coords.longitude);
+		window.location.href="sign.html"; 
+	}
+
+	function failedCallback(position){
+		alert("请检查您的网络和GPS是否打开");
 	}
