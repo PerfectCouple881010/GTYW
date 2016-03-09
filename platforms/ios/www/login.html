@@ -338,11 +338,11 @@ $.ajax({
 	crossDomain: true,	
 	success: function(data){
 		var nowVersion = localStorage.getItem("aversion");
-		//alert(nowVersion);
 		var result = data.result;
 		if(result=="sucessful"){
 			if(data.data.version==nowVersion){
 				//alert("版本一致!");
+				//alert(data.data.version);
 			}else{
 				dowload();
 			}

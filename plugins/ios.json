@@ -22,7 +22,14 @@
         },
         "cordova-plugin-appinfo": {
             "PACKAGE_NAME": "com.gt.crmtest"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.gt.crmtest"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.gt.crmtest"
+        }
+    }
 }
