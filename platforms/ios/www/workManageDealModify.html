@@ -1,4 +1,4 @@
-﻿<!doctype html>
+﻿﻿<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -17,6 +17,27 @@
 <link href="css/mobiscroll.min.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="sweetalert-master/css/sweetalert.css">
 <script type="text/javascript" src="sweetalert-master/js/sweetalert.min.js"></script>
+<style type="text/css">  
+.upload_process_bar{  
+    width:100%;  
+    border:#ccc 1px solid;  
+    height:6px;  
+    padding:1px;  
+    background:#fff;  
+    -moz-border-radius:10px;  
+    -webkit-border-radius:10px;  
+    border-radius:10px;  
+    display:none;  
+}  
+.upload_current_process{  
+    height:6px;  
+    width:0%;  
+    background:#A4C639;  
+    -moz-border-radius:10px;  
+    -webkit-border-radius:10px;  
+    border-radius:10px;      
+}  
+</style>
 <style>
 .mui-bar {
 	-webkit-box-shadow: none;
@@ -108,7 +129,15 @@
            <div  id="show1"></div>
             <div id="box" class="DetailBot borderBot2" >
             	<div class="add" style=" min-height:100px; margin-top:20px;">
-            		<div id="upload" class="adds"></div> 
+            	   <div class="upload_process_bar">  
+						 <div class="upload_current_process"></div>  
+					 </div>  
+				 <div id="process_info"></div> 
+				 <a href="javascript:void(0)" class="header_button" style="color:#000;" id="album">来自相册</a>
+				 <img  
+					style="width: 160px; height: 160px;" id="smallImage"  
+					src="" title=""/>
+					<a href="javascript:void(0)" id="uploadFile"  style="color:#000;" data-role="button">上传图片</a>
 					<input type="hidden" id="dealFile" name="dealFile" value="">
 				</div>
    			 </div>
@@ -260,11 +289,14 @@ intiBaseByType(serverIp,"dtid","dealType","/dataDir/listName.do","xylx");
 				$('#signDate').val(data.signDate);
 				$('#sealDate').val(data.sealDate);
 				var result="";
+				var fileUrl = "";
 				if(data.dealFile!=null && data.dealFile!=""){
 					for(var i=0;i<data.dealFile.length;i++){
 						result+='&nbsp;&nbsp;&nbsp;<a style="color:#FF9D2F" href="http://'+serverIp+'/gtims'+data.dealFile[i]+'">'+"文件名:&nbsp;"+data.dealFile[i].substring(data.dealFile[i].lastIndexOf("/")+1)+'<br>'
+						fileUrl+=data.dealFile[i]+",";
 					}
 					$('#show1').append(result);
+					document.getElementById("dealFile").value=fileUrl.substring(0,fileUrl.length-1);
 				}
 				$('#note').val(data.note);
 				$('#effectiveTime').val(data.effectiveTime);
@@ -389,15 +421,141 @@ intiBaseByType(serverIp,"dtid","dealType","/dataDir/listName.do","xylx");
 				}
 			});		
 </script>
-</body>
-</html>             
-            		 
 
-	         
-			 
-               
-			
-	   
-       
-		
-     
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>  
+<script type="text/javascript" charset="utf-8">   
+    document.addEventListener("deviceready", onDeviceReady, false);  
+    var pictureSource; //  getPicture:数据来源参数的一个常量  
+    var destinationType; // getPicture中：设置getPicture的结果类型  
+    var mediaType;//允许上传的文件类型
+    function onDeviceReady() {  
+         pictureSource = navigator.camera.PictureSourceType; 
+         destinationType = navigator.camera.DestinationType;  
+         mediaType = navigator.camera.MediaType.ALLMEDIA; //允许所有的类型上传
+    }
+
+    /** 
+	 * 上传成功回调. 
+	 * @param r 
+	 */  
+	function uploadSuccess(r) {  
+	   // swal('文件上传成功:'+r.response);
+	    var result = eval(r.response);
+		//swal(JSON.stringify(result[0]));
+		document.getElementById("dealFile").value=result[0].url;
+	    clearProcess();  
+	}
+	
+	/** 
+	 * 上传失败回调. 
+	 * @param error 
+	 */  
+	function uploadFailed(error) {  
+	    swal('上传失败了。');  
+	    clearProcess();  
+	} 
+	
+/** 
+ * 上传过程回调，用于处理上传进度，如显示进度条等。 
+ */  
+function uploadProcessing(progressEvent){  
+      
+    if (progressEvent.lengthComputable) {  
+        //已经上传  
+        var loaded=progressEvent.loaded;  
+        //文件总长度  
+        var total=progressEvent.total;  
+        //计算百分比，用于显示进度条  
+        var percent=parseInt((loaded/total)*100);  
+        //换算成MB  
+        loaded=(loaded/1024/1024).toFixed(2);  
+        total=(total/1024/1024).toFixed(2);  
+        $('#process_info').html(loaded+'M/'+total+'M');  
+        $('.upload_current_process').css({'width':percent+'%'});  
+    }  
+}; 
+	
+	/** 
+	 * 清除上传进度，处理上传失败，上传中断，上传成功 
+	 */  
+	function clearProcess() {  
+	    $('.upload_process_bar,#process_info').hide();  
+	    ft.abort();  
+	};
+	
+//var sds = pictureSource.PHOTOLIBRARY;
+var pickUrl;		
+document.getElementById('album').addEventListener('tap', function() {
+		//传递过来的参数
+		source = pictureSource.PHOTOLIBRARY;
+        navigator.camera.getPicture(function(imageURI){
+        		 		var pos = imageURI.lastIndexOf(".");
+ 				var lastname = imageURI.substring(pos+1,imageURI.length).toLowerCase();
+                var largeImage = document.getElementById('smallImage');  
+                largeImage.style.display = 'block';
+ 				if(lastname == "doc"||lastname=="docx"){
+               	 	largeImage.src = "images/doc.png";    
+ 				}else if(lastname=="pdf"){
+ 					largeImage.src = "images/pdf.png";
+ 				}else if(lastname=="ppt"||lastname=="pptx"){
+ 					largeImage.src = "images/ppt.png";
+ 				}else if(lastname=="xls"||lastname=="xlsx"){
+ 					largeImage.src = "images/xls.png";
+ 				}else if(lastname=="zip"){
+ 					largeImage.src = "images/zip.png";
+ 				}else if(lastname=="rar"){
+ 					largeImage.src = "images/rar.png";
+ 				}else if(lastname=="mp3"||lastname=="aac"||lastname=="wma"||lastname=="wav"||lastname=="wmv"){
+ 					largeImage.src = "images/mp3.png";
+ 				}else if(lastname=="cdr"){
+ 					largeImage.src = "images/crd.png";
+ 				}else if(lastname=="csv"){
+ 					largeImage.src = "images/csv.png";
+ 				}else if(lastname=="txt"){
+ 					largeImage.src = "images/txt.png";
+ 				}else if(lastname=="avi"){
+ 					largeImage.src = "images/avi.png";
+ 				}else{
+                	largeImage.src = imageURI;    
+ 				}
+                pickUrl = imageURI;
+            }, function(){  
+                if(source==pictureSource.CAMERA)  
+                    console.log('加载照相机出错!');  
+                else  
+                    console.log('加载相册出错!');  
+            }, {  
+                quality : 50,   
+                destinationType : destinationType.FILE_URI,  
+                sourceType : source,
+                mediaType : mediaType
+        });  
+    
+});
+
+  
+/*********上传图片***************/
+document.getElementById('uploadFile').addEventListener('tap', function() {
+    var imageURI = pickUrl;  
+    if(!imageURI)  
+        swal('请先选择本地图片');  
+    var options = new FileUploadOptions();  
+    options.fileKey = "file";  
+    options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);  
+    options.mimeType = "multipart/form-data";
+    options.chunkedMode = false;
+    
+    var uploadUrl = encodeURI('http://'+serverIp+'/gtims/fileUpload/upload.do?ctype=fybx');   
+    var ft = new FileTransfer();  
+    ft.upload(imageURI,uploadUrl,uploadSuccess,uploadFailed, options);
+    
+    //获取上传进度  
+    ft.onprogress = uploadProcessing;  
+    //显示进度条  
+    $('.upload_process_bar,#process_info').show();
+
+}); 
+
+</script>
+</body>
+</html>
